@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/amount_parser_strategy.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/date_parser_strategy.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/merchant_parser_strategy.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/receipt_parser_pipeline.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/values/ocr_raw_text.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/amount_parser_strategy.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/date_parser_strategy.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/merchant_parser_strategy.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/receipt_parser_pipeline.dart';
+import 'package:ant_budget/features/receipt_scan/domain/values/ocr_raw_text.dart';
 
 ReceiptParserPipeline buildPipeline() => ReceiptParserPipeline(
   amountParser: const AmountParserStrategy(),

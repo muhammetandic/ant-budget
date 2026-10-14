@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/values/ocr_raw_text.dart';
+import 'package:ant_budget/core/values/money.dart';
+import 'package:ant_budget/features/receipt_scan/domain/values/ocr_raw_text.dart';
 
 /// A receipt as understood by the parser, ready to be reviewed by the user.
 ///

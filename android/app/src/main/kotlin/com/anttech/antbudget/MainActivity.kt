@@ -1,4 +1,4 @@
-package com.mandic.smart_budget_tracker
+package com.anttech.antbudget
 
 import io.flutter.embedding.android.FlutterActivity
 

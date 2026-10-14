@@ -1,6 +1,6 @@
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
 
 /// Contract of one extraction step of the receipt pipeline.
 ///

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:smart_budget_tracker/core/values/category_icon.dart';
+import 'package:ant_budget/core/values/category_icon.dart';
 
 /// A spending category transactions can be assigned to.
 @immutable

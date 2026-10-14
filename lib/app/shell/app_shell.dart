@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_budget_tracker/app/router/app_routes.dart';
+import 'package:ant_budget/app/router/app_routes.dart';
 
 /// Scaffold hosting the bottom navigation of the three top level tabs.
 ///

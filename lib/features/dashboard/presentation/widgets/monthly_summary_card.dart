@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_budget_tracker/core/utils/money_formatter.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/core/widgets/failure_view.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/monthly_totals.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/providers/transaction_providers.dart';
+import 'package:ant_budget/core/utils/money_formatter.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/core/widgets/failure_view.dart';
+import 'package:ant_budget/features/transactions/domain/values/monthly_totals.dart';
+import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
 
 /// Income / expenses / balance of [period], computed by SQLite.
 class MonthlySummaryCard extends ConsumerWidget {

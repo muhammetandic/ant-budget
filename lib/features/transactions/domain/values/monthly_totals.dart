@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/money.dart';
+import 'package:ant_budget/core/values/year_month.dart';
 
 /// Aggregated income and expenses of one month, in a single [currency].
 ///

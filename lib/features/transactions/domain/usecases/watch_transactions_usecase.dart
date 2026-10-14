@@ -1,6 +1,6 @@
-import 'package:smart_budget_tracker/features/transactions/domain/entities/transaction.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/repositories/transaction_repository.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/transaction_filter.dart';
+import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
+import 'package:ant_budget/features/transactions/domain/repositories/transaction_repository.dart';
+import 'package:ant_budget/features/transactions/domain/values/transaction_filter.dart';
 
 /// Streams the transactions matching a [TransactionFilter].
 ///

@@ -1,5 +1,5 @@
-name: smart_budget_tracker
-description: "Smart Budget Tracker - AI powered expense tracking with on-device receipt OCR."
+name: ant_budget
+description: "Ant Budget - AI powered expense tracking with on-device receipt OCR."
 publish_to: 'none'
 
 version: 1.0.0+1

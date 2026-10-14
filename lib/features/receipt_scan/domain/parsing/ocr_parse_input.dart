@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/values/ocr_raw_text.dart';
+import 'package:ant_budget/features/receipt_scan/domain/values/ocr_raw_text.dart';
 
 /// The normalised input every parsing strategy works on.
 ///

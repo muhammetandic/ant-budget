@@ -1,4 +1,4 @@
-import 'package:smart_budget_tracker/core/data/database/app_database.dart';
+import 'package:ant_budget/core/data/database/app_database.dart';
 
 /// Port for objects that pre-populate a freshly created database.
 ///

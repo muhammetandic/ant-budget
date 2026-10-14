@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:smart_budget_tracker/core/providers/database_providers.dart';
-import 'package:smart_budget_tracker/features/transactions/data/datasources/transaction_dao.dart';
-import 'package:smart_budget_tracker/features/transactions/data/repositories/transaction_repository_impl.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/repositories/transaction_repository.dart';
+import 'package:ant_budget/core/providers/database_providers.dart';
+import 'package:ant_budget/features/transactions/data/datasources/transaction_dao.dart';
+import 'package:ant_budget/features/transactions/data/repositories/transaction_repository_impl.dart';
+import 'package:ant_budget/features/transactions/domain/repositories/transaction_repository.dart';
 
 part 'transaction_data_providers.g.dart';
 

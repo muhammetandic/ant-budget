@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:smart_budget_tracker/core/data/database/app_database.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/entities/transaction.dart';
+import 'package:ant_budget/core/data/database/app_database.dart';
+import 'package:ant_budget/core/values/money.dart';
+import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
 
 /// Translates between the Drift row ([TransactionDto]) and the domain entity.
 ///

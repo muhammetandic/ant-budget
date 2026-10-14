@@ -1,4 +1,4 @@
-import 'package:smart_budget_tracker/features/categories/domain/entities/category.dart';
+import 'package:ant_budget/features/categories/domain/entities/category.dart';
 
 /// Port describing how the domain reads categories.
 ///

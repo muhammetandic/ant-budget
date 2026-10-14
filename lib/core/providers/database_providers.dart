@@ -1,8 +1,8 @@
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:smart_budget_tracker/core/config/app_config.dart';
-import 'package:smart_budget_tracker/core/data/database/app_database.dart';
-import 'package:smart_budget_tracker/core/data/database/database_seeder.dart';
+import 'package:ant_budget/core/config/app_config.dart';
+import 'package:ant_budget/core/data/database/app_database.dart';
+import 'package:ant_budget/core/data/database/database_seeder.dart';
 
 part 'database_providers.g.dart';
 

@@ -1,7 +1,7 @@
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/repositories/transaction_repository.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/monthly_totals.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/features/transactions/domain/repositories/transaction_repository.dart';
+import 'package:ant_budget/features/transactions/domain/values/monthly_totals.dart';
 
 /// Streams the aggregated totals of a month in the reporting currency.
 final class WatchMonthlyTotalsUseCase {

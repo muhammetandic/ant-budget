@@ -1,7 +1,7 @@
-import 'package:smart_budget_tracker/core/data/database/app_database.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/features/budget/domain/entities/budget.dart';
+import 'package:ant_budget/core/data/database/app_database.dart';
+import 'package:ant_budget/core/values/money.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/features/budget/domain/entities/budget.dart';
 
 /// Translates between the `budgets` table row and the [Budget] entity.
 abstract final class BudgetMapper {

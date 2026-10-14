@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_budget_tracker/core/widgets/failure_view.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/presentation/providers/receipt_scan_controller.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/presentation/widgets/receipt_review_form.dart';
+import 'package:ant_budget/core/widgets/failure_view.dart';
+import 'package:ant_budget/features/receipt_scan/presentation/providers/receipt_scan_controller.dart';
+import 'package:ant_budget/features/receipt_scan/presentation/widgets/receipt_review_form.dart';
 
 /// Runs OCR + parsing for the captured image and shows the review form.
 ///

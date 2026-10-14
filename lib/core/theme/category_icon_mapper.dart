@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_budget_tracker/core/values/category_icon.dart';
+import 'package:ant_budget/core/values/category_icon.dart';
 
 /// Resolves a persisted [CategoryIcon] into a Material icon.
 ///

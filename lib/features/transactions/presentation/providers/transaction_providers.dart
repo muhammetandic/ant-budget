@@ -1,14 +1,14 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:smart_budget_tracker/core/config/app_config.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/features/transactions/data/providers/transaction_data_providers.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/entities/transaction.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/usecases/add_transaction_usecase.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/usecases/delete_transaction_usecase.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/usecases/watch_monthly_totals_usecase.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/usecases/watch_transactions_usecase.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/monthly_totals.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/transaction_filter.dart';
+import 'package:ant_budget/core/config/app_config.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/features/transactions/data/providers/transaction_data_providers.dart';
+import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
+import 'package:ant_budget/features/transactions/domain/usecases/add_transaction_usecase.dart';
+import 'package:ant_budget/features/transactions/domain/usecases/delete_transaction_usecase.dart';
+import 'package:ant_budget/features/transactions/domain/usecases/watch_monthly_totals_usecase.dart';
+import 'package:ant_budget/features/transactions/domain/usecases/watch_transactions_usecase.dart';
+import 'package:ant_budget/features/transactions/domain/values/monthly_totals.dart';
+import 'package:ant_budget/features/transactions/domain/values/transaction_filter.dart';
 
 part 'transaction_providers.g.dart';
 

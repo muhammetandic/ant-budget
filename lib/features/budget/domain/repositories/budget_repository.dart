@@ -1,9 +1,9 @@
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
-import 'package:smart_budget_tracker/core/values/unit.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/features/budget/domain/entities/budget.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/core/values/money.dart';
+import 'package:ant_budget/core/values/unit.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/features/budget/domain/entities/budget.dart';
 
 /// Port describing how the domain stores monthly budgets.
 abstract interface class BudgetRepository {

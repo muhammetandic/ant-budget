@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/money.dart';
 
 void main() {
   group('Money', () {

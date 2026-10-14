@@ -1,13 +1,13 @@
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:smart_budget_tracker/app/router/app_routes.dart';
-import 'package:smart_budget_tracker/app/shell/app_shell.dart';
-import 'package:smart_budget_tracker/features/budget/presentation/screens/budget_screen.dart';
-import 'package:smart_budget_tracker/features/dashboard/presentation/screens/dashboard_screen.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/presentation/screens/receipt_capture_screen.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/presentation/screens/receipt_review_screen.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/screens/add_transaction_screen.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/screens/transactions_screen.dart';
+import 'package:ant_budget/app/router/app_routes.dart';
+import 'package:ant_budget/app/shell/app_shell.dart';
+import 'package:ant_budget/features/budget/presentation/screens/budget_screen.dart';
+import 'package:ant_budget/features/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:ant_budget/features/receipt_scan/presentation/screens/receipt_capture_screen.dart';
+import 'package:ant_budget/features/receipt_scan/presentation/screens/receipt_review_screen.dart';
+import 'package:ant_budget/features/transactions/presentation/screens/add_transaction_screen.dart';
+import 'package:ant_budget/features/transactions/presentation/screens/transactions_screen.dart';
 
 part 'app_router.g.dart';
 

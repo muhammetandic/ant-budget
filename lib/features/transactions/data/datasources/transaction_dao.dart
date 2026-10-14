@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart';
-import 'package:smart_budget_tracker/core/data/database/app_database.dart';
-import 'package:smart_budget_tracker/core/error/failure_stream_x.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
-import 'package:smart_budget_tracker/core/values/transaction_kind.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/transaction_filter.dart';
+import 'package:ant_budget/core/data/database/app_database.dart';
+import 'package:ant_budget/core/error/failure_stream_x.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/money.dart';
+import 'package:ant_budget/core/values/transaction_kind.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/features/transactions/domain/values/transaction_filter.dart';
 
 /// Data source owning every SQL statement that touches `transactions`.
 ///

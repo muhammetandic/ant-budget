@@ -1,17 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
-import 'package:smart_budget_tracker/core/values/transaction_kind.dart';
-import 'package:smart_budget_tracker/core/values/unit.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/entities/transaction.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/repositories/transaction_repository.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/usecases/add_transaction_usecase.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/add_transaction_command.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/monthly_totals.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/transaction_filter.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/money.dart';
+import 'package:ant_budget/core/values/transaction_kind.dart';
+import 'package:ant_budget/core/values/unit.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
+import 'package:ant_budget/features/transactions/domain/repositories/transaction_repository.dart';
+import 'package:ant_budget/features/transactions/domain/usecases/add_transaction_usecase.dart';
+import 'package:ant_budget/features/transactions/domain/values/add_transaction_command.dart';
+import 'package:ant_budget/features/transactions/domain/values/monthly_totals.dart';
+import 'package:ant_budget/features/transactions/domain/values/transaction_filter.dart';
 
 /// Hand written fake: proves the use case is testable without a database.
 final class _FakeTransactionRepository implements TransactionRepository {

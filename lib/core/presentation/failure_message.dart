@@ -1,4 +1,4 @@
-import 'package:smart_budget_tracker/core/error/failure.dart';
+import 'package:ant_budget/core/error/failure.dart';
 
 /// Extracts a user-safe message from an arbitrary error object.
 ///

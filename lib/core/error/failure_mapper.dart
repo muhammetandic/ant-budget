@@ -1,7 +1,7 @@
 import 'package:drift/isolate.dart' show DriftRemoteException;
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:sqlite3/sqlite3.dart' show SqliteException;
-import 'package:smart_budget_tracker/core/error/failure.dart';
+import 'package:ant_budget/core/error/failure.dart';
 
 /// Translates arbitrary thrown objects into modelled [Failure]s.
 ///

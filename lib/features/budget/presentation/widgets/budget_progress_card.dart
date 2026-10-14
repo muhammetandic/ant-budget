@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_budget_tracker/core/utils/money_formatter.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/core/widgets/failure_view.dart';
-import 'package:smart_budget_tracker/features/budget/domain/values/budget_summary.dart';
-import 'package:smart_budget_tracker/features/budget/presentation/providers/budget_providers.dart';
+import 'package:ant_budget/core/utils/money_formatter.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/core/widgets/failure_view.dart';
+import 'package:ant_budget/features/budget/domain/values/budget_summary.dart';
+import 'package:ant_budget/features/budget/presentation/providers/budget_providers.dart';
 
 /// Progress of [period]'s budget: spent amount, remaining and health colour.
 class BudgetProgressCard extends ConsumerWidget {

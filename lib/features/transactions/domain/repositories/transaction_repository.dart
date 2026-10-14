@@ -1,11 +1,11 @@
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/core/values/unit.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/entities/transaction.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/monthly_totals.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/transaction_filter.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/unit.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
+import 'package:ant_budget/features/transactions/domain/values/monthly_totals.dart';
+import 'package:ant_budget/features/transactions/domain/values/transaction_filter.dart';
 
 /// Port describing how the domain talks to transaction storage.
 ///

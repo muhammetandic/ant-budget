@@ -1,13 +1,13 @@
 import 'package:drift/drift.dart';
-import 'package:smart_budget_tracker/core/data/database/database_seeder.dart';
-import 'package:smart_budget_tracker/core/data/database/tables/tables.dart';
+import 'package:ant_budget/core/data/database/database_seeder.dart';
+import 'package:ant_budget/core/data/database/tables/tables.dart';
 
 // Imported so the generated `part` file (which references the enum columns of
 // the tables) can see them: a `part` only inherits its parent library's scope.
-import 'package:smart_budget_tracker/core/values/category_icon.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/core/values/transaction_kind.dart';
-import 'package:smart_budget_tracker/core/values/transaction_source.dart';
+import 'package:ant_budget/core/values/category_icon.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/transaction_kind.dart';
+import 'package:ant_budget/core/values/transaction_source.dart';
 
 part 'app_database.g.dart';
 

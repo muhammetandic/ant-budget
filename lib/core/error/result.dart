@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/failure_mapper.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/failure_mapper.dart';
 
 /// A lightweight, immutable `Either` implementation used across every layer.
 ///

@@ -1,12 +1,12 @@
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
-import 'package:smart_budget_tracker/core/values/unit.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/features/budget/data/datasources/budget_dao.dart';
-import 'package:smart_budget_tracker/features/budget/data/mappers/budget_mapper.dart';
-import 'package:smart_budget_tracker/features/budget/domain/entities/budget.dart';
-import 'package:smart_budget_tracker/features/budget/domain/repositories/budget_repository.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/core/values/money.dart';
+import 'package:ant_budget/core/values/unit.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/features/budget/data/datasources/budget_dao.dart';
+import 'package:ant_budget/features/budget/data/mappers/budget_mapper.dart';
+import 'package:ant_budget/features/budget/domain/entities/budget.dart';
+import 'package:ant_budget/features/budget/domain/repositories/budget_repository.dart';
 
 /// Drift backed implementation of [BudgetRepository].
 final class BudgetRepositoryImpl implements BudgetRepository {

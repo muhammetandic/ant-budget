@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_budget_tracker/core/utils/date_formatter.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/providers/transaction_providers.dart';
+import 'package:ant_budget/core/utils/date_formatter.dart';
+import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
 
 /// Previous / current / next month control shared by the overview and the
 /// transaction list.

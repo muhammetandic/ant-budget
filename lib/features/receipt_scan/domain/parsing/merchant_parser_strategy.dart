@@ -1,7 +1,7 @@
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/ocr_parsing_strategy.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parsing_strategy.dart';
 
 /// Extracts the merchant name from the header of a receipt.
 ///

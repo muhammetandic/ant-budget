@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_budget_tracker/core/presentation/failure_message.dart';
+import 'package:ant_budget/core/presentation/failure_message.dart';
 
 /// Full-screen presentation of a [Failure] with an optional retry action.
 ///

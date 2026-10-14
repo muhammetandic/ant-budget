@@ -1,8 +1,8 @@
-import 'package:smart_budget_tracker/core/data/database/app_database.dart';
-import 'package:smart_budget_tracker/core/data/database/database_seeder.dart';
-import 'package:smart_budget_tracker/core/values/category_icon.dart';
-import 'package:smart_budget_tracker/features/categories/data/mappers/category_mapper.dart';
-import 'package:smart_budget_tracker/features/categories/domain/entities/category.dart';
+import 'package:ant_budget/core/data/database/app_database.dart';
+import 'package:ant_budget/core/data/database/database_seeder.dart';
+import 'package:ant_budget/core/values/category_icon.dart';
+import 'package:ant_budget/features/categories/data/mappers/category_mapper.dart';
+import 'package:ant_budget/features/categories/domain/entities/category.dart';
 
 /// Populates the database with the categories the app ships with.
 ///

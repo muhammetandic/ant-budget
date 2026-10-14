@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_budget_tracker/core/config/app_config.dart';
-import 'package:smart_budget_tracker/core/utils/amount_input_parser.dart';
-import 'package:smart_budget_tracker/core/utils/date_formatter.dart';
-import 'package:smart_budget_tracker/core/values/transaction_kind.dart';
-import 'package:smart_budget_tracker/core/widgets/failure_view.dart';
-import 'package:smart_budget_tracker/features/categories/domain/entities/category.dart';
-import 'package:smart_budget_tracker/features/categories/presentation/providers/category_providers.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/values/add_transaction_command.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/providers/transaction_providers.dart';
+import 'package:ant_budget/core/config/app_config.dart';
+import 'package:ant_budget/core/utils/amount_input_parser.dart';
+import 'package:ant_budget/core/utils/date_formatter.dart';
+import 'package:ant_budget/core/values/transaction_kind.dart';
+import 'package:ant_budget/core/widgets/failure_view.dart';
+import 'package:ant_budget/features/categories/domain/entities/category.dart';
+import 'package:ant_budget/features/categories/presentation/providers/category_providers.dart';
+import 'package:ant_budget/features/transactions/domain/values/add_transaction_command.dart';
+import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
 
 /// Form that collects a manual transaction.
 ///

@@ -1,4 +1,4 @@
-import 'package:smart_budget_tracker/core/utils/month_names.dart';
+import 'package:ant_budget/core/utils/month_names.dart';
 
 /// Renders [DateTime] values for the UI.
 ///

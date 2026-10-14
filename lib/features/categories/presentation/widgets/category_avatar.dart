@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_budget_tracker/core/theme/category_icon_mapper.dart';
-import 'package:smart_budget_tracker/features/categories/domain/entities/category.dart';
+import 'package:ant_budget/core/theme/category_icon_mapper.dart';
+import 'package:ant_budget/features/categories/domain/entities/category.dart';
 
 /// Circular, category-coloured avatar showing the category icon.
 class CategoryAvatar extends StatelessWidget {

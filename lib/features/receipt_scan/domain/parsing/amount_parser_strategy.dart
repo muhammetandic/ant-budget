@@ -1,11 +1,11 @@
-import 'package:smart_budget_tracker/core/config/app_config.dart';
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/core/utils/numeric_parsing.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/ocr_parsing_strategy.dart';
+import 'package:ant_budget/core/config/app_config.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/core/utils/numeric_parsing.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/money.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parsing_strategy.dart';
 
 /// Extracts the payable total of a receipt.
 ///

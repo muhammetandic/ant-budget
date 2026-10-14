@@ -2,10 +2,10 @@ import 'package:drift/native.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smart_budget_tracker/app/app.dart';
-import 'package:smart_budget_tracker/app/app_composition.dart';
-import 'package:smart_budget_tracker/core/data/database/app_database.dart';
-import 'package:smart_budget_tracker/core/providers/database_providers.dart';
+import 'package:ant_budget/app/app.dart';
+import 'package:ant_budget/app/app_composition.dart';
+import 'package:ant_budget/core/data/database/app_database.dart';
+import 'package:ant_budget/core/providers/database_providers.dart';
 
 void main() {
   testWidgets('boots to the overview screen', (tester) async {
@@ -24,7 +24,7 @@ void main() {
     );
     await tester.pump(Duration.zero);
 
-    expect(find.text('Smart Budget Tracker'), findsOneWidget);
+    expect(find.text('Ant Budget'), findsOneWidget);
 
     // Tear the tree down *inside* the test so Riverpod cancels its drift stream
     // subscriptions here, then elapse the fake clock so drift's zero-duration

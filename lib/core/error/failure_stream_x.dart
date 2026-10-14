@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:smart_budget_tracker/core/error/failure_mapper.dart';
+import 'package:ant_budget/core/error/failure_mapper.dart';
 
 /// Makes sure every error travelling through a stream is a modelled `Failure`.
 ///

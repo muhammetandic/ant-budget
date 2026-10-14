@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:smart_budget_tracker/core/providers/database_providers.dart';
-import 'package:smart_budget_tracker/features/categories/data/datasources/default_category_seeder.dart';
+import 'package:ant_budget/core/providers/database_providers.dart';
+import 'package:ant_budget/features/categories/data/datasources/default_category_seeder.dart';
 
 /// Composition root of the application graph.
 ///

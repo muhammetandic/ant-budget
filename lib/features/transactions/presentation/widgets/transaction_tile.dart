@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smart_budget_tracker/core/utils/date_formatter.dart';
-import 'package:smart_budget_tracker/core/utils/money_formatter.dart';
-import 'package:smart_budget_tracker/features/categories/domain/entities/category.dart';
-import 'package:smart_budget_tracker/features/categories/presentation/widgets/category_avatar.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/entities/transaction.dart';
+import 'package:ant_budget/core/utils/date_formatter.dart';
+import 'package:ant_budget/core/utils/money_formatter.dart';
+import 'package:ant_budget/features/categories/domain/entities/category.dart';
+import 'package:ant_budget/features/categories/presentation/widgets/category_avatar.dart';
+import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
 
 /// One row of a transaction list: category, title, date and signed amount.
 ///

@@ -1,10 +1,10 @@
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/core/values/money.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/entities/scanned_receipt.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/ocr_parsing_strategy.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/values/ocr_raw_text.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/core/values/money.dart';
+import 'package:ant_budget/features/receipt_scan/domain/entities/scanned_receipt.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parsing_strategy.dart';
+import 'package:ant_budget/features/receipt_scan/domain/values/ocr_raw_text.dart';
 
 /// Runs the extraction strategies and assembles a [ScannedReceipt].
 ///

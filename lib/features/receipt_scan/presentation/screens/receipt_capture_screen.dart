@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_budget_tracker/app/router/app_routes.dart';
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/core/values/unit.dart';
-import 'package:smart_budget_tracker/core/widgets/failure_view.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/data/providers/receipt_scan_providers.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/data/services/camera_service.dart';
+import 'package:ant_budget/app/router/app_routes.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/core/values/unit.dart';
+import 'package:ant_budget/core/widgets/failure_view.dart';
+import 'package:ant_budget/features/receipt_scan/data/providers/receipt_scan_providers.dart';
+import 'package:ant_budget/features/receipt_scan/data/services/camera_service.dart';
 
 /// Embedded camera used to photograph a receipt.
 ///

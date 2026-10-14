@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/core/widgets/empty_state.dart';
-import 'package:smart_budget_tracker/core/widgets/failure_view.dart';
-import 'package:smart_budget_tracker/features/categories/presentation/providers/category_providers.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/providers/transaction_providers.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/widgets/transaction_tile.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/core/widgets/empty_state.dart';
+import 'package:ant_budget/core/widgets/failure_view.dart';
+import 'package:ant_budget/features/categories/presentation/providers/category_providers.dart';
+import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
+import 'package:ant_budget/features/transactions/presentation/widgets/transaction_tile.dart';
 
 /// Reactive list of the transactions of [period].
 ///

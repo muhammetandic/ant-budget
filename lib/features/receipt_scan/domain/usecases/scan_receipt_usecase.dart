@@ -1,9 +1,9 @@
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/entities/scanned_receipt.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/receipt_parser_pipeline.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/services/ocr_service.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/values/scan_receipt_request.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/features/receipt_scan/domain/entities/scanned_receipt.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/receipt_parser_pipeline.dart';
+import 'package:ant_budget/features/receipt_scan/domain/services/ocr_service.dart';
+import 'package:ant_budget/features/receipt_scan/domain/values/scan_receipt_request.dart';
 
 /// Turns an image of a receipt into a reviewable [ScannedReceipt].
 ///

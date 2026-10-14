@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_budget_tracker/app/router/app_router.dart';
-import 'package:smart_budget_tracker/core/config/app_config.dart';
-import 'package:smart_budget_tracker/core/theme/app_theme.dart';
+import 'package:ant_budget/app/router/app_router.dart';
+import 'package:ant_budget/core/config/app_config.dart';
+import 'package:ant_budget/core/theme/app_theme.dart';
 
 /// Root widget: theme + router.
 ///

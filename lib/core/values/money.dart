@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
+import 'package:ant_budget/core/values/currency.dart';
 
 /// Immutable money value object.
 ///

@@ -1,4 +1,4 @@
-# Smart Budget Tracker
+# Ant Budget
 
 An AI-powered personal finance app built with Flutter. Track expenses and budgets,
 and scan receipts into transactions using **on-device** ML Kit text recognition —

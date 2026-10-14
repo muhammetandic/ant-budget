@@ -176,4 +176,4 @@ final class CategoryIndexProvider
   }
 }
 
-String _$categoryIndexHash() => r'd26a8b95964ded67ad2bcf898153594d9f7eda68';
+String _$categoryIndexHash() => r'c04d187d8c15fe795b8d253c4a65726a4a5349ec';

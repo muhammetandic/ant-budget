@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:smart_budget_tracker/features/categories/data/providers/category_data_providers.dart';
-import 'package:smart_budget_tracker/features/categories/domain/entities/category.dart';
-import 'package:smart_budget_tracker/features/categories/domain/usecases/watch_categories_usecase.dart';
+import 'package:ant_budget/features/categories/data/providers/category_data_providers.dart';
+import 'package:ant_budget/features/categories/domain/entities/category.dart';
+import 'package:ant_budget/features/categories/domain/usecases/watch_categories_usecase.dart';
 
 part 'category_providers.g.dart';
 

@@ -1,12 +1,12 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/data/services/camera_service.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/data/services/mlkit_ocr_service.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/amount_parser_strategy.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/date_parser_strategy.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/merchant_parser_strategy.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/parsing/receipt_parser_pipeline.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/services/ocr_service.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/usecases/scan_receipt_usecase.dart';
+import 'package:ant_budget/features/receipt_scan/data/services/camera_service.dart';
+import 'package:ant_budget/features/receipt_scan/data/services/mlkit_ocr_service.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/amount_parser_strategy.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/date_parser_strategy.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/merchant_parser_strategy.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/receipt_parser_pipeline.dart';
+import 'package:ant_budget/features/receipt_scan/domain/services/ocr_service.dart';
+import 'package:ant_budget/features/receipt_scan/domain/usecases/scan_receipt_usecase.dart';
 
 part 'receipt_scan_providers.g.dart';
 

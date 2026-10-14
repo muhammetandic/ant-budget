@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/services/ocr_service.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/values/ocr_raw_text.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/features/receipt_scan/domain/services/ocr_service.dart';
+import 'package:ant_budget/features/receipt_scan/domain/values/ocr_raw_text.dart';
 
 /// [OcrService] backed by Google ML Kit's on-device text recogniser.
 ///

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_budget_tracker/app/router/app_routes.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/providers/transaction_providers.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/widgets/month_switcher.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/widgets/transaction_list.dart';
+import 'package:ant_budget/app/router/app_routes.dart';
+import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
+import 'package:ant_budget/features/transactions/presentation/widgets/month_switcher.dart';
+import 'package:ant_budget/features/transactions/presentation/widgets/transaction_list.dart';
 
 /// Full history of the selected month with swipe-to-delete.
 class TransactionsScreen extends ConsumerWidget {

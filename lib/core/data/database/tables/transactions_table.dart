@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
-import 'package:smart_budget_tracker/core/data/database/tables/categories_table.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/core/values/transaction_kind.dart';
-import 'package:smart_budget_tracker/core/values/transaction_source.dart';
+import 'package:ant_budget/core/data/database/tables/categories_table.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/transaction_kind.dart';
+import 'package:ant_budget/core/values/transaction_source.dart';
 
 /// Drift table storing every recorded transaction.
 @DataClassName('TransactionDto')

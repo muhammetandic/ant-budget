@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_budget_tracker/app/router/app_routes.dart';
-import 'package:smart_budget_tracker/core/config/app_config.dart';
-import 'package:smart_budget_tracker/features/budget/presentation/widgets/budget_progress_card.dart';
-import 'package:smart_budget_tracker/features/dashboard/presentation/widgets/monthly_summary_card.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/providers/transaction_providers.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/widgets/month_switcher.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/widgets/transaction_list.dart';
+import 'package:ant_budget/app/router/app_routes.dart';
+import 'package:ant_budget/core/config/app_config.dart';
+import 'package:ant_budget/features/budget/presentation/widgets/budget_progress_card.dart';
+import 'package:ant_budget/features/dashboard/presentation/widgets/monthly_summary_card.dart';
+import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
+import 'package:ant_budget/features/transactions/presentation/widgets/month_switcher.dart';
+import 'package:ant_budget/features/transactions/presentation/widgets/transaction_list.dart';
 
 /// Overview of the selected month: budget health, totals and recent activity.
 class DashboardScreen extends ConsumerWidget {

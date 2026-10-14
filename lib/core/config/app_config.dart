@@ -1,4 +1,4 @@
-import 'package:smart_budget_tracker/core/values/currency.dart';
+import 'package:ant_budget/core/values/currency.dart';
 
 /// Compile-time configuration of the application.
 ///
@@ -6,10 +6,10 @@ import 'package:smart_budget_tracker/core/values/currency.dart';
 /// scattered as magic constants across the code base.
 abstract final class AppConfig {
   /// Product name shown in the UI and the platform shells.
-  static const String appName = 'Smart Budget Tracker';
+  static const String appName = 'Ant Budget';
 
   /// File name of the local SQLite database (without extension).
-  static const String databaseName = 'smart_budget_tracker';
+  static const String databaseName = 'ant_budget';
 
   /// Currency used for budgets and monthly reports when nothing more specific
   /// can be derived (e.g. the receipt has no currency symbol).

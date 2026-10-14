@@ -1,9 +1,9 @@
-import 'package:smart_budget_tracker/core/utils/stream_extensions.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
-import 'package:smart_budget_tracker/core/values/year_month.dart';
-import 'package:smart_budget_tracker/features/budget/domain/repositories/budget_repository.dart';
-import 'package:smart_budget_tracker/features/budget/domain/values/budget_summary.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/repositories/transaction_repository.dart';
+import 'package:ant_budget/core/utils/stream_extensions.dart';
+import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/year_month.dart';
+import 'package:ant_budget/features/budget/domain/repositories/budget_repository.dart';
+import 'package:ant_budget/features/budget/domain/values/budget_summary.dart';
+import 'package:ant_budget/features/transactions/domain/repositories/transaction_repository.dart';
 
 /// Combines the monthly limit with the month's expenses into a [BudgetSummary].
 ///

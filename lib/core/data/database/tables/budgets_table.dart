@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:smart_budget_tracker/core/values/currency.dart';
+import 'package:ant_budget/core/values/currency.dart';
 
 /// Drift table storing the monthly budget limit.
 ///

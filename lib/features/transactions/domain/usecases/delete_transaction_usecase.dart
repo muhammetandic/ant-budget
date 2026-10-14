@@ -1,7 +1,7 @@
-import 'package:smart_budget_tracker/core/error/failure.dart';
-import 'package:smart_budget_tracker/core/error/result.dart';
-import 'package:smart_budget_tracker/core/values/unit.dart';
-import 'package:smart_budget_tracker/features/transactions/domain/repositories/transaction_repository.dart';
+import 'package:ant_budget/core/error/failure.dart';
+import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/core/values/unit.dart';
+import 'package:ant_budget/features/transactions/domain/repositories/transaction_repository.dart';
 
 /// Deletes a stored transaction.
 final class DeleteTransactionUseCase {

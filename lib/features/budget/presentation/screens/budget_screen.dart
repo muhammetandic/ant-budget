@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_budget_tracker/core/config/app_config.dart';
-import 'package:smart_budget_tracker/core/utils/amount_input_parser.dart';
-import 'package:smart_budget_tracker/features/budget/presentation/providers/budget_providers.dart';
-import 'package:smart_budget_tracker/features/budget/presentation/widgets/budget_progress_card.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/providers/transaction_providers.dart';
-import 'package:smart_budget_tracker/features/transactions/presentation/widgets/month_switcher.dart';
+import 'package:ant_budget/core/config/app_config.dart';
+import 'package:ant_budget/core/utils/amount_input_parser.dart';
+import 'package:ant_budget/features/budget/presentation/providers/budget_providers.dart';
+import 'package:ant_budget/features/budget/presentation/widgets/budget_progress_card.dart';
+import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
+import 'package:ant_budget/features/transactions/presentation/widgets/month_switcher.dart';
 
 /// Budget health of the selected month plus the form that sets its limit.
 class BudgetScreen extends ConsumerWidget {

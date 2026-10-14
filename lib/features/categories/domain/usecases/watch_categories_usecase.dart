@@ -1,5 +1,5 @@
-import 'package:smart_budget_tracker/features/categories/domain/entities/category.dart';
-import 'package:smart_budget_tracker/features/categories/domain/repositories/category_repository.dart';
+import 'package:ant_budget/features/categories/domain/entities/category.dart';
+import 'package:ant_budget/features/categories/domain/repositories/category_repository.dart';
 
 /// Streams all categories available for assignment.
 final class WatchCategoriesUseCase {

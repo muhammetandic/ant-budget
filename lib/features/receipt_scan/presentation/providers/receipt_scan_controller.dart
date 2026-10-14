@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/data/providers/receipt_scan_providers.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/entities/scanned_receipt.dart';
-import 'package:smart_budget_tracker/features/receipt_scan/domain/values/scan_receipt_request.dart';
+import 'package:ant_budget/features/receipt_scan/data/providers/receipt_scan_providers.dart';
+import 'package:ant_budget/features/receipt_scan/domain/entities/scanned_receipt.dart';
+import 'package:ant_budget/features/receipt_scan/domain/values/scan_receipt_request.dart';
 
 part 'receipt_scan_controller.g.dart';
 
