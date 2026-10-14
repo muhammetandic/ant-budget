@@ -6,7 +6,8 @@ plugins {
 
 android {
     namespace = "com.anttech.antbudget"
-    compileSdk = flutter.compileSdkVersion
+    // permission_handler_android requires compiling against API 37.
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
