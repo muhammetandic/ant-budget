@@ -30,6 +30,10 @@ dependencies:
   google_mlkit_text_recognition: ^0.17.1
   permission_handler: ^13.0.2
 
+  # Locates the app storage folder used to keep OCR scan evidence when the
+  # opt-in diagnostics build is enabled (see DiagnosticOcrService).
+  path_provider: ^2.1.6
+
   # --- Domain helpers -------------------------------------------------------
   equatable: ^3.0.0
   meta: ^1.16.0

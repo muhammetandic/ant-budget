@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ant_budget/features/receipt_scan/data/services/camera_service.dart';
+import 'package:ant_budget/features/receipt_scan/data/services/diagnostic_ocr_service.dart';
 import 'package:ant_budget/features/receipt_scan/data/services/mlkit_ocr_service.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/amount_parser_strategy.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/date_parser_strategy.dart';
@@ -17,7 +18,9 @@ part 'receipt_scan_providers.g.dart';
 /// domain and the UI receive.
 @riverpod
 OcrService ocrService(Ref ref) {
-  final service = MlKitOcrService();
+  final OcrService service = DiagnosticOcrService.enabled
+      ? DiagnosticOcrService(MlKitOcrService())
+      : MlKitOcrService();
   ref.onDispose(service.dispose);
   return service;
 }
