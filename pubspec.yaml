@@ -19,6 +19,11 @@ dependencies:
   # pinned by flutter_localizations, hence `any`.
   intl: any
 
+  # The global Cupertino delegate (bundled with flutter_localizations) refers to
+  # the CupertinoIcons family; shipping the font keeps the icon tree-shaker from
+  # warning about a family it cannot find.
+  cupertino_icons: ^1.0.8
+
   # --- State management (Presentation) ---------------------------------------
   flutter_riverpod: ^3.4.3
   riverpod_annotation: ^4.0.7
