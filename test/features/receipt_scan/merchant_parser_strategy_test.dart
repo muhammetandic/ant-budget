@@ -10,8 +10,10 @@ void main() {
       .parse(OcrParseInput.from(OcrRawText.fromText(text)))
       .getOrElse(() => fail('expected the strategy to succeed'));
 
-  test('skips the header stack and finds the company name below it', () {
-    final merchant = merchantOf('''
+  test(
+    'skips the header stack and keeps the shop word of the company line',
+    () {
+      final merchant = merchantOf('''
 TARIH
 SAAT
 FiŞ NO
@@ -24,8 +26,9 @@ LS SOK MARKETLER TİC.A.Ş
 8718 ANTALYA KEPEZ
 ''');
 
-    expect(merchant, 'LS SOK MARKETLER TİC.A.Ş');
-  });
+      expect(merchant, 'SOK');
+    },
+  );
 
   test('prefers a company line over an earlier short header word', () {
     final merchant = merchantOf('''
@@ -35,7 +38,7 @@ Belge No
 TAHTAKALE SPOT Mağazacilik san . Tic.A.Ş
 ''');
 
-    expect(merchant, 'TAHTAKALE SPOT Mağazacilik san . Tic.A.Ş');
+    expect(merchant, 'TAHTAKALE');
   });
 
   test('does not return an address line as the merchant', () {
@@ -45,6 +48,7 @@ GARANTİ BANKASI
 ''');
 
     expect(merchant, isNot('Lafer Mh. 2622 Sk. R.N. Harç Sitesi'));
+    expect(merchant, 'GARANTİ');
   });
 
   test('keeps a plain name that carries no corporate word', () {

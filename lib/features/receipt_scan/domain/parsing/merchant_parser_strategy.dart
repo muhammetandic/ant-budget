@@ -1,8 +1,10 @@
 import 'package:ant_budget/core/error/failure.dart';
 import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/ascii_folding.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/merchant_keywords.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parsing_strategy.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/shop_name_selector.dart';
 
 /// Extracts the merchant name from the header of a receipt.
 ///
@@ -14,7 +16,9 @@ import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parsing_stra
 /// can sit below a run of product rows. So each header line is *scored* — a
 /// corporate word, capitals and length help; an address or a late position
 /// hurts — and the best candidate wins instead of the first that merely looks
-/// like a name.
+/// like a name. Only the first word of the winning line is kept: that is the
+/// trade name, while everything behind it is a legal tail (`Tic.A.Ş`) or an
+/// OCR fragment.
 final class MerchantParserStrategy implements OcrParsingStrategy<String?> {
   const MerchantParserStrategy();
 
@@ -25,32 +29,11 @@ final class MerchantParserStrategy implements OcrParsingStrategy<String?> {
   /// Longer lines are almost always addresses or legal footers.
   static const int maxNameLength = 48;
 
+  static const ShopNameSelector _names = ShopNameSelector();
+
   static const int _companyMarkerScore = 100;
   static const int _uppercaseScore = 20;
   static const int _addressPenalty = -40;
-
-  static const Map<String, String> _foldings = {
-    'ı': 'i',
-    'ş': 's',
-    'ğ': 'g',
-    'ü': 'u',
-    'ö': 'o',
-    'ç': 'c',
-    'â': 'a',
-    'î': 'i',
-    'û': 'u',
-    'é': 'e',
-    'è': 'e',
-    'í': 'i',
-    'á': 'a',
-    'ó': 'o',
-    'ú': 'u',
-    'ñ': 'n',
-    'ï': 'i',
-    'ì': 'i',
-    'ê': 'e',
-    'ô': 'o',
-  };
 
   static final RegExp _lettersOnlyPattern = RegExp(r'[^A-Za-zĞÜŞİÖÇğüşıöç]');
   static final RegExp _uppercasePattern = RegExp(r'[^A-ZĞÜŞİÖÇ]');
@@ -76,13 +59,14 @@ final class MerchantParserStrategy implements OcrParsingStrategy<String?> {
         best = candidate;
       }
     }
-    return Result.ok(best);
+    if (best == null) return const Result.ok(null);
+    return Result.ok(_names.firstToken(best));
   }
 
   /// Ranks a plausible name: a corporate word dominates, capitals and length
   /// help, being an address or appearing late hurts.
   int _score(String line, int index) {
-    final normalized = _normalize(line);
+    final normalized = AsciiFolding.fold(line);
     var score = line.length - index;
     if (_containsWord(normalized, MerchantKeywords.company)) {
       score += _companyMarkerScore;
@@ -131,16 +115,5 @@ final class MerchantParserStrategy implements OcrParsingStrategy<String?> {
     if (digits.length > letters.length) return null;
 
     return trimmed;
-  }
-
-  /// Lowercases and folds Turkish/accented letters to ASCII, so a marker like
-  /// `tic` still matches the `TÍC` OCR often prints.
-  static String _normalize(String text) {
-    final buffer = StringBuffer();
-    for (final rune in text.toLowerCase().runes) {
-      final char = String.fromCharCode(rune);
-      buffer.write(_foldings[char] ?? char);
-    }
-    return buffer.toString();
   }
 }

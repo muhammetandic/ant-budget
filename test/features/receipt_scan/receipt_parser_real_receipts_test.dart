@@ -26,20 +26,23 @@ void main() {
       .parse(OcrRawText.fromText(text))
       .getOrElse(() => fail('expected a receipt to be parsed'));
 
-  test('reads the TAHTAKALE invoice total, not the item count after "Toplam"', () {
-    final receipt = parse(tahtakaleReceipt);
+  test(
+    'reads the TAHTAKALE invoice total, not the item count after "Toplam"',
+    () {
+      final receipt = parse(tahtakaleReceipt);
 
-    expect(receipt.total, const Money(35030, Currency.turkishLira));
-    expect(receipt.purchasedAt, DateTime(2026, 10, 16));
-    expect(receipt.merchantName, 'TAHTAKALE SPOT Mağazacilik san . Tic.A.5');
-  });
+      expect(receipt.total, const Money(35030, Currency.turkishLira));
+      expect(receipt.purchasedAt, DateTime(2026, 10, 16));
+      expect(receipt.merchantName, 'TAHTAKALE');
+    },
+  );
 
   test('reads the BİM invoice total, not the street number', () {
     final receipt = parse(bimReceipt);
 
     expect(receipt.total, const Money(7550, Currency.turkishLira));
     expect(receipt.purchasedAt, DateTime(2026, 10, 12));
-    expect(receipt.merchantName, 'BIM BIRLESIK MAGAZALAR A.5.');
+    expect(receipt.merchantName, 'BIM');
   });
 
   test('reads the ŞOK receipt total, not the store number', () {
@@ -47,6 +50,6 @@ void main() {
 
     expect(receipt.total, const Money(29390, Currency.turkishLira));
     expect(receipt.purchasedAt, DateTime(2026, 10, 16));
-    expect(receipt.merchantName, 'LS SOK MARKETLER TÍC.A.S');
+    expect(receipt.merchantName, 'SOK');
   });
 }
