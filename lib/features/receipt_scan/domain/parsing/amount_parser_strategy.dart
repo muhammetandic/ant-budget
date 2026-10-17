@@ -19,6 +19,10 @@ import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parsing_stra
 /// 2. otherwise (many small receipts print no total at all) the **largest**
 ///    amount that is not labelled as tax, discount or change wins, because on a
 ///    receipt the payable figure is almost always the biggest such number.
+///
+/// In both stages a figure carrying kuruş (`293,90`) beats a bare integer
+/// (`8718`): Turkish receipts always print the total with decimals, while the
+/// unadorned integers are store numbers, item counts and addresses.
 final class AmountParserStrategy implements OcrParsingStrategy<Money> {
   const AmountParserStrategy({
     this.defaultCurrency = AppConfig.reportingCurrency,
@@ -51,8 +55,8 @@ final class AmountParserStrategy implements OcrParsingStrategy<Money> {
         .where((candidate) => candidate.onTotalLine)
         .toList(growable: false);
     if (totals.isNotEmpty) {
-      totals.sort(_byScore);
-      return totals.first;
+      final pool = _preferPriced(totals)..sort(_byScore);
+      return pool.first;
     }
 
     // No total label at all: the payable amount is the largest figure that is
@@ -61,9 +65,22 @@ final class AmountParserStrategy implements OcrParsingStrategy<Money> {
     final clean = candidates
         .where((candidate) => !candidate.onExcludedLine)
         .toList(growable: false);
-    final pool = clean.isNotEmpty ? clean : candidates;
-    pool.sort(_byLargest);
+    final pool = _preferPriced(clean.isNotEmpty ? clean : candidates)
+      ..sort(_byLargest);
     return pool.first;
+  }
+
+  /// Keeps only the figures printed with kuruş when any candidate has them.
+  ///
+  /// A total without decimals is possible but rare, whereas a bare integer that
+  /// out-sizes every price is the classic misread (a store number, an address,
+  /// a receipt id). Dropping the integers whenever a real price exists makes
+  /// the "largest amount" fallback pick prices only.
+  List<AmountCandidate> _preferPriced(List<AmountCandidate> candidates) {
+    final priced = candidates
+        .where((candidate) => candidate.hasDecimals)
+        .toList(growable: false);
+    return priced.isEmpty ? candidates : priced;
   }
 
   int _byScore(AmountCandidate a, AmountCandidate b) {
