@@ -1,0 +1,131 @@
+{
+  "@@locale": "en",
+
+  "actionAdd": "Add",
+  "actionEdit": "Edit",
+  "actionSave": "Save",
+  "actionSeeAll": "See all",
+  "actionSet": "Set",
+  "actionTryAgain": "Try again",
+
+  "navOverview": "Overview",
+  "navTransactions": "Transactions",
+  "navBudget": "Budget",
+
+  "dashboardScanTooltip": "Scan a receipt",
+  "dashboardRecentTransactions": "Recent transactions",
+
+  "summaryIncome": "Income",
+  "summaryExpenses": "Expenses",
+  "summaryBalance": "Balance",
+
+  "transactionsTitle": "Transactions",
+  "transactionsAddTooltip": "Add transaction",
+  "transactionsEmpty": "No transactions for this month yet.",
+
+  "monthPrevious": "Previous month",
+  "monthNext": "Next month",
+
+  "addTransactionTitle": "Add transaction",
+  "transactionKindExpense": "Expense",
+  "transactionKindIncome": "Income",
+  "fieldAmountWithSymbol": "Amount ({symbol})",
+  "@fieldAmountWithSymbol": {
+    "placeholders": {
+      "symbol": { "type": "String" }
+    }
+  },
+  "fieldTotalWithSymbol": "Total ({symbol})",
+  "@fieldTotalWithSymbol": {
+    "placeholders": {
+      "symbol": { "type": "String" }
+    }
+  },
+  "fieldCategory": "Category",
+  "fieldDate": "Date",
+  "fieldDescriptionOptional": "Description (optional)",
+  "fieldMerchant": "Merchant",
+  "validationEnterAmount": "Enter a valid amount",
+  "validationChooseCategory": "Choose a category",
+  "actionSaveTransaction": "Save transaction",
+  "errorEnterAmountAndCategory": "Enter an amount and choose a category.",
+  "errorEnterValidAmount": "Enter a valid amount.",
+
+  "budgetTitle": "Budget",
+  "budgetSetMonthlyLimit": "Set monthly limit",
+  "budgetMonthlyBudget": "Monthly budget",
+  "budgetNoneSet": "No budget set for this month.",
+  "budgetUpdated": "Budget updated.",
+  "budgetLimitWithSymbol": "Limit ({symbol})",
+  "@budgetLimitWithSymbol": {
+    "placeholders": {
+      "symbol": { "type": "String" }
+    }
+  },
+  "budgetOfLimit": "of {amount}",
+  "@budgetOfLimit": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "budgetOverBudget": "Over budget by {amount}",
+  "@budgetOverBudget": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "budgetLeftNearLimit": "{amount} left — close to the limit",
+  "@budgetLeftNearLimit": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "budgetLeft": "{amount} left",
+  "@budgetLeft": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+
+  "scanTitle": "Scan a receipt",
+  "scanInstruction": "Fit the whole receipt in the frame, then tap the shutter.",
+  "scanReviewTitle": "Review receipt",
+  "scanReading": "Reading the receipt…",
+
+  "transactionUntitled": "Untitled transaction",
+
+  "categoryGroceries": "Groceries",
+  "categoryDining": "Dining out",
+  "categoryTransport": "Transport",
+  "categoryShopping": "Shopping",
+  "categoryBills": "Bills & utilities",
+  "categoryHealth": "Health",
+  "categoryEntertainment": "Entertainment",
+  "categorySalary": "Salary",
+  "categoryOther": "Other",
+
+  "errorUnknown": "Something went wrong. Please try again.",
+  "errorStorage": "The local database could not complete the operation.",
+  "errorDevice": "The device could not complete the operation.",
+  "errorCameraPermission": "Camera access is required to scan a receipt.",
+  "errorCameraUnavailable": "No camera is available on this device.",
+  "errorCameraCaptureFailed": "The photo could not be captured. Please try again.",
+  "errorOcrEngineUnavailable": "The text recogniser is no longer available.",
+  "errorOcrNoText": "No readable text was found on the receipt.",
+  "errorOcrFailed": "The receipt could not be read. Please try again.",
+  "errorParseNoAmount": "No total amount could be found on the receipt.",
+  "errorParseEmpty": "The scanned receipt does not contain any readable text.",
+  "errorTransactionNotFound": "That transaction no longer exists.",
+  "errorNotFound": "The requested item could not be found.",
+  "errorAmountNotPositive": "Enter an amount greater than zero.",
+  "errorCategoryMissing": "Choose a category for this transaction.",
+  "errorDescriptionTooLong": "The description is too long.",
+  "errorDateOutOfRange": "Pick a date within this century.",
+  "errorBudgetNotPositive": "The monthly budget must be greater than zero.",
+  "errorBudgetCurrency": "Budgets are tracked in {code}.",
+  "@errorBudgetCurrency": {
+    "placeholders": {
+      "code": { "type": "String" }
+    }
+  }
+}

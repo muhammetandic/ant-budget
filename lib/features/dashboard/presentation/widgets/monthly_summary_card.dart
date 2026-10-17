@@ -5,6 +5,7 @@ import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/core/widgets/failure_view.dart';
 import 'package:ant_budget/features/transactions/domain/values/monthly_totals.dart';
 import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// Income / expenses / balance of [period], computed by SQLite.
 class MonthlySummaryCard extends ConsumerWidget {
@@ -37,24 +38,39 @@ class _SummaryContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
+    final language = l10n.localeName;
+    final income = MoneyFormatter.format(
+      totals.income,
+      languageCode: language,
+    );
+    final expenses = MoneyFormatter.format(
+      totals.expenses,
+      languageCode: language,
+    );
+    final balance = MoneyFormatter.format(
+      totals.balance,
+      languageCode: language,
+    );
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
         child: Row(
           children: [
             _Stat(
-              label: 'Income',
-              value: MoneyFormatter.format(totals.income),
+              label: l10n.summaryIncome,
+              value: income,
               color: scheme.primary,
             ),
             _Stat(
-              label: 'Expenses',
-              value: MoneyFormatter.format(totals.expenses),
+              label: l10n.summaryExpenses,
+              value: expenses,
               color: scheme.error,
             ),
             _Stat(
-              label: 'Balance',
-              value: MoneyFormatter.format(totals.balance),
+              label: l10n.summaryBalance,
+              value: balance,
               color: scheme.onSurface,
             ),
           ],

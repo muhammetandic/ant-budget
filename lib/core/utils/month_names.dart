@@ -69,6 +69,19 @@ abstract final class MonthNames {
     'Aralık',
   ];
 
+  /// Short name of [month] (1 = January) in [languageCode].
+  ///
+  /// Turkish for `tr`, English for everything else, mirroring the locales the
+  /// application ships.
+  static String shortFor(int month, String languageCode) => languageCode == 'tr'
+      ? turkishShort[month - 1]
+      : englishShort[month - 1];
+
+  /// Full name of [month] (1 = January) in [languageCode].
+  static String fullFor(int month, String languageCode) => languageCode == 'tr'
+      ? turkishFull[month - 1]
+      : englishFull[month - 1];
+
   /// Returns the 1-based month index matching [token], or `null`.
   ///
   /// Matching ignores case and a trailing dot (`Eki.`), and understands both

@@ -11,6 +11,8 @@ no receipt image ever leaves the device.
 - **Budgets** — set a monthly limit per category and watch spending against it.
 - **Receipt scanning** — photograph a receipt; the OCR text is parsed into
   merchant, amount, and date, then presented for review before saving.
+- **Turkish & English** — the UI, dates and amounts follow the device language;
+  Turkish is the fallback for anything else.
 
 ## Architecture
 
@@ -32,6 +34,7 @@ lib/
 │   ├── data/database/            # Drift schema + tables + seeder port
 │   ├── providers/                # appDatabaseProvider / databaseSeedersProvider
 │   ├── theme/ · utils/ · widgets/ · config/
+├── l10n/                         # ARB catalogues + locale resolution + `context.l10n`
 └── features/
     ├── dashboard/                # Read-only monthly overview
     ├── transactions/             # domain/ · data/ · presentation/
@@ -60,11 +63,18 @@ Each feature is split into:
 | OCR | Strategy pipeline (`ReceiptParserPipeline`) | Add a new field parser without touching existing ones (OCP) |
 | Camera | `CameraService` port + adapter | Presentation never imports the `camera` plugin |
 | Money | Integer **minor units** | Avoids floating-point rounding errors |
+| Language | `flutter_localizations` + `gen-l10n` ARB files | Official toolchain; copy lives in one catalogue per language |
 
 **Result over exceptions.** Data sources throw; repositories catch and map to a
 typed `Failure` (e.g. `DatabaseFailure`, `OcrFailure`, `CameraFailure`).
 Presentation renders failures via `FailureView`, so a failed state is just
 another branch of the UI.
+
+**Failures carry a reason, the UI carries the words.** Every `Failure` keeps an
+English message for logs and tests *and* a machine readable code
+(`ValidationIssue`, `OcrFailureCode`, `ParseIssue`, …). `failureMessageFor`
+(`core/presentation/failure_message.dart`) is the single place that turns those
+codes into localized copy.
 
 **Composition root.** `core/` never imports a feature. `appDatabaseProvider`
 reads seeders from a `databaseSeedersProvider` seam that
@@ -106,6 +116,27 @@ After changing an annotated provider, a route, or a Drift table, re-run:
 dart run build_runner build
 ```
 
+Localizations are regenerated automatically by `flutter pub get`, `flutter run`
+and `flutter test`; to do it on its own:
+
+```bash
+flutter gen-l10n
+```
+
+## Localisation
+
+The app ships **Turkish** and **English** (`lib/l10n/app_tr.arb`,
+`lib/l10n/app_en.arb`). `AppLocale.resolve` picks the device language, and any
+language the app does not ship falls back to Turkish — the product's home market.
+
+- Add a string to `lib/l10n/app_en.arb` (the template) plus its translation in
+  `app_tr.arb`, then read it with `context.l10n.<key>` from any widget.
+- Months come from `MonthNames` (`DateFormatter.short/month`), number separators
+  from `MoneyFormatter` (`format(..., languageCode:)`); both take the language
+  from `context.l10n.localeName`, so nothing else has to think about it.
+- Categories seeded with the app are translated at display time
+  (`categoryLabel`), while categories the user creates are shown verbatim.
+
 ## Platform setup
 
 Receipt scanning needs camera access, already declared for both platforms:
@@ -117,8 +148,9 @@ Receipt scanning needs camera access, already declared for both platforms:
 ## Testing
 
 Tests live under `test/` and mirror `lib/`. Unit tests cover value objects,
-parsers, the receipt pipeline, and use cases; a widget test boots the app against
-an in-memory Drift database and asserts the shell renders.
+parsers, the receipt pipeline, use cases, and localisation; widget tests boot the
+app against an in-memory Drift database and assert the shell renders in English
+and in Turkish.
 
 ```bash
 flutter test

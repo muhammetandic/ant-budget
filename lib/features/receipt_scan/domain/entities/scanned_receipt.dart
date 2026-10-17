@@ -29,16 +29,6 @@ final class ScannedReceipt extends Equatable {
   /// re-parsing after a parser improvement.
   final OcrRawText? rawText;
 
-  /// Title to show in the review screen.
-  String get displayName {
-    final merchant = merchantName?.trim();
-    if (merchant != null && merchant.isNotEmpty) return merchant;
-    return 'Scanned receipt';
-  }
-
-  /// Whether a merchant name was recognised.
-  bool get hasMerchantName => displayName != 'Scanned receipt';
-
   /// Copy with overrides, used while the user edits the parsed values.
   ScannedReceipt copyWith({
     Money? total,

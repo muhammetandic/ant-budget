@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ant_budget/core/presentation/failure_message.dart';
 import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/core/widgets/empty_state.dart';
 import 'package:ant_budget/core/widgets/failure_view.dart';
 import 'package:ant_budget/features/categories/presentation/providers/category_providers.dart';
 import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
 import 'package:ant_budget/features/transactions/presentation/widgets/transaction_tile.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// Reactive list of the transactions of [period].
 ///
@@ -17,7 +19,7 @@ class TransactionList extends ConsumerWidget {
     required this.period,
     this.shrinkWrap = false,
     this.limit,
-    this.emptyMessage = 'No transactions for this month yet.',
+    this.emptyMessage,
   });
 
   final YearMonth period;
@@ -29,7 +31,9 @@ class TransactionList extends ConsumerWidget {
   /// Maximum number of rows to render.
   final int? limit;
 
-  final String emptyMessage;
+  /// Overrides the placeholder shown when the month has no transactions; the
+  /// localized default is used when this is `null`.
+  final String? emptyMessage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,7 +53,7 @@ class TransactionList extends ConsumerWidget {
         if (visible.isEmpty) {
           return EmptyState(
             icon: Icons.receipt_long_outlined,
-            message: emptyMessage,
+            message: emptyMessage ?? context.l10n.transactionsEmpty,
           );
         }
 
@@ -87,7 +91,7 @@ class TransactionList extends ConsumerWidget {
     return result.fold(
       (failure) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(failure.message)),
+          SnackBar(content: Text(failureMessageOf(context, failure))),
         );
         return false;
       },

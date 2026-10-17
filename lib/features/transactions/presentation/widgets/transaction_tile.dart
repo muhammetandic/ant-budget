@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ant_budget/core/utils/date_formatter.dart';
 import 'package:ant_budget/core/utils/money_formatter.dart';
 import 'package:ant_budget/features/categories/domain/entities/category.dart';
+import 'package:ant_budget/features/categories/presentation/category_label.dart';
 import 'package:ant_budget/features/categories/presentation/widgets/category_avatar.dart';
 import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// One row of a transaction list: category, title, date and signed amount.
 ///
@@ -25,6 +27,8 @@ class TransactionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final language = l10n.localeName;
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
     final isExpense = transaction.kind.isExpense;
@@ -32,9 +36,10 @@ class TransactionTile extends StatelessWidget {
 
     final currentCategory = category;
     final subtitle = [
-      DateFormatter.short(transaction.occurredAt),
-      if (currentCategory != null) currentCategory.name,
+      DateFormatter.short(transaction.occurredAt, languageCode: language),
+      if (currentCategory != null) categoryLabel(l10n, currentCategory),
     ].join('  •  ');
+    final title = transaction.displayTitle;
 
     return ListTile(
       onTap: onTap,
@@ -42,7 +47,7 @@ class TransactionTile extends StatelessWidget {
           ? const UnknownCategoryAvatar()
           : CategoryAvatar(category: currentCategory),
       title: Text(
-        transaction.displayTitle,
+        title.isEmpty ? l10n.transactionUntitled : title,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
@@ -52,7 +57,8 @@ class TransactionTile extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
       ),
       trailing: Text(
-        '${isExpense ? '-' : '+'}${MoneyFormatter.format(transaction.amount)}',
+        '${isExpense ? '-' : '+'}'
+        '${MoneyFormatter.format(transaction.amount, languageCode: language)}',
         style: theme.textTheme.titleMedium?.copyWith(
           color: amountColor,
           fontWeight: FontWeight.w600,

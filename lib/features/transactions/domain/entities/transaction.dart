@@ -54,12 +54,15 @@ final class Transaction extends Equatable {
 
   /// Text to show in a list: the user's description, falling back to the
   /// merchant of the scanned receipt.
+  ///
+  /// Empty when neither is present; the placeholder shown in that case depends
+  /// on the language, so it is supplied by the presentation layer.
   String get displayTitle {
     final trimmedDescription = description.trim();
     if (trimmedDescription.isNotEmpty) return trimmedDescription;
     final merchant = receiptMerchant?.trim();
     if (merchant != null && merchant.isNotEmpty) return merchant;
-    return 'Untitled transaction';
+    return '';
   }
 
   @override

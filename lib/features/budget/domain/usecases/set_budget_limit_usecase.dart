@@ -21,6 +21,7 @@ final class SetBudgetLimitUseCase {
         Result.failure(
           const ValidationFailure(
             message: 'The monthly budget must be greater than zero.',
+            issue: ValidationIssue.budgetNotPositive,
             field: 'limit',
           ),
         ),
@@ -34,6 +35,7 @@ final class SetBudgetLimitUseCase {
           ValidationFailure(
             message:
                 'Budgets are tracked in ${AppConfig.reportingCurrency.code}.',
+            issue: ValidationIssue.budgetCurrencyMismatch,
             field: 'limit',
           ),
         ),

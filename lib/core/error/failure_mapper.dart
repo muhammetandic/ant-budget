@@ -26,6 +26,7 @@ abstract final class FailureMapper {
     if (error is PlatformException) {
       return UnexpectedFailure(
         message: 'The device could not complete the operation.',
+        code: UnexpectedFailureCode.platform,
         cause: error,
         stackTrace: stackTrace,
       );

@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:ant_budget/app/router/app_routes.dart';
 import 'package:ant_budget/core/error/failure.dart';
 import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/core/presentation/failure_message.dart';
 import 'package:ant_budget/core/values/unit.dart';
 import 'package:ant_budget/core/widgets/failure_view.dart';
 import 'package:ant_budget/features/receipt_scan/data/providers/receipt_scan_providers.dart';
 import 'package:ant_budget/features/receipt_scan/data/services/camera_service.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// Embedded camera used to photograph a receipt.
 ///
@@ -36,9 +38,9 @@ class _ReceiptCaptureScreenState extends ConsumerState<ReceiptCaptureScreen> {
     setState(() => _capturing = false);
 
     result.fold(
-      (failure) => ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(failure.message))),
+      (failure) => ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(failureMessageOf(context, failure))),
+      ),
       (path) => context.push(AppRoutes.receiptReview, extra: path),
     );
   }
@@ -61,7 +63,7 @@ class _ReceiptCaptureScreenState extends ConsumerState<ReceiptCaptureScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Scan a receipt')),
+      appBar: AppBar(title: Text(context.l10n.scanTitle)),
       body: FutureBuilder<Result<Unit, Failure>>(
         future: _initialisation,
         builder: (context, snapshot) {
@@ -71,7 +73,12 @@ class _ReceiptCaptureScreenState extends ConsumerState<ReceiptCaptureScreen> {
           final result = snapshot.data;
           if (result == null) {
             return FailureView(
-              error: snapshot.error ?? 'The camera could not be opened.',
+              error:
+                  snapshot.error ??
+                  const CameraFailure(
+                    message: 'The camera could not be opened.',
+                    code: CameraFailureCode.unavailable,
+                  ),
               onRetry: _retry,
             );
           }
@@ -106,14 +113,14 @@ class _Preview extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         ColoredBox(color: Colors.black, child: camera.buildPreview()),
-        const Positioned(
+        Positioned(
           top: 16,
           left: 24,
           right: 24,
           child: Text(
-            'Fit the whole receipt in the frame, then tap the shutter.',
+            context.l10n.scanInstruction,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         Positioned(

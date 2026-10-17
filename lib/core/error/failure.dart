@@ -28,19 +28,48 @@ sealed class Failure extends Equatable {
 }
 
 /// The user input (or an adapter result) violates a domain invariant.
+///
+/// The [message] is an English developer default; the presentation layer
+/// translates [issue] instead, so the copy the user sees follows the device
+/// language.
 final class ValidationFailure extends Failure {
   const ValidationFailure({
     required super.message,
+    required this.issue,
     this.field,
     super.cause,
     super.stackTrace,
   });
 
+  /// Machine readable reason, mapped to localized copy by the presentation.
+  final ValidationIssue issue;
+
   /// Optional identifier of the offending field, so forms can highlight it.
   final String? field;
 
   @override
-  List<Object?> get props => [...super.props, field];
+  List<Object?> get props => [...super.props, issue, field];
+}
+
+/// Machine readable reason behind a [ValidationFailure].
+enum ValidationIssue {
+  /// An amount was zero or negative.
+  amountNotPositive,
+
+  /// A transaction was submitted without a category.
+  categoryMissing,
+
+  /// A description exceeded the maximum length.
+  descriptionTooLong,
+
+  /// A date was implausibly far in the past.
+  dateOutOfRange,
+
+  /// A budget limit was zero or negative.
+  budgetNotPositive,
+
+  /// A budget was entered in a currency other than the reporting one.
+  budgetCurrencyMismatch,
 }
 
 /// A requested entity does not exist (or no longer exists).
@@ -167,7 +196,22 @@ enum ParseIssue { emptyInput, amountNotFound }
 final class UnexpectedFailure extends Failure {
   const UnexpectedFailure({
     super.message = 'Something went wrong. Please try again.',
+    this.code = UnexpectedFailureCode.unknown,
     super.cause,
     super.stackTrace,
   });
+
+  final UnexpectedFailureCode code;
+
+  @override
+  List<Object?> get props => [...super.props, code];
+}
+
+/// Machine readable reason behind an [UnexpectedFailure].
+enum UnexpectedFailureCode {
+  /// A platform channel (camera, permissions, file system, …) failed.
+  platform,
+
+  /// Anything else; the only safe thing to say is "something went wrong".
+  unknown,
 }

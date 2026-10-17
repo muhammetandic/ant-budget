@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ant_budget/core/presentation/failure_message.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// Full-screen presentation of a [Failure] with an optional retry action.
 ///
@@ -26,7 +27,7 @@ class FailureView extends StatelessWidget {
             Icon(Icons.error_outline, size: 40, color: scheme.error),
             const SizedBox(height: 12),
             Text(
-              failureMessageOf(error),
+              failureMessageOf(context, error),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
@@ -35,7 +36,7 @@ class FailureView extends StatelessWidget {
               OutlinedButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh),
-                label: const Text('Try again'),
+                label: Text(context.l10n.actionTryAgain),
               ),
             ],
           ],

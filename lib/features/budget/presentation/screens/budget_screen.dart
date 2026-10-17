@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ant_budget/core/config/app_config.dart';
+import 'package:ant_budget/core/presentation/failure_message.dart';
 import 'package:ant_budget/core/utils/amount_input_parser.dart';
 import 'package:ant_budget/features/budget/presentation/providers/budget_providers.dart';
 import 'package:ant_budget/features/budget/presentation/widgets/budget_progress_card.dart';
 import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
 import 'package:ant_budget/features/transactions/presentation/widgets/month_switcher.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// Budget health of the selected month plus the form that sets its limit.
 class BudgetScreen extends ConsumerWidget {
@@ -14,8 +16,9 @@ class BudgetScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final month = ref.watch(selectedMonthProvider);
+    final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(title: const Text('Budget')),
+      appBar: AppBar(title: Text(l10n.budgetTitle)),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -24,7 +27,7 @@ class BudgetScreen extends ConsumerWidget {
           BudgetProgressCard(period: month),
           const SizedBox(height: 24),
           Text(
-            'Set monthly limit',
+            l10n.budgetSetMonthlyLimit,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 12),
@@ -63,7 +66,7 @@ class _SetBudgetFormState extends ConsumerState<SetBudgetForm> {
       currency: currency,
     );
     if (amount == null) {
-      _notify('Enter a valid amount.');
+      _notify(context.l10n.errorEnterValidAmount);
       return;
     }
 
@@ -75,10 +78,10 @@ class _SetBudgetFormState extends ConsumerState<SetBudgetForm> {
     if (!mounted) return;
     setState(() => _submitting = false);
     result.fold(
-      (failure) => _notify(failure.message),
+      (failure) => _notify(failureMessageOf(context, failure)),
       (_) {
         _controller.clear();
-        _notify('Budget updated.');
+        _notify(context.l10n.budgetUpdated);
       },
     );
   }
@@ -90,6 +93,7 @@ class _SetBudgetFormState extends ConsumerState<SetBudgetForm> {
   @override
   Widget build(BuildContext context) {
     final currency = AppConfig.reportingCurrency;
+    final l10n = context.l10n;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -98,7 +102,7 @@ class _SetBudgetFormState extends ConsumerState<SetBudgetForm> {
             controller: _controller,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
-              labelText: 'Limit (${currency.symbol})',
+              labelText: l10n.budgetLimitWithSymbol(currency.symbol),
             ),
           ),
         ),
@@ -113,7 +117,7 @@ class _SetBudgetFormState extends ConsumerState<SetBudgetForm> {
                     width: 18,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Text('Save'),
+                : Text(context.l10n.actionSave),
           ),
         ),
       ],

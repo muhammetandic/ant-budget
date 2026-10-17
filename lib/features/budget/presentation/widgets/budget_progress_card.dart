@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ant_budget/core/utils/money_formatter.dart';
+import 'package:ant_budget/core/values/money.dart';
 import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/core/widgets/failure_view.dart';
 import 'package:ant_budget/features/budget/domain/values/budget_summary.dart';
 import 'package:ant_budget/features/budget/presentation/providers/budget_providers.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// Progress of [period]'s budget: spent amount, remaining and health colour.
 class BudgetProgressCard extends ConsumerWidget {
@@ -42,6 +44,8 @@ class _BudgetContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final l10n = context.l10n;
+    final language = l10n.localeName;
     final color = _StatusPalette.colorFor(summary.status, scheme);
     final limit = summary.limit;
 
@@ -55,20 +59,20 @@ class _BudgetContent extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Monthly budget',
+                    l10n.budgetMonthlyBudget,
                     style: theme.textTheme.titleMedium,
                   ),
                 ),
                 if (onEdit != null)
                   TextButton(
                     onPressed: onEdit,
-                    child: Text(limit == null ? 'Set' : 'Edit'),
+                    child: Text(limit == null ? l10n.actionSet : l10n.actionEdit),
                   ),
               ],
             ),
             if (limit == null)
               Text(
-                'No budget set for this month.',
+                l10n.budgetNoneSet,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: scheme.onSurfaceVariant,
                 ),
@@ -80,14 +84,22 @@ class _BudgetContent extends StatelessWidget {
                 textBaseline: TextBaseline.alphabetic,
                 children: [
                   Text(
-                    MoneyFormatter.format(summary.spent),
+                    MoneyFormatter.format(
+                      summary.spent,
+                      languageCode: language,
+                    ),
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'of ${MoneyFormatter.format(limit)}',
+                    l10n.budgetOfLimit(
+                      MoneyFormatter.format(
+                        limit,
+                        languageCode: language,
+                      ),
+                    ),
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: scheme.onSurfaceVariant,
                     ),
@@ -104,7 +116,7 @@ class _BudgetContent extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                _StatusPalette.labelFor(summary),
+                _StatusPalette.labelFor(context, summary),
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: color,
                   fontWeight: FontWeight.w600,
@@ -132,12 +144,18 @@ abstract final class _StatusPalette {
         BudgetStatus.noBudget => scheme.outline,
       };
 
-  static String labelFor(BudgetSummary summary) => switch (summary.status) {
-    BudgetStatus.exceeded =>
-      'Over budget by ${MoneyFormatter.format(summary.overspend)}',
-    BudgetStatus.warning =>
-      '${MoneyFormatter.format(summary.remaining)} left — close to the limit',
-    BudgetStatus.healthy => '${MoneyFormatter.format(summary.remaining)} left',
-    BudgetStatus.noBudget => '',
-  };
+  static String labelFor(BuildContext context, BudgetSummary summary) {
+    final l10n = context.l10n;
+    final language = l10n.localeName;
+    String format(Money money) =>
+        MoneyFormatter.format(money, languageCode: language);
+    return switch (summary.status) {
+      BudgetStatus.exceeded => l10n.budgetOverBudget(format(summary.overspend)),
+      BudgetStatus.warning => l10n.budgetLeftNearLimit(
+        format(summary.remaining),
+      ),
+      BudgetStatus.healthy => l10n.budgetLeft(format(summary.remaining)),
+      BudgetStatus.noBudget => '',
+    };
+  }
 }

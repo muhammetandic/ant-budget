@@ -41,24 +41,29 @@ final class AddTransactionUseCase {
     if (!command.amount.isPositive) {
       return const ValidationFailure(
         message: 'Enter an amount greater than zero.',
+        issue: ValidationIssue.amountNotPositive,
         field: 'amount',
       );
     }
     if (command.categoryId <= 0) {
       return const ValidationFailure(
         message: 'Choose a category for this transaction.',
+        issue: ValidationIssue.categoryMissing,
         field: 'categoryId',
       );
     }
     if (command.description.trim().length > maxDescriptionLength) {
       return ValidationFailure(
-        message: 'The description must be $maxDescriptionLength characters or fewer.',
+        message:
+            'The description must be $maxDescriptionLength characters or fewer.',
+        issue: ValidationIssue.descriptionTooLong,
         field: 'description',
       );
     }
     if (command.occurredAt.isBefore(earliestDate)) {
       return const ValidationFailure(
         message: 'Pick a date within this century.',
+        issue: ValidationIssue.dateOutOfRange,
         field: 'occurredAt',
       );
     }

@@ -8,6 +8,7 @@ import 'package:ant_budget/features/dashboard/presentation/widgets/monthly_summa
 import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
 import 'package:ant_budget/features/transactions/presentation/widgets/month_switcher.dart';
 import 'package:ant_budget/features/transactions/presentation/widgets/transaction_list.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// Overview of the selected month: budget health, totals and recent activity.
 class DashboardScreen extends ConsumerWidget {
@@ -19,6 +20,7 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
     final month = ref.watch(selectedMonthProvider);
 
     return Scaffold(
@@ -26,7 +28,7 @@ class DashboardScreen extends ConsumerWidget {
         title: const Text(AppConfig.appName),
         actions: [
           IconButton(
-            tooltip: 'Scan a receipt',
+            tooltip: l10n.dashboardScanTooltip,
             onPressed: () => context.push(AppRoutes.scan),
             icon: const Icon(Icons.document_scanner_outlined),
           ),
@@ -46,11 +48,14 @@ class DashboardScreen extends ConsumerWidget {
           const SizedBox(height: 20),
           Row(
             children: [
-              Text('Recent transactions', style: theme.textTheme.titleMedium),
+              Text(
+                l10n.dashboardRecentTransactions,
+                style: theme.textTheme.titleMedium,
+              ),
               const Spacer(),
               TextButton(
                 onPressed: () => context.go(AppRoutes.transactions),
-                child: const Text('See all'),
+                child: Text(l10n.actionSeeAll),
               ),
             ],
           ),
@@ -64,7 +69,7 @@ class DashboardScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push(AppRoutes.addTransaction),
         icon: const Icon(Icons.add),
-        label: const Text('Add'),
+        label: Text(l10n.actionAdd),
       ),
     );
   }

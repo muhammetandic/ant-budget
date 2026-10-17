@@ -5,6 +5,7 @@ import 'package:ant_budget/app/router/app_routes.dart';
 import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
 import 'package:ant_budget/features/transactions/presentation/widgets/month_switcher.dart';
 import 'package:ant_budget/features/transactions/presentation/widgets/transaction_list.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// Full history of the selected month with swipe-to-delete.
 class TransactionsScreen extends ConsumerWidget {
@@ -13,9 +14,10 @@ class TransactionsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final month = ref.watch(selectedMonthProvider);
+    final l10n = context.l10n;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Transactions')),
+      appBar: AppBar(title: Text(l10n.transactionsTitle)),
       body: Column(
         children: [
           const Padding(
@@ -28,7 +30,7 @@ class TransactionsScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push(AppRoutes.addTransaction),
-        tooltip: 'Add transaction',
+        tooltip: l10n.transactionsAddTooltip,
         child: const Icon(Icons.add),
       ),
     );

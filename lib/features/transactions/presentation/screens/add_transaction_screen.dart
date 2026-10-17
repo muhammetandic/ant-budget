@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ant_budget/core/config/app_config.dart';
+import 'package:ant_budget/core/presentation/failure_message.dart';
 import 'package:ant_budget/core/utils/amount_input_parser.dart';
 import 'package:ant_budget/core/utils/date_formatter.dart';
 import 'package:ant_budget/core/values/transaction_kind.dart';
 import 'package:ant_budget/core/widgets/failure_view.dart';
 import 'package:ant_budget/features/categories/domain/entities/category.dart';
+import 'package:ant_budget/features/categories/presentation/category_label.dart';
 import 'package:ant_budget/features/categories/presentation/providers/category_providers.dart';
 import 'package:ant_budget/features/transactions/domain/values/add_transaction_command.dart';
 import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// Form that collects a manual transaction.
 ///
@@ -58,7 +61,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     );
     final categoryId = _categoryId;
     if (amount == null || categoryId == null) {
-      setState(() => _error = 'Enter an amount and choose a category.');
+      setState(() => _error = context.l10n.errorEnterAmountAndCategory);
       return;
     }
 
@@ -79,7 +82,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (!mounted) return;
     result.fold(
       (failure) => setState(() {
-        _error = failure.message;
+        _error = failureMessageOf(context, failure);
         _submitting = false;
       }),
       (_) => Navigator.of(context).pop(),
@@ -90,7 +93,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   Widget build(BuildContext context) {
     final categories = ref.watch(categoriesProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text('Add transaction')),
+      appBar: AppBar(title: Text(context.l10n.addTransactionTitle)),
       body: categories.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, _) => FailureView(error: error),
@@ -100,6 +103,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   }
 
   Widget _form(BuildContext context, List<Category> items) {
+    final l10n = context.l10n;
+    final language = l10n.localeName;
     final currency = AppConfig.reportingCurrency;
     return Form(
       key: _formKey,
@@ -107,16 +112,16 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           SegmentedButton<TransactionKind>(
-            segments: const [
+            segments: [
               ButtonSegment(
                 value: TransactionKind.expense,
-                label: Text('Expense'),
-                icon: Icon(Icons.arrow_downward),
+                label: Text(l10n.transactionKindExpense),
+                icon: const Icon(Icons.arrow_downward),
               ),
               ButtonSegment(
                 value: TransactionKind.income,
-                label: Text('Income'),
-                icon: Icon(Icons.arrow_upward),
+                label: Text(l10n.transactionKindIncome),
+                icon: const Icon(Icons.arrow_upward),
               ),
             ],
             selected: {_kind},
@@ -127,40 +132,45 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           TextFormField(
             controller: _amountController,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            decoration: InputDecoration(labelText: 'Amount (${currency.symbol})'),
+            decoration: InputDecoration(
+              labelText: l10n.fieldAmountWithSymbol(currency.symbol),
+            ),
             validator: (value) =>
                 AmountInputParser.tryParse(value ?? '', currency: currency) ==
                     null
-                ? 'Enter a valid amount'
+                ? l10n.validationEnterAmount
                 : null,
           ),
           const SizedBox(height: 16),
           DropdownButtonFormField<int>(
             initialValue: _categoryId,
-            decoration: const InputDecoration(labelText: 'Category'),
+            decoration: InputDecoration(labelText: l10n.fieldCategory),
             items: [
               for (final category in items)
                 DropdownMenuItem<int>(
                   value: category.id,
-                  child: Text(category.name),
+                  child: Text(categoryLabel(l10n, category)),
                 ),
             ],
             onChanged: (id) => setState(() => _categoryId = id),
-            validator: (value) => value == null ? 'Choose a category' : null,
+            validator: (value) =>
+                value == null ? l10n.validationChooseCategory : null,
           ),
           const SizedBox(height: 8),
           ListTile(
             contentPadding: EdgeInsets.zero,
-            title: const Text('Date'),
-            subtitle: Text(DateFormatter.short(_date)),
+            title: Text(l10n.fieldDate),
+            subtitle: Text(
+              DateFormatter.short(_date, languageCode: language),
+            ),
             trailing: const Icon(Icons.calendar_today_outlined),
             onTap: _pickDate,
           ),
           TextFormField(
             controller: _descriptionController,
             maxLength: 160,
-            decoration: const InputDecoration(
-              labelText: 'Description (optional)',
+            decoration: InputDecoration(
+              labelText: l10n.fieldDescriptionOptional,
             ),
           ),
           if (_error != null)
@@ -179,7 +189,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     width: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Text('Save'),
+                : Text(l10n.actionSave),
           ),
         ],
       ),
