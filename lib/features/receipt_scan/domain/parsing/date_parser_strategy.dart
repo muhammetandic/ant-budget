@@ -19,11 +19,21 @@ final class DateParserStrategy implements OcrParsingStrategy<DateTime?> {
   static const int maxYear = 2100;
 
   /// `2026-10-14`, `2026.10.14`.
-  static final RegExp isoPattern = RegExp(r'(\d{4})[./-](\d{1,2})[./-](\d{1,2})');
+  static final RegExp isoPattern = RegExp(
+    r'(\d{4})[./-](\d{1,2})[./-](\d{1,2})',
+  );
 
   /// `14/10/2026`, `14.10.26`, `10/14/2026`.
   static final RegExp numericPattern = RegExp(
     r'(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})',
+  );
+
+  /// `16.10. 2026`, `16 .10. 2026` — the recogniser sometimes splits the dots.
+  ///
+  /// A four-digit year is required, so a spaced list of small numbers such as
+  /// `1. 2. 3` is not mistaken for a date.
+  static final RegExp spacedNumericPattern = RegExp(
+    r'(\d{1,2})\s*[./-]\s*(\d{1,2})\s*[./-]\s*(\d{4})',
   );
 
   /// `14 Oct 2026`, `14 Ekim 2026`, `14 Eki. 26`.
@@ -41,7 +51,10 @@ final class DateParserStrategy implements OcrParsingStrategy<DateTime?> {
   }
 
   DateTime? _parseLine(String line) =>
-      _fromIsoPattern(line) ?? _fromNumericPattern(line) ?? _fromNamedPattern(line);
+      _fromIsoPattern(line) ??
+      _fromNumericPattern(line) ??
+      _fromSpacedNumericPattern(line) ??
+      _fromNamedPattern(line);
 
   DateTime? _fromIsoPattern(String line) {
     final match = isoPattern.firstMatch(line);
@@ -68,6 +81,16 @@ final class DateParserStrategy implements OcrParsingStrategy<DateTime?> {
       year: year,
       month: isDayFirst ? second : first,
       day: isDayFirst ? first : second,
+    );
+  }
+
+  DateTime? _fromSpacedNumericPattern(String line) {
+    final match = spacedNumericPattern.firstMatch(line);
+    if (match == null) return null;
+    return _buildDate(
+      year: int.parse(match.group(3)!),
+      month: int.parse(match.group(2)!),
+      day: int.parse(match.group(1)!),
     );
   }
 

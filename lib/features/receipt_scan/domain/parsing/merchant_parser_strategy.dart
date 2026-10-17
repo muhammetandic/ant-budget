@@ -1,6 +1,8 @@
 import 'package:ant_budget/core/error/failure.dart';
 import 'package:ant_budget/core/error/result.dart';
+import 'package:ant_budget/core/values/currency.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/ascii_folding.dart';
+import 'package:ant_budget/features/receipt_scan/domain/parsing/merchant_brands.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/merchant_keywords.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parsing_strategy.dart';
@@ -38,7 +40,6 @@ final class MerchantParserStrategy implements OcrParsingStrategy<String?> {
   static final RegExp _lettersOnlyPattern = RegExp(r'[^A-Za-zĞÜŞİÖÇğüşıöç]');
   static final RegExp _uppercasePattern = RegExp(r'[^A-ZĞÜŞİÖÇ]');
   static final RegExp _digitsOnlyPattern = RegExp(r'[^0-9]');
-  static final RegExp _currencyPattern = RegExp(r'[₺$€£]');
   static final RegExp _dateLikePattern = RegExp(
     r'\d{1,4}[./-]\d{1,2}[./-]\d{2,4}',
   );
@@ -60,7 +61,8 @@ final class MerchantParserStrategy implements OcrParsingStrategy<String?> {
       }
     }
     if (best == null) return const Result.ok(null);
-    return Result.ok(_names.firstToken(best));
+    final word = _names.firstToken(best);
+    return Result.ok(word == null ? null : MerchantBrands.correct(word));
   }
 
   /// Ranks a plausible name: a corporate word dominates, capitals and length
@@ -105,7 +107,10 @@ final class MerchantParserStrategy implements OcrParsingStrategy<String?> {
       return null;
     }
     if (lowercase.contains('@') || lowercase.contains('http')) return null;
-    if (_currencyPattern.hasMatch(trimmed)) return null;
+    // A symbol really carrying a price disqualifies the line, but OCR also
+    // prints `$` where the receipt says `Ş` (`SSUK MARKETLER TỈC.A.$`), so only
+    // a symbol touching a number counts.
+    if (Currency.hasMoneySymbol(trimmed)) return null;
     if (_dateLikePattern.hasMatch(trimmed)) return null;
 
     final letters = trimmed.replaceAll(_lettersOnlyPattern, '');

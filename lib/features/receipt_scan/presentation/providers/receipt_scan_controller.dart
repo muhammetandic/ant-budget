@@ -21,10 +21,7 @@ class ScanReceiptController extends _$ScanReceiptController {
     final result = await ref.watch(scanReceiptUseCaseProvider)(
       ScanReceiptRequest(imagePath: imagePath),
     );
-    return result.fold(
-      (failure) => throw failure,
-      (receipt) => receipt,
-    );
+    return result.fold((failure) => throw failure, (receipt) => receipt);
   }
 
   /// Re-runs recognition for the same image.

@@ -58,18 +58,40 @@ enum Currency {
 
   /// Finds the first currency mentioned in [text], or `null`.
   ///
-  /// Symbols such as `₺` are searched directly, word-like aliases (`tl`, `usd`)
-  /// only as standalone tokens to avoid matching inside merchant names.
+  /// Symbols such as `₺` are searched directly, but only where they touch a
+  /// number: OCR reads the `Ş` of `ŞOK`/`TİC.A.Ş` as `$`, and trusting a bare
+  /// symbol would turn a lira receipt into dollars. Word-like aliases (`tl`,
+  /// `usd`) are matched as standalone tokens to avoid matching inside names.
   static Currency? detectIn(String text) {
     final lowercase = text.toLowerCase();
     for (final currency in Currency.values) {
       for (final alias in currency.aliases) {
         final isSymbol = alias.length == 1 && !_isAsciiLetter(alias);
-        if (isSymbol && lowercase.contains(alias)) return currency;
+        if (isSymbol && _touchesNumber(lowercase, alias)) return currency;
         if (!isSymbol && _containsWord(lowercase, alias)) return currency;
       }
     }
     return null;
+  }
+
+  /// Whether [text] carries a currency symbol sitting next to a number.
+  ///
+  /// Used to tell a price-bearing line from one where the symbol is really a
+  /// misread letter.
+  static bool hasMoneySymbol(String text) {
+    for (final currency in Currency.values) {
+      if (_touchesNumber(text, currency.symbol)) return true;
+    }
+    return false;
+  }
+
+  static bool _touchesNumber(String text, String symbol) {
+    final escaped = RegExp.escape(symbol);
+    // Horizontal spacing only: the `$` at the end of a line must not reach the
+    // number on the *next* line through the newline.
+    return RegExp(
+      '$escaped[ \\t]{0,2}\\d|\\d[ \\t]{0,2}$escaped',
+    ).hasMatch(text);
   }
 
   static bool _containsWord(String text, String word) {

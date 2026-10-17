@@ -41,16 +41,18 @@ final class ReceiptParserPipeline {
     }
 
     final input = OcrParseInput.from(rawText);
-    return _amountParser.parse(input).flatMap(
-      (total) => Result.ok(
-        ScannedReceipt(
-          total: total,
-          purchasedAt: _dateParser.parse(input).valueOrNull ?? _now(),
-          merchantName: _merchantParser.parse(input).getOrElse(() => null),
-          rawText: rawText,
-        ),
-      ),
-    );
+    return _amountParser
+        .parse(input)
+        .flatMap(
+          (total) => Result.ok(
+            ScannedReceipt(
+              total: total,
+              purchasedAt: _dateParser.parse(input).valueOrNull ?? _now(),
+              merchantName: _merchantParser.parse(input).getOrElse(() => null),
+              rawText: rawText,
+            ),
+          ),
+        );
   }
 
   DateTime _now() => _clock?.call() ?? DateTime.now();

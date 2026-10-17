@@ -12,7 +12,9 @@ void main() {
     final result = strategy.parse(
       OcrParseInput.from(OcrRawText.fromText(text)),
     );
-    return result.getOrElse(() => fail('expected the parser to find an amount'));
+    return result.getOrElse(
+      () => fail('expected the parser to find an amount'),
+    );
   }
 
   test('prefers the labelled total over line items and subtotal', () {
@@ -99,6 +101,15 @@ TOPLAM 1.234,56 ₺
 ''');
 
     expect(money, const Money(123456, Currency.turkishLira));
+  });
+
+  test('does not read a \$ that is really a misread Ş as dollars', () {
+    final money = amountOf('''
+SSUK MARKETLER TỈC.A.\$
+TOPLAM 293,90
+''');
+
+    expect(money, const Money(29390, Currency.turkishLira));
   });
 
   test('detects a foreign currency instead of the default', () {

@@ -17,7 +17,9 @@ final class ScanReceiptUseCase {
   final OcrService _ocrService;
   final ReceiptParserPipeline _pipeline;
 
-  Future<Result<ScannedReceipt, Failure>> call(ScanReceiptRequest request) async {
+  Future<Result<ScannedReceipt, Failure>> call(
+    ScanReceiptRequest request,
+  ) async {
     final recognised = await _ocrService.recognizeText(request.imagePath);
     return recognised.flatMap(_pipeline.parse);
   }

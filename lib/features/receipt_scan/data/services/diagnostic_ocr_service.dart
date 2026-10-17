@@ -50,9 +50,10 @@ final class DiagnosticOcrService implements OcrService {
 
     final directory = Directory('${base.path}/diag');
     await directory.create(recursive: true);
-    final stamp = DateTime.now()
-        .toIso8601String()
-        .replaceAll(RegExp(r'[:.]'), '-');
+    final stamp = DateTime.now().toIso8601String().replaceAll(
+      RegExp(r'[:.]'),
+      '-',
+    );
 
     final photo = File(imagePath);
     if (await photo.exists()) {

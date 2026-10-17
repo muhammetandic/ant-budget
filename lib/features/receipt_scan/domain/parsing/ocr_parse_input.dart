@@ -12,8 +12,10 @@ final class OcrParseInput extends Equatable {
   const OcrParseInput({required this.rawText, required this.lowercaseText});
 
   /// Prepares [rawText] for parsing.
-  factory OcrParseInput.from(OcrRawText rawText) =>
-      OcrParseInput(rawText: rawText, lowercaseText: rawText.fullText.toLowerCase());
+  factory OcrParseInput.from(OcrRawText rawText) => OcrParseInput(
+    rawText: rawText,
+    lowercaseText: rawText.fullText.toLowerCase(),
+  );
 
   final OcrRawText rawText;
 
@@ -24,10 +26,8 @@ final class OcrParseInput extends Equatable {
   List<String> get lines => rawText.lines;
 
   /// Whether the input contains any of [keywords] as a word or phrase.
-  bool containsAnyKeyword(Set<String> keywords) => OcrKeywordMatcher.containsAny(
-    lowercaseText,
-    keywords,
-  );
+  bool containsAnyKeyword(Set<String> keywords) =>
+      OcrKeywordMatcher.containsAny(lowercaseText, keywords);
 
   /// Whether [line] contains any of [keywords] as a word or phrase.
   bool lineContainsAny(String line, Set<String> keywords) =>

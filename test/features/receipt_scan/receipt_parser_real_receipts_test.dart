@@ -42,7 +42,7 @@ void main() {
 
     expect(receipt.total, const Money(7550, Currency.turkishLira));
     expect(receipt.purchasedAt, DateTime(2026, 10, 12));
-    expect(receipt.merchantName, 'BIM');
+    expect(receipt.merchantName, 'BİM');
   });
 
   test('reads the ŞOK receipt total, not the store number', () {
@@ -50,6 +50,6 @@ void main() {
 
     expect(receipt.total, const Money(29390, Currency.turkishLira));
     expect(receipt.purchasedAt, DateTime(2026, 10, 16));
-    expect(receipt.merchantName, 'SOK');
+    expect(receipt.merchantName, 'ŞOK');
   });
 }

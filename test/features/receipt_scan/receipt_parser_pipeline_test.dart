@@ -28,7 +28,7 @@ TOTAL 120,00
       expect(receipt, isNotNull);
       expect(receipt!.total.minorUnits, 12000);
       expect(receipt.total.currency, Currency.turkishLira);
-      expect(receipt.merchantName, 'MIGROS');
+      expect(receipt.merchantName, 'MİGROS');
       expect(receipt.purchasedAt, DateTime(2026, 10, 14));
     });
 

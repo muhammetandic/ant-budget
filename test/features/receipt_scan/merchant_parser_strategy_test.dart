@@ -26,7 +26,7 @@ LS SOK MARKETLER TİC.A.Ş
 8718 ANTALYA KEPEZ
 ''');
 
-      expect(merchant, 'SOK');
+      expect(merchant, 'ŞOK');
     },
   );
 
@@ -51,14 +51,34 @@ GARANTİ BANKASI
     expect(merchant, 'GARANTİ');
   });
 
-  test('keeps a plain name that carries no corporate word', () {
+  test('restores the spelling of a chain whose logo OCR mangled', () {
     final merchant = merchantOf('''
 MIGROS
 14/10/2026
 TOPLAM 120,00
 ''');
 
-    expect(merchant, 'MIGROS');
+    expect(merchant, 'MİGROS');
+  });
+
+  test('keeps a plain name that carries no corporate word', () {
+    final merchant = merchantOf('''
+KUZEY GIDA
+14/10/2026
+TOPLAM 120,00
+''');
+
+    expect(merchant, 'KUZEY');
+  });
+
+  test('reads a line whose \$ is really a misread letter', () {
+    final merchant = merchantOf('''
+TARIH
+SSUK MARKETLER TỈC.A.\$
+8718 ANTALYA KEPEZ BİLİM SAAT
+''');
+
+    expect(merchant, 'ŞOK');
   });
 
   test('returns null when every header line is a label or an address', () {

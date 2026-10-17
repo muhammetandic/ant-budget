@@ -29,12 +29,19 @@ abstract final class AsciiFolding {
   };
 
   /// [text] lowercased with every Turkish/accented letter mapped to ASCII.
+  ///
+  /// Combining marks are dropped, which is what turns the `i` + combining dot
+  /// pair that lowercasing `İ` produces (`TİC`) back into a plain `i` (`tic`).
   static String fold(String text) {
     final buffer = StringBuffer();
     for (final rune in text.toLowerCase().runes) {
+      if (rune >= _firstCombiningMark && rune <= _lastCombiningMark) continue;
       final char = String.fromCharCode(rune);
       buffer.write(_foldings[char] ?? char);
     }
     return buffer.toString();
   }
+
+  static const int _firstCombiningMark = 0x0300;
+  static const int _lastCombiningMark = 0x036F;
 }
