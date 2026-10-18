@@ -449,3 +449,58 @@ final class MonthlyTotalsFamily extends $Family
   @override
   String toString() => r'monthlyTotalsProvider';
 }
+
+/// Every recorded transaction, newest first.
+///
+/// Deliberately unfiltered: the category suggestions look at a shop's whole
+/// history, which the visible month would cut off.
+
+@ProviderFor(allTransactions)
+final allTransactionsProvider = AllTransactionsProvider._();
+
+/// Every recorded transaction, newest first.
+///
+/// Deliberately unfiltered: the category suggestions look at a shop's whole
+/// history, which the visible month would cut off.
+
+final class AllTransactionsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Transaction>>,
+          List<Transaction>,
+          Stream<List<Transaction>>
+        >
+    with
+        $FutureModifier<List<Transaction>>,
+        $StreamProvider<List<Transaction>> {
+  /// Every recorded transaction, newest first.
+  ///
+  /// Deliberately unfiltered: the category suggestions look at a shop's whole
+  /// history, which the visible month would cut off.
+  AllTransactionsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'allTransactionsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$allTransactionsHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<List<Transaction>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<Transaction>> create(Ref ref) {
+    return allTransactions(ref);
+  }
+}
+
+String _$allTransactionsHash() => r'a9ae2d928ea941cce0bb6380bfe93950edbd85e1';

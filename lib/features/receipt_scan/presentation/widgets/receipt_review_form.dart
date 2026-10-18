@@ -16,6 +16,7 @@ import 'package:ant_budget/features/categories/domain/entities/category.dart';
 import 'package:ant_budget/features/categories/presentation/category_label.dart';
 import 'package:ant_budget/features/categories/presentation/providers/category_providers.dart';
 import 'package:ant_budget/features/receipt_scan/domain/entities/scanned_receipt.dart';
+import 'package:ant_budget/features/receipt_scan/presentation/providers/suggested_category.dart';
 import 'package:ant_budget/features/transactions/domain/values/add_transaction_command.dart';
 import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
 import 'package:ant_budget/l10n/l10n.dart';
@@ -94,11 +95,12 @@ class _ReceiptReviewFormState extends ConsumerState<ReceiptReviewForm> {
     if (picked != null) setState(() => _date = picked);
   }
 
-  Future<void> _save() async {
+  Future<void> _save(int? suggestion) async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     final currency = AppConfig.reportingCurrency;
     final amount = AmountInputParser.tryParse(_amount.text, currency: currency);
-    final categoryId = _categoryId;
+    // An untouched dropdown keeps the suggestion that filled it in.
+    final categoryId = _categoryId ?? suggestion;
     if (amount == null || categoryId == null) {
       setState(() => _error = context.l10n.errorEnterAmountAndCategory);
       return;
@@ -134,14 +136,23 @@ class _ReceiptReviewFormState extends ConsumerState<ReceiptReviewForm> {
   @override
   Widget build(BuildContext context) {
     final categories = ref.watch(categoriesProvider);
-    return categories.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, _) => FailureView(error: error),
-      data: (items) => _form(context, items),
+    final history = ref.watch(allTransactionsProvider);
+    // The suggestion becomes the *initial* value of the dropdown, and a form
+    // field only reads that once, so both inputs have to be ready before the
+    // form is built for the first time.
+    if (categories.isLoading || history.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    // A history that failed to load is not worth blocking the review over; the
+    // suggestion simply falls back to the shop catalogue.
+    if (categories.hasError) return FailureView(error: categories.error!);
+    final suggestion = ref.watch(
+      suggestedCategoryProvider(widget.receipt.merchantName),
     );
+    return _form(context, categories.requireValue, suggestion);
   }
 
-  Widget _form(BuildContext context, List<Category> items) {
+  Widget _form(BuildContext context, List<Category> items, int? suggestion) {
     final l10n = context.l10n;
     final language = l10n.localeName;
     final currency = AppConfig.reportingCurrency;
@@ -188,7 +199,7 @@ class _ReceiptReviewFormState extends ConsumerState<ReceiptReviewForm> {
             onTap: _pickDate,
           ),
           DropdownButtonFormField<int>(
-            initialValue: _categoryId,
+            initialValue: _categoryId ?? suggestion,
             decoration: InputDecoration(labelText: l10n.fieldCategory),
             items: [
               for (final category in items)
@@ -216,7 +227,7 @@ class _ReceiptReviewFormState extends ConsumerState<ReceiptReviewForm> {
               ),
             ),
           FilledButton(
-            onPressed: _saving ? null : _save,
+            onPressed: _saving ? null : () => _save(suggestion),
             child: _saving
                 ? const SizedBox(
                     height: 20,

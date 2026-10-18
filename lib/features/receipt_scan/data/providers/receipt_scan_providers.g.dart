@@ -64,7 +64,7 @@ final class OcrServiceProvider
   }
 }
 
-String _$ocrServiceHash() => r'93751e1f1fc5c1204dd639c80ff936bdb0c3d478';
+String _$ocrServiceHash() => r'e8f951fe9ef9460ec5a56cd791494e4594020ab9';
 
 @ProviderFor(cameraService)
 final cameraServiceProvider = CameraServiceProvider._();
@@ -224,3 +224,56 @@ final class ScanReceiptUseCaseProvider
 
 String _$scanReceiptUseCaseHash() =>
     r'3c6ed6e8cb22fc17ae26f8b4d9b72dd824b52384';
+
+/// The suggestion use case: a category for the merchant the parser found.
+
+@ProviderFor(suggestCategoryUseCase)
+final suggestCategoryUseCaseProvider = SuggestCategoryUseCaseProvider._();
+
+/// The suggestion use case: a category for the merchant the parser found.
+
+final class SuggestCategoryUseCaseProvider
+    extends
+        $FunctionalProvider<
+          SuggestCategoryUseCase,
+          SuggestCategoryUseCase,
+          SuggestCategoryUseCase
+        >
+    with $Provider<SuggestCategoryUseCase> {
+  /// The suggestion use case: a category for the merchant the parser found.
+  SuggestCategoryUseCaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'suggestCategoryUseCaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$suggestCategoryUseCaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<SuggestCategoryUseCase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SuggestCategoryUseCase create(Ref ref) {
+    return suggestCategoryUseCase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SuggestCategoryUseCase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SuggestCategoryUseCase>(value),
+    );
+  }
+}
+
+String _$suggestCategoryUseCaseHash() =>
+    r'af5341543cd36969537581f17b688c2869eb07f4';

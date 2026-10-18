@@ -63,3 +63,11 @@ Stream<List<Transaction>> monthlyTransactions(Ref ref, YearMonth period) =>
 @riverpod
 Stream<MonthlyTotals> monthlyTotals(Ref ref, YearMonth period) =>
     ref.watch(watchMonthlyTotalsUseCaseProvider)(period);
+
+/// Every recorded transaction, newest first.
+///
+/// Deliberately unfiltered: the category suggestions look at a shop's whole
+/// history, which the visible month would cut off.
+@riverpod
+Stream<List<Transaction>> allTransactions(Ref ref) =>
+    ref.watch(watchTransactionsUseCaseProvider)(const TransactionFilter());

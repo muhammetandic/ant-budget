@@ -12,7 +12,9 @@ no receipt image ever leaves the device.
 - **Categories** — add, rename, restyle and delete the categories transactions
   are filed under; a category that is still in use cannot be deleted.
 - **Receipt scanning** — photograph a receipt; the OCR text is parsed into
-  merchant, amount, and date, then presented for review before saving.
+  merchant, amount, and date, then presented for review before saving. The
+  category is preselected from the shop: what you filed that shop under last
+  time, falling back to a catalogue of common chains.
 - **Turkish & English** — the UI, dates and amounts follow the device language;
   Turkish is the fallback for anything else.
 

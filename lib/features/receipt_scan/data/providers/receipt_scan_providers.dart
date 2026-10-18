@@ -6,6 +6,7 @@ import 'package:ant_budget/features/receipt_scan/domain/parsing/amount_parser_st
 import 'package:ant_budget/features/receipt_scan/domain/parsing/date_parser_strategy.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/merchant_parser_strategy.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/receipt_parser_pipeline.dart';
+import 'package:ant_budget/features/receipt_scan/domain/usecases/suggest_category_usecase.dart';
 import 'package:ant_budget/features/receipt_scan/domain/services/ocr_service.dart';
 import 'package:ant_budget/features/receipt_scan/domain/usecases/scan_receipt_usecase.dart';
 
@@ -50,3 +51,8 @@ ScanReceiptUseCase scanReceiptUseCase(Ref ref) => ScanReceiptUseCase(
   ref.watch(ocrServiceProvider),
   ref.watch(receiptParserPipelineProvider),
 );
+
+/// The suggestion use case: a category for the merchant the parser found.
+@riverpod
+SuggestCategoryUseCase suggestCategoryUseCase(Ref ref) =>
+    const SuggestCategoryUseCase();
