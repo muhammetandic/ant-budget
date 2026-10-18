@@ -12,6 +12,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get actionAdd => 'Add';
 
   @override
+  String get actionCancel => 'Cancel';
+
+  @override
+  String get actionDelete => 'Delete';
+
+  @override
   String get actionEdit => 'Edit';
 
   @override
@@ -34,6 +40,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navBudget => 'Budget';
+
+  @override
+  String get navCategories => 'Categories';
 
   @override
   String get dashboardScanTooltip => 'Scan a receipt';
@@ -169,6 +178,56 @@ class AppLocalizationsEn extends AppLocalizations {
   String get transactionUntitled => 'Untitled transaction';
 
   @override
+  String get categoriesTitle => 'Categories';
+
+  @override
+  String get categoriesEmpty => 'No categories yet.';
+
+  @override
+  String get categoriesAddTooltip => 'Add category';
+
+  @override
+  String get categoryNewTitle => 'New category';
+
+  @override
+  String get categoryEditTitle => 'Edit category';
+
+  @override
+  String get categorySaved => 'Category saved.';
+
+  @override
+  String get categoryDeleted => 'Category deleted.';
+
+  @override
+  String get fieldCategoryName => 'Name';
+
+  @override
+  String get fieldCategoryIcon => 'Icon';
+
+  @override
+  String get fieldCategoryColor => 'Colour';
+
+  @override
+  String categoryUsage(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count transactions',
+      one: '1 transaction',
+      zero: 'No transactions',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get categoryDeleteTitle => 'Delete category?';
+
+  @override
+  String categoryDeleteConfirm(String name) {
+    return 'Delete $name? This cannot be undone.';
+  }
+
+  @override
   String get categoryGroceries => 'Groceries';
 
   @override
@@ -239,6 +298,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorTransactionNotFound => 'That transaction no longer exists.';
 
   @override
+  String get errorCategoryNotFound => 'That category no longer exists.';
+
+  @override
   String get errorNotFound => 'The requested item could not be found.';
 
   @override
@@ -261,4 +323,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String errorBudgetCurrency(String code) {
     return 'Budgets are tracked in $code.';
   }
+
+  @override
+  String get errorCategoryNameEmpty => 'Give the category a name.';
+
+  @override
+  String get errorCategoryNameTooLong =>
+      'The name can be at most 60 characters.';
+
+  @override
+  String get errorCategoryInUse =>
+      'This category is used by transactions, so it cannot be deleted.';
 }

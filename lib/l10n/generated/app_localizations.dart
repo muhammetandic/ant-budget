@@ -104,6 +104,18 @@ abstract class AppLocalizations {
   /// **'Add'**
   String get actionAdd;
 
+  /// No description provided for @actionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get actionCancel;
+
+  /// No description provided for @actionDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get actionDelete;
+
   /// No description provided for @actionEdit.
   ///
   /// In en, this message translates to:
@@ -151,6 +163,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Budget'**
   String get navBudget;
+
+  /// No description provided for @navCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get navCategories;
 
   /// No description provided for @dashboardScanTooltip.
   ///
@@ -386,6 +404,84 @@ abstract class AppLocalizations {
   /// **'Untitled transaction'**
   String get transactionUntitled;
 
+  /// No description provided for @categoriesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categoriesTitle;
+
+  /// No description provided for @categoriesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No categories yet.'**
+  String get categoriesEmpty;
+
+  /// No description provided for @categoriesAddTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Add category'**
+  String get categoriesAddTooltip;
+
+  /// No description provided for @categoryNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New category'**
+  String get categoryNewTitle;
+
+  /// No description provided for @categoryEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit category'**
+  String get categoryEditTitle;
+
+  /// No description provided for @categorySaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Category saved.'**
+  String get categorySaved;
+
+  /// No description provided for @categoryDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Category deleted.'**
+  String get categoryDeleted;
+
+  /// No description provided for @fieldCategoryName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get fieldCategoryName;
+
+  /// No description provided for @fieldCategoryIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get fieldCategoryIcon;
+
+  /// No description provided for @fieldCategoryColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Colour'**
+  String get fieldCategoryColor;
+
+  /// No description provided for @categoryUsage.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No transactions} =1{1 transaction} other{{count} transactions}}'**
+  String categoryUsage(int count);
+
+  /// No description provided for @categoryDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete category?'**
+  String get categoryDeleteTitle;
+
+  /// No description provided for @categoryDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name}? This cannot be undone.'**
+  String categoryDeleteConfirm(String name);
+
   /// No description provided for @categoryGroceries.
   ///
   /// In en, this message translates to:
@@ -512,6 +608,12 @@ abstract class AppLocalizations {
   /// **'That transaction no longer exists.'**
   String get errorTransactionNotFound;
 
+  /// No description provided for @errorCategoryNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'That category no longer exists.'**
+  String get errorCategoryNotFound;
+
   /// No description provided for @errorNotFound.
   ///
   /// In en, this message translates to:
@@ -553,6 +655,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Budgets are tracked in {code}.'**
   String errorBudgetCurrency(String code);
+
+  /// No description provided for @errorCategoryNameEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Give the category a name.'**
+  String get errorCategoryNameEmpty;
+
+  /// No description provided for @errorCategoryNameTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'The name can be at most 60 characters.'**
+  String get errorCategoryNameTooLong;
+
+  /// No description provided for @errorCategoryInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'This category is used by transactions, so it cannot be deleted.'**
+  String get errorCategoryInUse;
 }
 
 class _AppLocalizationsDelegate

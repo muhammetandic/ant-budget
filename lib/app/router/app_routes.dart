@@ -15,6 +15,9 @@ abstract final class AppRoutes {
   /// Budget tab.
   static const String budget = '/budget';
 
+  /// Category management tab.
+  static const String categories = '/categories';
+
   /// Camera screen used to photograph a receipt.
   static const String scan = '/scan';
 

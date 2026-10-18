@@ -37,11 +37,15 @@ String _validation(AppLocalizations l10n, ValidationIssue issue) =>
       ValidationIssue.budgetCurrencyMismatch => l10n.errorBudgetCurrency(
         AppConfig.reportingCurrency.code,
       ),
+      ValidationIssue.categoryNameEmpty => l10n.errorCategoryNameEmpty,
+      ValidationIssue.categoryNameTooLong => l10n.errorCategoryNameTooLong,
+      ValidationIssue.categoryInUse => l10n.errorCategoryInUse,
     };
 
 String _notFound(AppLocalizations l10n, String entityType) =>
-    switch (entityType) {
+    switch (entityType.toLowerCase()) {
       'transaction' => l10n.errorTransactionNotFound,
+      'category' => l10n.errorCategoryNotFound,
       _ => l10n.errorNotFound,
     };
 

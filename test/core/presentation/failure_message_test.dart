@@ -37,6 +37,25 @@ void main() {
       expect(failureMessageFor(tr, failure), 'Bu işlem artık mevcut değil.');
     });
 
+    test('matches the entity type regardless of case', () {
+      const failure = NotFoundFailure(
+        message: 'That category no longer exists.',
+        entityType: 'Category',
+      );
+      expect(failureMessageFor(tr, failure), 'Bu kategori artık mevcut değil.');
+    });
+
+    test('translates the in-use rule of a category', () {
+      const failure = ValidationFailure(
+        message: 'This category still has transactions.',
+        issue: ValidationIssue.categoryInUse,
+      );
+      expect(
+        failureMessageFor(tr, failure),
+        'Bu kategori işlemlerde kullanıldığı için silinemez.',
+      );
+    });
+
     test('translates the OCR and camera codes', () {
       const noText = OcrFailure(
         message: 'No readable text was found on the receipt.',

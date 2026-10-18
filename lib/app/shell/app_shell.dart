@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ant_budget/app/router/app_routes.dart';
 import 'package:ant_budget/l10n/l10n.dart';
 
-/// Scaffold hosting the bottom navigation of the three top level tabs.
+/// Scaffold hosting the bottom navigation of the four top level tabs.
 ///
 /// The visible tab is derived from the current location, so the shell holds no
 /// navigation state of its own; go_router remains the single source of truth.
@@ -20,11 +20,13 @@ class AppShell extends StatelessWidget {
     AppRoutes.dashboard,
     AppRoutes.transactions,
     AppRoutes.budget,
+    AppRoutes.categories,
   ];
 
   int get _selectedIndex => switch (location) {
     AppRoutes.transactions => 1,
     AppRoutes.budget => 2,
+    AppRoutes.categories => 3,
     _ => 0,
   };
 
@@ -51,6 +53,11 @@ class AppShell extends StatelessWidget {
             icon: const Icon(Icons.savings_outlined),
             selectedIcon: const Icon(Icons.savings),
             label: l10n.navBudget,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.category_outlined),
+            selectedIcon: const Icon(Icons.category),
+            label: l10n.navCategories,
           ),
         ],
       ),

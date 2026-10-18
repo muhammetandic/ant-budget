@@ -2,6 +2,8 @@
   "@@locale": "en",
 
   "actionAdd": "Add",
+  "actionCancel": "Cancel",
+  "actionDelete": "Delete",
   "actionEdit": "Edit",
   "actionSave": "Save",
   "actionSeeAll": "See all",
@@ -11,6 +13,7 @@
   "navOverview": "Overview",
   "navTransactions": "Transactions",
   "navBudget": "Budget",
+  "navCategories": "Categories",
 
   "dashboardScanTooltip": "Scan a receipt",
   "dashboardRecentTransactions": "Recent transactions",
@@ -94,6 +97,30 @@
 
   "transactionUntitled": "Untitled transaction",
 
+  "categoriesTitle": "Categories",
+  "categoriesEmpty": "No categories yet.",
+  "categoriesAddTooltip": "Add category",
+  "categoryNewTitle": "New category",
+  "categoryEditTitle": "Edit category",
+  "categorySaved": "Category saved.",
+  "categoryDeleted": "Category deleted.",
+  "fieldCategoryName": "Name",
+  "fieldCategoryIcon": "Icon",
+  "fieldCategoryColor": "Colour",
+  "categoryUsage": "{count, plural, =0{No transactions} =1{1 transaction} other{{count} transactions}}",
+  "@categoryUsage": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "categoryDeleteTitle": "Delete category?",
+  "categoryDeleteConfirm": "Delete {name}? This cannot be undone.",
+  "@categoryDeleteConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+
   "categoryGroceries": "Groceries",
   "categoryDining": "Dining out",
   "categoryTransport": "Transport",
@@ -116,6 +143,7 @@
   "errorParseNoAmount": "No total amount could be found on the receipt.",
   "errorParseEmpty": "The scanned receipt does not contain any readable text.",
   "errorTransactionNotFound": "That transaction no longer exists.",
+  "errorCategoryNotFound": "That category no longer exists.",
   "errorNotFound": "The requested item could not be found.",
   "errorAmountNotPositive": "Enter an amount greater than zero.",
   "errorCategoryMissing": "Choose a category for this transaction.",
@@ -127,5 +155,8 @@
     "placeholders": {
       "code": { "type": "String" }
     }
-  }
+  },
+  "errorCategoryNameEmpty": "Give the category a name.",
+  "errorCategoryNameTooLong": "The name can be at most 60 characters.",
+  "errorCategoryInUse": "This category is used by transactions, so it cannot be deleted."
 }

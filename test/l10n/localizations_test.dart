@@ -25,4 +25,13 @@ void main() {
     expect(tr.categoryGroceries, 'Market');
     expect(en.categoryGroceries, 'Groceries');
   });
+
+  test('plurals follow the language', () {
+    expect(en.categoryUsage(0), 'No transactions');
+    expect(en.categoryUsage(1), '1 transaction');
+    expect(en.categoryUsage(4), '4 transactions');
+    // Turkish has a single plural form, so only `other` is spelled out.
+    expect(tr.categoryUsage(0), 'İşlem yok');
+    expect(tr.categoryUsage(4), '4 işlem');
+  });
 }

@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ant_budget/app/router/app_routes.dart';
 import 'package:ant_budget/app/shell/app_shell.dart';
 import 'package:ant_budget/features/budget/presentation/screens/budget_screen.dart';
+import 'package:ant_budget/features/categories/presentation/screens/categories_screen.dart';
 import 'package:ant_budget/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:ant_budget/features/receipt_scan/presentation/screens/receipt_capture_screen.dart';
 import 'package:ant_budget/features/receipt_scan/presentation/screens/receipt_review_screen.dart';
@@ -13,7 +14,7 @@ part 'app_router.g.dart';
 
 /// The application's [GoRouter] configuration.
 ///
-/// The three tabs live inside a [ShellRoute] so the bottom bar survives tab
+/// The four tabs live inside a [ShellRoute] so the bottom bar survives tab
 /// switches, while creation/scanning screens are pushed above the shell.
 @riverpod
 GoRouter appRouter(Ref ref) => GoRouter(
@@ -34,6 +35,10 @@ GoRouter appRouter(Ref ref) => GoRouter(
         GoRoute(
           path: AppRoutes.budget,
           builder: (_, _) => const BudgetScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.categories,
+          builder: (_, _) => const CategoriesScreen(),
         ),
       ],
     ),

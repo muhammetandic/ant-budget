@@ -9,6 +9,8 @@ no receipt image ever leaves the device.
 - **Dashboard** — monthly income/expense summary and budget progress at a glance.
 - **Transactions** — browse by month, filter, add, and delete.
 - **Budgets** — set a monthly limit per category and watch spending against it.
+- **Categories** — add, rename, restyle and delete the categories transactions
+  are filed under; a category that is still in use cannot be deleted.
 - **Receipt scanning** — photograph a receipt; the OCR text is parsed into
   merchant, amount, and date, then presented for review before saving.
 - **Turkish & English** — the UI, dates and amounts follow the device language;
@@ -27,7 +29,7 @@ lib/
 │   ├── app.dart                  # Root MaterialApp.router
 │   ├── app_composition.dart      # appProviderOverrides (wires concrete adapters/seeders)
 │   ├── router/                   # go_router config + route names
-│   └── shell/app_shell.dart      # Bottom-nav shell for the three tabs
+│   └── shell/app_shell.dart      # Bottom-nav shell for the four tabs
 ├── core/                         # Shared, feature-agnostic building blocks
 │   ├── error/                    # Result/Ok/Err, sealed Failure, FailureMapper
 │   ├── values/                   # Money, Currency, YearMonth, enums
@@ -38,7 +40,7 @@ lib/
 └── features/
     ├── dashboard/                # Read-only monthly overview
     ├── transactions/             # domain/ · data/ · presentation/
-    ├── categories/
+    ├── categories/               # seeded + user managed, CRUD use cases
     ├── budget/
     └── receipt_scan/             # domain/parsing strategies + ML Kit/camera adapters
 ```

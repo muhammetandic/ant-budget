@@ -70,6 +70,15 @@ enum ValidationIssue {
 
   /// A budget was entered in a currency other than the reporting one.
   budgetCurrencyMismatch,
+
+  /// A category was submitted without a name.
+  categoryNameEmpty,
+
+  /// A category name exceeded the maximum length.
+  categoryNameTooLong,
+
+  /// A category still has transactions, so deleting it would orphan them.
+  categoryInUse,
 }
 
 /// A requested entity does not exist (or no longer exists).

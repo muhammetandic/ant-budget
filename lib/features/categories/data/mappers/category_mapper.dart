@@ -21,4 +21,16 @@ abstract final class CategoryMapper {
         colorValue: category.colorValue,
         isDefault: Value(category.isDefault),
       );
+
+  /// Builds a companion for insert *or* update.
+  ///
+  /// The id stays absent so the same companion can be written to an existing
+  /// row; [CategoryDao] decides which statement to run from the entity's id.
+  static CategoriesCompanion toWriteCompanion(Category category) =>
+      CategoriesCompanion(
+        name: Value(category.name),
+        icon: Value(category.icon),
+        colorValue: Value(category.colorValue),
+        isDefault: Value(category.isDefault),
+      );
 }

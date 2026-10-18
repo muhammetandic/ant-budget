@@ -1,7 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ant_budget/features/categories/data/providers/category_data_providers.dart';
 import 'package:ant_budget/features/categories/domain/entities/category.dart';
+import 'package:ant_budget/features/categories/domain/usecases/delete_category_usecase.dart';
+import 'package:ant_budget/features/categories/domain/usecases/save_category_usecase.dart';
 import 'package:ant_budget/features/categories/domain/usecases/watch_categories_usecase.dart';
+import 'package:ant_budget/features/categories/domain/usecases/watch_category_usage_usecase.dart';
 
 part 'category_providers.g.dart';
 
@@ -33,3 +36,23 @@ Map<int, Category> categoryIndex(Ref ref) {
   }
   return index;
 }
+
+/// Number of transactions filed under each category, keyed by category id.
+///
+/// The management screen renders this so the user can see *why* a category
+/// cannot be deleted before they try.
+@riverpod
+Stream<Map<int, int>> categoryUsage(Ref ref) =>
+    ref.watch(watchCategoryUsageUseCaseProvider)();
+
+@riverpod
+WatchCategoryUsageUseCase watchCategoryUsageUseCase(Ref ref) =>
+    WatchCategoryUsageUseCase(ref.watch(categoryRepositoryProvider));
+
+@riverpod
+SaveCategoryUseCase saveCategoryUseCase(Ref ref) =>
+    SaveCategoryUseCase(ref.watch(categoryRepositoryProvider));
+
+@riverpod
+DeleteCategoryUseCase deleteCategoryUseCase(Ref ref) =>
+    DeleteCategoryUseCase(ref.watch(categoryRepositoryProvider));

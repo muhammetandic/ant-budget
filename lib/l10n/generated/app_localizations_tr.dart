@@ -12,6 +12,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get actionAdd => 'Ekle';
 
   @override
+  String get actionCancel => 'Vazgeç';
+
+  @override
+  String get actionDelete => 'Sil';
+
+  @override
   String get actionEdit => 'Düzenle';
 
   @override
@@ -34,6 +40,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get navBudget => 'Bütçe';
+
+  @override
+  String get navCategories => 'Kategoriler';
 
   @override
   String get dashboardScanTooltip => 'Fiş tara';
@@ -169,6 +178,55 @@ class AppLocalizationsTr extends AppLocalizations {
   String get transactionUntitled => 'Adsız işlem';
 
   @override
+  String get categoriesTitle => 'Kategoriler';
+
+  @override
+  String get categoriesEmpty => 'Henüz kategori yok.';
+
+  @override
+  String get categoriesAddTooltip => 'Kategori ekle';
+
+  @override
+  String get categoryNewTitle => 'Yeni kategori';
+
+  @override
+  String get categoryEditTitle => 'Kategoriyi düzenle';
+
+  @override
+  String get categorySaved => 'Kategori kaydedildi.';
+
+  @override
+  String get categoryDeleted => 'Kategori silindi.';
+
+  @override
+  String get fieldCategoryName => 'Ad';
+
+  @override
+  String get fieldCategoryIcon => 'Simge';
+
+  @override
+  String get fieldCategoryColor => 'Renk';
+
+  @override
+  String categoryUsage(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count işlem',
+      zero: 'İşlem yok',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get categoryDeleteTitle => 'Kategori silinsin mi?';
+
+  @override
+  String categoryDeleteConfirm(String name) {
+    return '$name silinsin mi? Bu işlem geri alınamaz.';
+  }
+
+  @override
   String get categoryGroceries => 'Market';
 
   @override
@@ -234,6 +292,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get errorTransactionNotFound => 'Bu işlem artık mevcut değil.';
 
   @override
+  String get errorCategoryNotFound => 'Bu kategori artık mevcut değil.';
+
+  @override
   String get errorNotFound => 'İstenen kayıt bulunamadı.';
 
   @override
@@ -255,4 +316,14 @@ class AppLocalizationsTr extends AppLocalizations {
   String errorBudgetCurrency(String code) {
     return 'Bütçeler $code cinsinden tutulur.';
   }
+
+  @override
+  String get errorCategoryNameEmpty => 'Kategoriye bir ad verin.';
+
+  @override
+  String get errorCategoryNameTooLong => 'Ad en fazla 60 karakter olabilir.';
+
+  @override
+  String get errorCategoryInUse =>
+      'Bu kategori işlemlerde kullanıldığı için silinemez.';
 }
