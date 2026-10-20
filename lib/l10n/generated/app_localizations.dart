@@ -170,6 +170,12 @@ abstract class AppLocalizations {
   /// **'Categories'**
   String get navCategories;
 
+  /// No description provided for @navReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get navReports;
+
   /// No description provided for @dashboardScanTooltip.
   ///
   /// In en, this message translates to:
@@ -535,6 +541,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get categoryOther;
+
+  /// No description provided for @reportsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get reportsTitle;
+
+  /// No description provided for @reportsTotalExpenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Total expenses'**
+  String get reportsTotalExpenses;
+
+  /// No description provided for @reportsByCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses by category'**
+  String get reportsByCategory;
+
+  /// No description provided for @reportsByMerchant.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses by shop'**
+  String get reportsByMerchant;
+
+  /// No description provided for @reportsNoExpenses.
+  ///
+  /// In en, this message translates to:
+  /// **'No expenses recorded for this month.'**
+  String get reportsNoExpenses;
+
+  /// No description provided for @reportsNoMerchants.
+  ///
+  /// In en, this message translates to:
+  /// **'No expenses recorded with a shop.'**
+  String get reportsNoMerchants;
+
+  /// No description provided for @reportsUnknownCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown category'**
+  String get reportsUnknownCategory;
+
+  /// No description provided for @reportsOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get reportsOther;
+
+  /// No description provided for @reportsShare.
+  ///
+  /// In en, this message translates to:
+  /// **'{value}%'**
+  String reportsShare(int value);
+
+  /// No description provided for @reportsTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No transactions} other{{count} transactions}}'**
+  String reportsTransactions(int count);
 
   /// No description provided for @errorUnknown.
   ///

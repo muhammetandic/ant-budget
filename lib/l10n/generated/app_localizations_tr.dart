@@ -45,6 +45,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navCategories => 'Kategoriler';
 
   @override
+  String get navReports => 'Raporlar';
+
+  @override
   String get dashboardScanTooltip => 'Fiş tara';
 
   @override
@@ -252,6 +255,46 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get categoryOther => 'Diğer';
+
+  @override
+  String get reportsTitle => 'Raporlar';
+
+  @override
+  String get reportsTotalExpenses => 'Toplam gider';
+
+  @override
+  String get reportsByCategory => 'Kategoriye göre giderler';
+
+  @override
+  String get reportsByMerchant => 'İşyerine göre giderler';
+
+  @override
+  String get reportsNoExpenses => 'Bu ay için gider kaydı yok.';
+
+  @override
+  String get reportsNoMerchants => 'İşyeri bilgisi olan gider kaydı yok.';
+
+  @override
+  String get reportsUnknownCategory => 'Bilinmeyen kategori';
+
+  @override
+  String get reportsOther => 'Diğer';
+
+  @override
+  String reportsShare(int value) {
+    return '%$value';
+  }
+
+  @override
+  String reportsTransactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count işlem',
+      zero: 'İşlem yok',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get errorUnknown => 'Bir şeyler ters gitti. Lütfen tekrar deneyin.';

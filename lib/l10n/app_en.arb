@@ -14,6 +14,7 @@
   "navTransactions": "Transactions",
   "navBudget": "Budget",
   "navCategories": "Categories",
+  "navReports": "Reports",
 
   "dashboardScanTooltip": "Scan a receipt",
   "dashboardRecentTransactions": "Recent transactions",
@@ -130,6 +131,27 @@
   "categoryEntertainment": "Entertainment",
   "categorySalary": "Salary",
   "categoryOther": "Other",
+
+  "reportsTitle": "Reports",
+  "reportsTotalExpenses": "Total expenses",
+  "reportsByCategory": "Expenses by category",
+  "reportsByMerchant": "Expenses by shop",
+  "reportsNoExpenses": "No expenses recorded for this month.",
+  "reportsNoMerchants": "No expenses recorded with a shop.",
+  "reportsUnknownCategory": "Unknown category",
+  "reportsOther": "Other",
+  "reportsShare": "{value}%",
+  "@reportsShare": {
+    "placeholders": {
+      "value": { "type": "int" }
+    }
+  },
+  "reportsTransactions": "{count, plural, =0{No transactions} other{{count} transactions}}",
+  "@reportsTransactions": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
 
   "errorUnknown": "Something went wrong. Please try again.",
   "errorStorage": "The local database could not complete the operation.",

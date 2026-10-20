@@ -10,7 +10,7 @@ part of 'app_router.dart';
 // ignore_for_file: type=lint, type=warning
 /// The application's [GoRouter] configuration.
 ///
-/// The four tabs live inside a [ShellRoute] so the bottom bar survives tab
+/// The five tabs live inside a [ShellRoute] so the bottom bar survives tab
 /// switches, while creation/scanning screens are pushed above the shell.
 
 @ProviderFor(appRouter)
@@ -18,7 +18,7 @@ final appRouterProvider = AppRouterProvider._();
 
 /// The application's [GoRouter] configuration.
 ///
-/// The four tabs live inside a [ShellRoute] so the bottom bar survives tab
+/// The five tabs live inside a [ShellRoute] so the bottom bar survives tab
 /// switches, while creation/scanning screens are pushed above the shell.
 
 final class AppRouterProvider
@@ -26,7 +26,7 @@ final class AppRouterProvider
     with $Provider<GoRouter> {
   /// The application's [GoRouter] configuration.
   ///
-  /// The four tabs live inside a [ShellRoute] so the bottom bar survives tab
+  /// The five tabs live inside a [ShellRoute] so the bottom bar survives tab
   /// switches, while creation/scanning screens are pushed above the shell.
   AppRouterProvider._()
     : super(
@@ -61,4 +61,4 @@ final class AppRouterProvider
   }
 }
 
-String _$appRouterHash() => r'36a6467be4c5bfb1fdbebd15acb79e6d6700f430';
+String _$appRouterHash() => r'666e1ba43b42ce80c512794cb0d598a90c2493d8';

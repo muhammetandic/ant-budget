@@ -45,6 +45,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navCategories => 'Categories';
 
   @override
+  String get navReports => 'Reports';
+
+  @override
   String get dashboardScanTooltip => 'Scan a receipt';
 
   @override
@@ -253,6 +256,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get categoryOther => 'Other';
+
+  @override
+  String get reportsTitle => 'Reports';
+
+  @override
+  String get reportsTotalExpenses => 'Total expenses';
+
+  @override
+  String get reportsByCategory => 'Expenses by category';
+
+  @override
+  String get reportsByMerchant => 'Expenses by shop';
+
+  @override
+  String get reportsNoExpenses => 'No expenses recorded for this month.';
+
+  @override
+  String get reportsNoMerchants => 'No expenses recorded with a shop.';
+
+  @override
+  String get reportsUnknownCategory => 'Unknown category';
+
+  @override
+  String get reportsOther => 'Other';
+
+  @override
+  String reportsShare(int value) {
+    return '$value%';
+  }
+
+  @override
+  String reportsTransactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count transactions',
+      zero: 'No transactions',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get errorUnknown => 'Something went wrong. Please try again.';

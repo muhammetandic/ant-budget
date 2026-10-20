@@ -11,6 +11,10 @@ no receipt image ever leaves the device.
 - **Budgets** — set a monthly limit per category and watch spending against it.
 - **Categories** — add, rename, restyle and delete the categories transactions
   are filed under; a category that is still in use cannot be deleted.
+- **Reports** — where the money went: the selected month's expenses split by
+  category (donut graph) and by shop (ranked bars), each with a legend of
+  amounts, shares and counts. Shops are matched across spellings, so `ŞOK` and
+  `sok market` add up to one row.
 - **Receipt scanning** — photograph a receipt; the OCR text is parsed into
   merchant, amount, and date, then presented for review before saving. The
   category is preselected from the shop: what you filed that shop under last
@@ -31,7 +35,7 @@ lib/
 │   ├── app.dart                  # Root MaterialApp.router
 │   ├── app_composition.dart      # appProviderOverrides (wires concrete adapters/seeders)
 │   ├── router/                   # go_router config + route names
-│   └── shell/app_shell.dart      # Bottom-nav shell for the four tabs
+│   └── shell/app_shell.dart      # Bottom-nav shell for the five tabs
 ├── core/                         # Shared, feature-agnostic building blocks
 │   ├── error/                    # Result/Ok/Err, sealed Failure, FailureMapper
 │   ├── values/                   # Money, Currency, YearMonth, enums
@@ -44,6 +48,7 @@ lib/
     ├── transactions/             # domain/ · data/ · presentation/
     ├── categories/               # seeded + user managed, CRUD use cases
     ├── budget/
+    ├── reports/                   # expense breakdowns + the donut painter
     └── receipt_scan/             # domain/parsing strategies + ML Kit/camera adapters
 ```
 
