@@ -16,7 +16,7 @@ part 'app_database.g.dart';
 /// It is opened once (see `appDatabaseProvider`) and shared by every feature
 /// data source. DAOs live inside their feature and only receive this instance,
 /// which keeps query logic close to the feature that owns it.
-@DriftDatabase(tables: [Budgets, Categories, Transactions])
+@DriftDatabase(tables: [Budgets, CategoryBudgets, Categories, Transactions])
 class AppDatabase extends _$AppDatabase {
   /// Creates the database on top of [executor].
   ///
@@ -28,12 +28,21 @@ class AppDatabase extends _$AppDatabase {
   final List<DatabaseSeeder> _seeders;
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (Migrator m) => m.createAll(),
+    onUpgrade: (Migrator m, int from, int to) async {
+      // v2 added per-category budgets. Devices already run v1 with real data,
+      // so the migration is purely additive: one new table, nothing reindexed.
+      if (from < 2) await m.createTable(categoryBudgets);
+    },
     beforeOpen: (OpeningDetails details) async {
+      // SQLite ignores foreign keys unless asked to; the cascade of
+      // `category_budgets.category_id` (and the guard on
+      // `transactions.category_id`) only exists while this is set.
+      await customStatement('PRAGMA foreign_keys = ON');
       if (!details.wasCreated) return;
       for (final seeder in _seeders) {
         await seeder.seed(this);

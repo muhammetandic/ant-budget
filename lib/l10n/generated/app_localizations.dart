@@ -380,6 +380,42 @@ abstract class AppLocalizations {
   /// **'{amount} left'**
   String budgetLeft(String amount);
 
+  /// No description provided for @budgetByCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget by category'**
+  String get budgetByCategory;
+
+  /// No description provided for @budgetCategoryAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add category budget'**
+  String get budgetCategoryAdd;
+
+  /// No description provided for @budgetCategoryNoneSet.
+  ///
+  /// In en, this message translates to:
+  /// **'No category budget set for this month.'**
+  String get budgetCategoryNoneSet;
+
+  /// No description provided for @budgetCategoryDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete budget?'**
+  String get budgetCategoryDeleteTitle;
+
+  /// No description provided for @budgetCategoryDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this month\'s budget for {name}?'**
+  String budgetCategoryDeleteConfirm(String name);
+
+  /// No description provided for @budgetCategoryDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Category budget deleted.'**
+  String get budgetCategoryDeleted;
+
   /// No description provided for @scanTitle.
   ///
   /// In en, this message translates to:

@@ -4,6 +4,7 @@ import 'package:ant_budget/core/values/money.dart';
 import 'package:ant_budget/core/values/unit.dart';
 import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/features/budget/domain/entities/budget.dart';
+import 'package:ant_budget/features/budget/domain/entities/category_budget.dart';
 
 /// Port describing how the domain stores monthly budgets.
 abstract interface class BudgetRepository {
@@ -14,5 +15,21 @@ abstract interface class BudgetRepository {
   Future<Result<Unit, Failure>> setLimit({
     required YearMonth period,
     required Money limit,
+  });
+
+  /// Emits every category budget of [period], ordered by category id.
+  Stream<List<CategoryBudget>> watchCategoryBudgets(YearMonth period);
+
+  /// Creates or replaces [categoryId]'s limit for [period].
+  Future<Result<Unit, Failure>> setCategoryLimit({
+    required YearMonth period,
+    required int categoryId,
+    required Money limit,
+  });
+
+  /// Removes [categoryId]'s limit for [period]; a no-op when there is none.
+  Future<Result<Unit, Failure>> deleteCategoryLimit({
+    required YearMonth period,
+    required int categoryId,
   });
 }

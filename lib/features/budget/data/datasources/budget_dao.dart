@@ -47,4 +47,62 @@ class BudgetDao {
           ),
         );
   }
+
+  /// Streams every category budget of [period], ordered by category id.
+  ///
+  /// The order is stable (category ids never change) so the list on screen
+  /// cannot reshuffle while the user is reading it; labels are resolved by the
+  /// presentation layer.
+  Stream<List<CategoryBudgetDto>> watchCategoryBudgets(YearMonth period) =>
+      (_database.select(_database.categoryBudgets)
+            ..where(
+              (b) => b.year.equals(period.year) & b.month.equals(period.month),
+            )
+            ..orderBy([(b) => OrderingTerm.asc(b.categoryId)]))
+          .watch()
+          .mapErrorsToFailures();
+
+  /// Inserts [categoryId]'s limit for [period] or replaces the stored one.
+  ///
+  /// Keyed on `(year, month, categoryId)` like the month's own limit, so
+  /// setting a budget twice updates the row instead of duplicating it.
+  Future<int> upsertCategoryLimit({
+    required YearMonth period,
+    required int categoryId,
+    required Money limit,
+  }) {
+    final table = _database.categoryBudgets;
+    return _database
+        .into(table)
+        .insert(
+          CategoryBudgetsCompanion.insert(
+            year: period.year,
+            month: period.month,
+            categoryId: categoryId,
+            limitMinorUnits: limit.minorUnits,
+            currency: limit.currency,
+          ),
+          onConflict: DoUpdate(
+            (_) => CategoryBudgetsCompanion(
+              limitMinorUnits: Value(limit.minorUnits),
+              currency: Value(limit.currency),
+            ),
+            target: [table.year, table.month, table.categoryId],
+          ),
+        );
+  }
+
+  /// Deletes [categoryId]'s budget for [period]; returns the rows removed.
+  Future<int> deleteCategoryLimit({
+    required YearMonth period,
+    required int categoryId,
+  }) =>
+      (_database.delete(_database.categoryBudgets)
+            ..where(
+              (b) =>
+                  b.year.equals(period.year) &
+                  b.month.equals(period.month) &
+                  b.categoryId.equals(categoryId),
+            ))
+          .go();
 }

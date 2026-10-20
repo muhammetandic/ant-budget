@@ -26,6 +26,12 @@ final class _FakeTransactionRepository implements TransactionRepository {
       Stream.value(MonthlyTotals.empty(period, currency));
 
   @override
+  Stream<Map<int, Money>> watchExpenseTotalsByCategory(
+    YearMonth period,
+    Currency currency,
+  ) => Stream.value(const <int, Money>{});
+
+  @override
   Future<Result<int, Failure>> save(Transaction transaction) async {
     saved.add(transaction);
     return Result.success(saved.length);

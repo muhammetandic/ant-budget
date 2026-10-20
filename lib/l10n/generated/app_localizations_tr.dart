@@ -165,6 +165,27 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get budgetByCategory => 'Kategoriye göre bütçe';
+
+  @override
+  String get budgetCategoryAdd => 'Kategori bütçesi ekle';
+
+  @override
+  String get budgetCategoryNoneSet =>
+      'Bu ay için kategori bütçesi belirlenmedi.';
+
+  @override
+  String get budgetCategoryDeleteTitle => 'Bütçe silinsin mi?';
+
+  @override
+  String budgetCategoryDeleteConfirm(String name) {
+    return '$name kategorisi için bu ayın bütçesi silinsin mi?';
+  }
+
+  @override
+  String get budgetCategoryDeleted => 'Kategori bütçesi silindi.';
+
+  @override
   String get scanTitle => 'Fiş tara';
 
   @override

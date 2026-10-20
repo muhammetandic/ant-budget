@@ -165,6 +165,26 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get budgetByCategory => 'Budget by category';
+
+  @override
+  String get budgetCategoryAdd => 'Add category budget';
+
+  @override
+  String get budgetCategoryNoneSet => 'No category budget set for this month.';
+
+  @override
+  String get budgetCategoryDeleteTitle => 'Delete budget?';
+
+  @override
+  String budgetCategoryDeleteConfirm(String name) {
+    return 'Delete this month\'s budget for $name?';
+  }
+
+  @override
+  String get budgetCategoryDeleted => 'Category budget deleted.';
+
+  @override
   String get scanTitle => 'Scan a receipt';
 
   @override

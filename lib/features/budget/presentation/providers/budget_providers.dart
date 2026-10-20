@@ -2,9 +2,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ant_budget/core/config/app_config.dart';
 import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/features/budget/data/providers/budget_data_providers.dart';
+import 'package:ant_budget/features/budget/domain/usecases/delete_category_budget_usecase.dart';
 import 'package:ant_budget/features/budget/domain/usecases/set_budget_limit_usecase.dart';
+import 'package:ant_budget/features/budget/domain/usecases/set_category_budget_usecase.dart';
 import 'package:ant_budget/features/budget/domain/usecases/watch_budget_summary_usecase.dart';
+import 'package:ant_budget/features/budget/domain/usecases/watch_category_budgets_usecase.dart';
 import 'package:ant_budget/features/budget/domain/values/budget_summary.dart';
+import 'package:ant_budget/features/budget/domain/values/category_budget_summary.dart';
 import 'package:ant_budget/features/transactions/data/providers/transaction_data_providers.dart';
 
 part 'budget_providers.g.dart';
@@ -22,6 +26,22 @@ WatchBudgetSummaryUseCase watchBudgetSummaryUseCase(Ref ref) =>
       AppConfig.reportingCurrency,
     );
 
+@riverpod
+SetCategoryBudgetUseCase setCategoryBudgetUseCase(Ref ref) =>
+    SetCategoryBudgetUseCase(ref.watch(budgetRepositoryProvider));
+
+@riverpod
+DeleteCategoryBudgetUseCase deleteCategoryBudgetUseCase(Ref ref) =>
+    DeleteCategoryBudgetUseCase(ref.watch(budgetRepositoryProvider));
+
+@riverpod
+WatchCategoryBudgetsUseCase watchCategoryBudgetsUseCase(Ref ref) =>
+    WatchCategoryBudgetsUseCase(
+      ref.watch(budgetRepositoryProvider),
+      ref.watch(transactionRepositoryProvider),
+      AppConfig.reportingCurrency,
+    );
+
 /// The budget health of [period], reactively and auto-disposed per month.
 ///
 /// The read model is assembled by the use case from two reactive sources
@@ -30,3 +50,11 @@ WatchBudgetSummaryUseCase watchBudgetSummaryUseCase(Ref ref) =>
 @riverpod
 Stream<BudgetSummary> budgetSummary(Ref ref, YearMonth period) =>
     ref.watch(watchBudgetSummaryUseCaseProvider)(period);
+
+/// The category budgets of [period] with their live spending, auto-disposed
+/// per month, following the same assembly as [budgetSummaryProvider].
+@riverpod
+Stream<List<CategoryBudgetSummary>> categoryBudgets(
+  Ref ref,
+  YearMonth period,
+) => ref.watch(watchCategoryBudgetsUseCaseProvider)(period);

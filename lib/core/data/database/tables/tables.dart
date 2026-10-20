@@ -6,4 +6,5 @@ library;
 
 export 'budgets_table.dart';
 export 'categories_table.dart';
+export 'category_budgets_table.dart';
 export 'transactions_table.dart';

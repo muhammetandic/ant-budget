@@ -55,6 +55,12 @@
   "budgetOverBudget": "Bütçe {amount} aşıldı",
   "budgetLeftNearLimit": "{amount} kaldı — limite yakın",
   "budgetLeft": "{amount} kaldı",
+  "budgetByCategory": "Kategoriye göre bütçe",
+  "budgetCategoryAdd": "Kategori bütçesi ekle",
+  "budgetCategoryNoneSet": "Bu ay için kategori bütçesi belirlenmedi.",
+  "budgetCategoryDeleteTitle": "Bütçe silinsin mi?",
+  "budgetCategoryDeleteConfirm": "{name} kategorisi için bu ayın bütçesi silinsin mi?",
+  "budgetCategoryDeleted": "Kategori bütçesi silindi.",
 
   "scanTitle": "Fiş tara",
   "scanInstruction": "Fişin tamamı çerçeveye sığsın, sonra deklanşöre dokunun.",

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ant_budget/core/utils/money_formatter.dart';
-import 'package:ant_budget/core/values/money.dart';
 import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/core/widgets/failure_view.dart';
 import 'package:ant_budget/features/budget/domain/values/budget_summary.dart';
 import 'package:ant_budget/features/budget/presentation/providers/budget_providers.dart';
+import 'package:ant_budget/features/budget/presentation/widgets/budget_status_palette.dart';
 import 'package:ant_budget/l10n/l10n.dart';
 
 /// Progress of [period]'s budget: spent amount, remaining and health colour.
@@ -46,7 +46,7 @@ class _BudgetContent extends StatelessWidget {
     final scheme = theme.colorScheme;
     final l10n = context.l10n;
     final language = l10n.localeName;
-    final color = _StatusPalette.colorFor(summary.status, scheme);
+    final color = BudgetStatusPalette.colorFor(summary.status, scheme);
     final limit = summary.limit;
 
     return Card(
@@ -116,7 +116,7 @@ class _BudgetContent extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                _StatusPalette.labelFor(context, summary),
+                BudgetStatusPalette.labelFor(context, summary.progress),
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: color,
                   fontWeight: FontWeight.w600,
@@ -127,35 +127,5 @@ class _BudgetContent extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-/// Maps a [BudgetStatus] onto colours and copy.
-///
-/// The mapping lives next to the card (not in the domain) because colours are a
-/// presentation concern; the *thresholds* that produce the status stay in the
-/// domain.
-abstract final class _StatusPalette {
-  static Color colorFor(BudgetStatus status, ColorScheme scheme) =>
-      switch (status) {
-        BudgetStatus.exceeded => scheme.error,
-        BudgetStatus.warning => Colors.orange.shade700,
-        BudgetStatus.healthy => scheme.primary,
-        BudgetStatus.noBudget => scheme.outline,
-      };
-
-  static String labelFor(BuildContext context, BudgetSummary summary) {
-    final l10n = context.l10n;
-    final language = l10n.localeName;
-    String format(Money money) =>
-        MoneyFormatter.format(money, languageCode: language);
-    return switch (summary.status) {
-      BudgetStatus.exceeded => l10n.budgetOverBudget(format(summary.overspend)),
-      BudgetStatus.warning => l10n.budgetLeftNearLimit(
-        format(summary.remaining),
-      ),
-      BudgetStatus.healthy => l10n.budgetLeft(format(summary.remaining)),
-      BudgetStatus.noBudget => '',
-    };
   }
 }

@@ -1,6 +1,7 @@
 import 'package:ant_budget/core/error/failure.dart';
 import 'package:ant_budget/core/error/result.dart';
 import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/money.dart';
 import 'package:ant_budget/core/values/transaction_kind.dart';
 import 'package:ant_budget/core/values/unit.dart';
 import 'package:ant_budget/core/values/year_month.dart';
@@ -53,6 +54,16 @@ final class TransactionRepositoryImpl implements TransactionRepository {
       ),
     );
   }
+
+  @override
+  Stream<Map<int, Money>> watchExpenseTotalsByCategory(
+    YearMonth period,
+    Currency currency,
+  ) => _dao.watchTotalsByCategory(
+    period: period,
+    kind: TransactionKind.expense,
+    currency: currency,
+  );
 
   @override
   Future<Result<int, Failure>> save(Transaction transaction) =>

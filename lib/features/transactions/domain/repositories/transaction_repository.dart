@@ -1,6 +1,7 @@
 import 'package:ant_budget/core/error/failure.dart';
 import 'package:ant_budget/core/error/result.dart';
 import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/money.dart';
 import 'package:ant_budget/core/values/unit.dart';
 import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
@@ -20,6 +21,17 @@ abstract interface class TransactionRepository {
   /// Emits the aggregated totals of [period] in [currency], re-emitting when
   /// either the transactions or their categories change.
   Stream<MonthlyTotals> watchMonthlyTotals(YearMonth period, Currency currency);
+
+  /// Emits the expenses of [period] per category in [currency], keyed by
+  /// category id.
+  ///
+  /// Categories without expenses in the month are absent from the map rather
+  /// than present with zero, which is what lets a consumer iterate only the
+  /// groups that actually spent something.
+  Stream<Map<int, Money>> watchExpenseTotalsByCategory(
+    YearMonth period,
+    Currency currency,
+  );
 
   /// Inserts [transaction] and returns its new database id.
   Future<Result<int, Failure>> save(Transaction transaction);

@@ -70,6 +70,44 @@ class TransactionDao {
         .mapErrorsToFailures();
   }
 
+  /// Sums the [kind] amounts of [period] *per category*, restricted to
+  /// [currency].
+  ///
+  /// SQLite does the grouping (`GROUP BY category_id`) and one row per category
+  /// travels into the domain; categories without a matching transaction produce
+  /// no row at all, which is the behaviour the budget feature relies on.
+  Stream<Map<int, Money>> watchTotalsByCategory({
+    required YearMonth period,
+    required TransactionKind kind,
+    required Currency currency,
+  }) {
+    final table = _database.transactions;
+    final categoryId = table.categoryId;
+    final total = table.amountMinorUnits.sum();
+    final query = _database.selectOnly(table)
+      ..addColumns([categoryId, total])
+      ..where(
+        table.occurredAt.isBiggerOrEqualValue(period.start) &
+            table.occurredAt.isSmallerThanValue(period.endExclusive) &
+            table.kind.equalsValue(kind) &
+            table.currency.equalsValue(currency),
+      )
+      ..groupBy([categoryId]);
+
+    return query
+        .watch()
+        .map((rows) {
+          final totals = <int, Money>{};
+          for (final row in rows) {
+            final id = row.read(categoryId);
+            if (id == null) continue;
+            totals[id] = Money(row.read(total) ?? 0, currency);
+          }
+          return totals;
+        })
+        .mapErrorsToFailures();
+  }
+
   /// Inserts a row and returns its auto generated id.
   Future<int> insert(TransactionsCompanion companion) =>
       _database.into(_database.transactions).insert(companion);

@@ -90,6 +90,17 @@
       "amount": { "type": "String" }
     }
   },
+  "budgetByCategory": "Budget by category",
+  "budgetCategoryAdd": "Add category budget",
+  "budgetCategoryNoneSet": "No category budget set for this month.",
+  "budgetCategoryDeleteTitle": "Delete budget?",
+  "budgetCategoryDeleteConfirm": "Delete this month's budget for {name}?",
+  "@budgetCategoryDeleteConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "budgetCategoryDeleted": "Category budget deleted.",
 
   "scanTitle": "Scan a receipt",
   "scanInstruction": "Fit the whole receipt in the frame, then tap the shutter.",
