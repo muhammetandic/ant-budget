@@ -109,6 +109,54 @@ final class AddTransactionUseCaseProvider
 String _$addTransactionUseCaseHash() =>
     r'27055c3f57b591fb8da382cb64ada0a34af8f3e0';
 
+@ProviderFor(updateTransactionUseCase)
+final updateTransactionUseCaseProvider = UpdateTransactionUseCaseProvider._();
+
+final class UpdateTransactionUseCaseProvider
+    extends
+        $FunctionalProvider<
+          UpdateTransactionUseCase,
+          UpdateTransactionUseCase,
+          UpdateTransactionUseCase
+        >
+    with $Provider<UpdateTransactionUseCase> {
+  UpdateTransactionUseCaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'updateTransactionUseCaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$updateTransactionUseCaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<UpdateTransactionUseCase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  UpdateTransactionUseCase create(Ref ref) {
+    return updateTransactionUseCase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UpdateTransactionUseCase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UpdateTransactionUseCase>(value),
+    );
+  }
+}
+
+String _$updateTransactionUseCaseHash() =>
+    r'e12667f2a4680defe1fc8a1bd5b97b4ab9bb9132';
+
 @ProviderFor(deleteTransactionUseCase)
 final deleteTransactionUseCaseProvider = DeleteTransactionUseCaseProvider._();
 

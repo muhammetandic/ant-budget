@@ -5,6 +5,7 @@ import 'package:ant_budget/features/transactions/data/providers/transaction_data
 import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
 import 'package:ant_budget/features/transactions/domain/usecases/add_transaction_usecase.dart';
 import 'package:ant_budget/features/transactions/domain/usecases/delete_transaction_usecase.dart';
+import 'package:ant_budget/features/transactions/domain/usecases/update_transaction_usecase.dart';
 import 'package:ant_budget/features/transactions/domain/usecases/watch_monthly_totals_usecase.dart';
 import 'package:ant_budget/features/transactions/domain/usecases/watch_transactions_usecase.dart';
 import 'package:ant_budget/features/transactions/domain/values/monthly_totals.dart';
@@ -20,6 +21,10 @@ WatchTransactionsUseCase watchTransactionsUseCase(Ref ref) =>
 @riverpod
 AddTransactionUseCase addTransactionUseCase(Ref ref) =>
     AddTransactionUseCase(ref.watch(transactionRepositoryProvider));
+
+@riverpod
+UpdateTransactionUseCase updateTransactionUseCase(Ref ref) =>
+    UpdateTransactionUseCase(ref.watch(transactionRepositoryProvider));
 
 @riverpod
 DeleteTransactionUseCase deleteTransactionUseCase(Ref ref) =>

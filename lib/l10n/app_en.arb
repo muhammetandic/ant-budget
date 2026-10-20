@@ -31,6 +31,7 @@
   "monthNext": "Next month",
 
   "addTransactionTitle": "Add transaction",
+  "editTransactionTitle": "Edit transaction",
   "transactionKindExpense": "Expense",
   "transactionKindIncome": "Income",
   "fieldAmountWithSymbol": "Amount ({symbol})",
@@ -108,6 +109,14 @@
   "scanReading": "Reading the receipt…",
 
   "transactionUntitled": "Untitled transaction",
+  "transactionDeleteTitle": "Delete transaction?",
+  "transactionDeleteConfirm": "Delete {title}? This cannot be undone.",
+  "@transactionDeleteConfirm": {
+    "placeholders": {
+      "title": { "type": "String" }
+    }
+  },
+  "transactionDeleted": "Transaction deleted.",
 
   "categoriesTitle": "Categories",
   "categoriesEmpty": "No categories yet.",

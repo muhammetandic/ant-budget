@@ -72,6 +72,28 @@ final class TransactionRepositoryImpl implements TransactionRepository {
       );
 
   @override
+  Future<Result<int, Failure>> update(Transaction transaction) {
+    final id = transaction.id;
+    if (id == null) {
+      return Future.value(
+        Result.failure(
+          NotFoundFailure(
+            message: 'That transaction has no stored row.',
+            entityType: 'Transaction',
+          ),
+        ),
+      );
+    }
+    return Result.attemptAsync(() async {
+      await _dao.updateById(
+        id,
+        TransactionMapper.toUpdateCompanion(transaction),
+      );
+      return id;
+    });
+  }
+
+  @override
   Future<Result<Unit, Failure>> deleteById(int id) => Result.attemptAsync(
     () async {
       await _dao.deleteById(id);

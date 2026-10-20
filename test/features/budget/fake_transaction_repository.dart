@@ -36,6 +36,10 @@ final class FakeTransactionRepository implements TransactionRepository {
       Result.success(1);
 
   @override
+  Future<Result<int, Failure>> update(Transaction transaction) async =>
+      Result.success(transaction.id ?? 0);
+
+  @override
   Future<Result<Unit, Failure>> deleteById(int id) async =>
       Result.success(Unit.instance);
 }

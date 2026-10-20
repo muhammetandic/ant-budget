@@ -81,6 +81,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get addTransactionTitle => 'İşlem ekle';
 
   @override
+  String get editTransactionTitle => 'İşlemi düzenle';
+
+  @override
   String get transactionKindExpense => 'Gider';
 
   @override
@@ -200,6 +203,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get transactionUntitled => 'Adsız işlem';
+
+  @override
+  String get transactionDeleteTitle => 'İşlem silinsin mi?';
+
+  @override
+  String transactionDeleteConfirm(String title) {
+    return '$title silinsin mi? Bu işlem geri alınamaz.';
+  }
+
+  @override
+  String get transactionDeleted => 'İşlem silindi.';
 
   @override
   String get categoriesTitle => 'Kategoriler';

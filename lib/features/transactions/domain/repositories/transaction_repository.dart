@@ -36,6 +36,13 @@ abstract interface class TransactionRepository {
   /// Inserts [transaction] and returns its new database id.
   Future<Result<int, Failure>> save(Transaction transaction);
 
+  /// Overwrites the stored transaction identified by [transaction.id] and
+  /// returns that id.
+  ///
+  /// The whole row is replaced — receipt columns included — so an edit can
+  /// never leave stale values behind.
+  Future<Result<int, Failure>> update(Transaction transaction);
+
   /// Deletes the transaction with [id].
   Future<Result<Unit, Failure>> deleteById(int id);
 }

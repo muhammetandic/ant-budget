@@ -8,7 +8,8 @@ import 'package:ant_budget/features/dashboard/presentation/screens/dashboard_scr
 import 'package:ant_budget/features/receipt_scan/presentation/screens/receipt_capture_screen.dart';
 import 'package:ant_budget/features/receipt_scan/presentation/screens/receipt_review_screen.dart';
 import 'package:ant_budget/features/reports/presentation/screens/reports_screen.dart';
-import 'package:ant_budget/features/transactions/presentation/screens/add_transaction_screen.dart';
+import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
+import 'package:ant_budget/features/transactions/presentation/screens/transaction_form_screen.dart';
 import 'package:ant_budget/features/transactions/presentation/screens/transactions_screen.dart';
 
 part 'app_router.g.dart';
@@ -49,7 +50,12 @@ GoRouter appRouter(Ref ref) => GoRouter(
     ),
     GoRoute(
       path: AppRoutes.addTransaction,
-      builder: (_, _) => const AddTransactionScreen(),
+      builder: (_, _) => const TransactionFormScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.editTransaction,
+      builder: (context, state) =>
+          TransactionFormScreen(initial: state.extra! as Transaction),
     ),
     GoRoute(
       path: AppRoutes.scan,

@@ -12,6 +12,9 @@ abstract final class AppRoutes {
   /// New transaction form (pushed on top of the shell).
   static const String addTransaction = '/transactions/new';
 
+  /// Edit form of a stored transaction; expects it as `extra`.
+  static const String editTransaction = '/transactions/edit';
+
   /// Budget tab.
   static const String budget = '/budget';
 

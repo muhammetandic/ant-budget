@@ -34,4 +34,23 @@ abstract final class TransactionMapper {
         receiptMerchant: Value.absentIfNull(transaction.receiptMerchant),
         receiptImagePath: Value.absentIfNull(transaction.receiptImagePath),
       );
+
+  /// Builds a companion that overwrites the whole stored row.
+  ///
+  /// Unlike [toCompanion], nullable columns are written explicitly (`null`
+  /// included) instead of being skipped: an update replaces the row, so it
+  /// must not leave stale receipt fields behind.
+  static TransactionsCompanion toUpdateCompanion(
+    Transaction transaction,
+  ) => TransactionsCompanion(
+    amountMinorUnits: Value(transaction.amount.minorUnits),
+    currency: Value(transaction.amount.currency),
+    kind: Value(transaction.kind),
+    occurredAt: Value(transaction.occurredAt),
+    categoryId: Value(transaction.categoryId),
+    source: Value(transaction.source),
+    description: Value(transaction.description),
+    receiptMerchant: Value(transaction.receiptMerchant),
+    receiptImagePath: Value(transaction.receiptImagePath),
+  );
 }

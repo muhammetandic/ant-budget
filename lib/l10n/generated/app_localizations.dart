@@ -242,6 +242,12 @@ abstract class AppLocalizations {
   /// **'Add transaction'**
   String get addTransactionTitle;
 
+  /// No description provided for @editTransactionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit transaction'**
+  String get editTransactionTitle;
+
   /// No description provided for @transactionKindExpense.
   ///
   /// In en, this message translates to:
@@ -445,6 +451,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Untitled transaction'**
   String get transactionUntitled;
+
+  /// No description provided for @transactionDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete transaction?'**
+  String get transactionDeleteTitle;
+
+  /// No description provided for @transactionDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {title}? This cannot be undone.'**
+  String transactionDeleteConfirm(String title);
+
+  /// No description provided for @transactionDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction deleted.'**
+  String get transactionDeleted;
 
   /// No description provided for @categoriesTitle.
   ///

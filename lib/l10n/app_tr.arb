@@ -31,6 +31,7 @@
   "monthNext": "Sonraki ay",
 
   "addTransactionTitle": "İşlem ekle",
+  "editTransactionTitle": "İşlemi düzenle",
   "transactionKindExpense": "Gider",
   "transactionKindIncome": "Gelir",
   "fieldAmountWithSymbol": "Tutar ({symbol})",
@@ -68,6 +69,9 @@
   "scanReading": "Fiş okunuyor…",
 
   "transactionUntitled": "Adsız işlem",
+  "transactionDeleteTitle": "İşlem silinsin mi?",
+  "transactionDeleteConfirm": "{title} silinsin mi? Bu işlem geri alınamaz.",
+  "transactionDeleted": "İşlem silindi.",
 
   "categoriesTitle": "Kategoriler",
   "categoriesEmpty": "Henüz kategori yok.",

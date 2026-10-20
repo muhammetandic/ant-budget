@@ -16,6 +16,7 @@ import 'package:ant_budget/features/transactions/domain/values/transaction_filte
 /// Hand written fake: proves the use case is testable without a database.
 final class _FakeTransactionRepository implements TransactionRepository {
   final List<Transaction> saved = [];
+  final List<Transaction> updated = [];
 
   @override
   Stream<List<Transaction>> watch(TransactionFilter filter) =>
@@ -35,6 +36,12 @@ final class _FakeTransactionRepository implements TransactionRepository {
   Future<Result<int, Failure>> save(Transaction transaction) async {
     saved.add(transaction);
     return Result.success(saved.length);
+  }
+
+  @override
+  Future<Result<int, Failure>> update(Transaction transaction) async {
+    updated.add(transaction);
+    return Result.success(transaction.id ?? 0);
   }
 
   @override

@@ -7,7 +7,7 @@ no receipt image ever leaves the device.
 ## Features
 
 - **Dashboard** — monthly income/expense summary and budget progress at a glance.
-- **Transactions** — browse by month, filter, add, and delete.
+- **Transactions** — browse by month, filter, add, edit, and delete (with a confirmation).
 - **Budgets** — a monthly limit for the whole month and one per category, each
   with live spending, a progress bar and a warning once 80% is used.
 - **Categories** — add, rename, restyle and delete the categories transactions

@@ -81,6 +81,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addTransactionTitle => 'Add transaction';
 
   @override
+  String get editTransactionTitle => 'Edit transaction';
+
+  @override
   String get transactionKindExpense => 'Expense';
 
   @override
@@ -199,6 +202,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get transactionUntitled => 'Untitled transaction';
+
+  @override
+  String get transactionDeleteTitle => 'Delete transaction?';
+
+  @override
+  String transactionDeleteConfirm(String title) {
+    return 'Delete $title? This cannot be undone.';
+  }
+
+  @override
+  String get transactionDeleted => 'Transaction deleted.';
 
   @override
   String get categoriesTitle => 'Categories';
