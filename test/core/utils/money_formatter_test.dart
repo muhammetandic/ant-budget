@@ -56,5 +56,16 @@ void main() {
         '1.000,00',
       );
     });
+
+    test('formatMinorUnits strips sign and formats negative amounts correctly', () {
+      expect(
+        MoneyFormatter.formatMinorUnits(-550, lira, languageCode: 'en'),
+        '5.50',
+      );
+      expect(
+        MoneyFormatter.formatMinorUnits(-550, lira, languageCode: 'tr'),
+        '5,50',
+      );
+    });
   });
 }

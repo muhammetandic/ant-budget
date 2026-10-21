@@ -1,3 +1,5 @@
+import 'package:ant_budget/core/utils/ascii_folding.dart';
+
 /// Month names used when parsing (OCR) and rendering dates.
 ///
 /// Deliberately a plain lookup table instead of an `intl` dependency: receipt
@@ -84,10 +86,11 @@ abstract final class MonthNames {
 
   /// Returns the 1-based month index matching [token], or `null`.
   ///
-  /// Matching ignores case and a trailing dot (`Eki.`), and understands both
-  /// short and full names of the supported languages.
+  /// Matching ignores case, accents, and a trailing dot (`Eki.`), and understands both
+  /// short and full names of the supported languages in any casing (including Turkish
+  /// uppercase `KASIM`, `NİSAN`, `MAYIS`, `AĞUSTOS`, `ARALIK`).
   static int? indexOf(String token) {
-    final cleaned = token.replaceAll('.', '').trim().toLowerCase();
+    final cleaned = AsciiFolding.fold(token.replaceAll('.', '').trim());
     if (cleaned.isEmpty) return null;
     final tables = <List<String>>[
       englishShort,
@@ -97,7 +100,7 @@ abstract final class MonthNames {
     ];
     for (final table in tables) {
       for (var i = 0; i < table.length; i++) {
-        if (table[i].toLowerCase() == cleaned) return i + 1;
+        if (AsciiFolding.fold(table[i]) == cleaned) return i + 1;
       }
     }
     return null;

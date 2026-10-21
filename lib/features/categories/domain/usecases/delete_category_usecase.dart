@@ -31,12 +31,12 @@ final class DeleteCategoryUseCase {
       );
     }
 
-    final counted = await _repository.countTransactions(categoryId);
-    return counted.fold<Future<Result<Unit, Failure>>>(
-      (failure) async => Result.failure(failure),
-      (count) async => count > 0
-          ? Result.failure(_inUse)
-          : await _repository.deleteById(categoryId),
+    final deleted = await _repository.deleteIfUnused(categoryId);
+    return deleted.fold<Result<Unit, Failure>>(
+      (failure) => Result.failure(failure),
+      (didDelete) => didDelete
+          ? Result.success(Unit.instance)
+          : Result.failure(_inUse),
     );
   }
 }

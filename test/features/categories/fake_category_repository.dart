@@ -45,4 +45,13 @@ final class FakeCategoryRepository implements CategoryRepository {
     deleted.add(id);
     return Result.success(Unit.instance);
   }
+
+  @override
+  Future<Result<bool, Failure>> deleteIfUnused(int id) async {
+    final failure = countFailure;
+    if (failure != null) return Result.failure(failure);
+    if ((usage[id] ?? 0) > 0) return Result.success(false);
+    deleted.add(id);
+    return Result.success(true);
+  }
 }

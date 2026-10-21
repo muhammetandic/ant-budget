@@ -54,8 +54,12 @@ GoRouter appRouter(Ref ref) => GoRouter(
     ),
     GoRoute(
       path: AppRoutes.editTransaction,
+      redirect: (context, state) {
+        if (state.extra is! Transaction) return AppRoutes.transactions;
+        return null;
+      },
       builder: (context, state) =>
-          TransactionFormScreen(initial: state.extra! as Transaction),
+          TransactionFormScreen(initial: state.extra as Transaction),
     ),
     GoRoute(
       path: AppRoutes.scan,
@@ -63,8 +67,14 @@ GoRouter appRouter(Ref ref) => GoRouter(
     ),
     GoRoute(
       path: AppRoutes.receiptReview,
+      redirect: (context, state) {
+        if (state.extra is! String || (state.extra as String).isEmpty) {
+          return AppRoutes.scan;
+        }
+        return null;
+      },
       builder: (context, state) =>
-          ReceiptReviewScreen(imagePath: state.extra! as String),
+          ReceiptReviewScreen(imagePath: state.extra as String),
     ),
   ],
 );

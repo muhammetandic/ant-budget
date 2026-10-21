@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart' show StreamProvider;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ant_budget/core/config/app_config.dart';
 import 'package:ant_budget/core/values/year_month.dart';
@@ -70,9 +71,14 @@ Stream<MonthlyTotals> monthlyTotals(Ref ref, YearMonth period) =>
     ref.watch(watchMonthlyTotalsUseCaseProvider)(period);
 
 /// Every recorded transaction, newest first.
-///
-/// Deliberately unfiltered: the category suggestions look at a shop's whole
-/// history, which the visible month would cut off.
 @riverpod
 Stream<List<Transaction>> allTransactions(Ref ref) =>
     ref.watch(watchTransactionsUseCaseProvider)(const TransactionFilter());
+
+/// Receipt history only, used to suggest a category by merchant.
+final receiptTransactionsProvider =
+    StreamProvider.autoDispose<List<Transaction>>(
+      (ref) => ref.watch(watchTransactionsUseCaseProvider)(
+        const TransactionFilter(receiptOnly: true),
+      ),
+    );

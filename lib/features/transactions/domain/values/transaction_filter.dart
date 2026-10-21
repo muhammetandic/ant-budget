@@ -9,7 +9,12 @@ import 'package:ant_budget/core/values/year_month.dart';
 /// new criterion (date range, text search, ...) is added.
 @immutable
 final class TransactionFilter extends Equatable {
-  const TransactionFilter({this.period, this.categoryId, this.kind});
+  const TransactionFilter({
+    this.period,
+    this.categoryId,
+    this.kind,
+    this.receiptOnly = false,
+  });
 
   /// Restricts the result to a single civil month.
   final YearMonth? period;
@@ -20,17 +25,21 @@ final class TransactionFilter extends Equatable {
   /// Restricts the result to expenses or income only.
   final TransactionKind? kind;
 
+  /// Restricts the result to scanned transactions with a merchant name.
+  final bool receiptOnly;
+
   /// Whether no criterion is set, i.e. the query returns everything.
   bool get isUnfiltered =>
-      period == null && categoryId == null && kind == null;
+      period == null && categoryId == null && kind == null && !receiptOnly;
 
   /// The same filter limited to [period].
   TransactionFilter withPeriod(YearMonth? period) => TransactionFilter(
     period: period,
     categoryId: categoryId,
     kind: kind,
+    receiptOnly: receiptOnly,
   );
 
   @override
-  List<Object?> get props => [period, categoryId, kind];
+  List<Object?> get props => [period, categoryId, kind, receiptOnly];
 }

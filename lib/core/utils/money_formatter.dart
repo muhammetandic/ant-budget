@@ -50,8 +50,9 @@ abstract final class MoneyFormatter {
   }) {
     final separators = _Separators.of(languageCode);
     final scale = _scaleFor(currency);
-    final whole = minorUnits ~/ scale;
-    final fraction = minorUnits % scale;
+    final absUnits = minorUnits.abs();
+    final whole = absUnits ~/ scale;
+    final fraction = absUnits % scale;
     final grouped = _groupThousands(whole, separators.group);
     if (currency.decimalDigits == 0) return grouped;
     final fractionText = fraction.toString().padLeft(currency.decimalDigits, '0');

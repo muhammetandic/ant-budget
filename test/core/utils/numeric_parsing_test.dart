@@ -11,6 +11,14 @@ void main() {
       expect(parseAmountToMinorUnits('45,50'), 4550);
     });
 
+    test('parses leading dot and comma decimals without leading zero', () {
+      expect(parseAmountToMinorUnits('.50'), 50);
+      expect(parseAmountToMinorUnits(',50'), 50);
+      expect(parseAmountToMinorUnits('.5'), 50);
+      expect(parseAmountToMinorUnits(',5'), 50);
+      expect(parseAmountToMinorUnits('...50'), 50);
+    });
+
     test('treats dot as grouping and comma as decimal', () {
       expect(parseAmountToMinorUnits('1.234,56'), 123456);
     });

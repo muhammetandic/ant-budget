@@ -13,6 +13,21 @@ void main() {
     expect(dateOf('16.10.2026'), DateTime(2026, 10, 16));
   });
 
+  test('reads uppercase Turkish named dates with dotted and dotless letters', () {
+    expect(dateOf('15 KASIM 2026'), DateTime(2026, 11, 15));
+    expect(dateOf('10 MAYIS 2026'), DateTime(2026, 5, 10));
+    expect(dateOf('20 ARALIK 2026'), DateTime(2026, 12, 20));
+    expect(dateOf('12 NİSAN 2026'), DateTime(2026, 4, 12));
+    expect(dateOf('5 AĞUSTOS 2026'), DateTime(2026, 8, 5));
+    expect(dateOf('14 EKİ. 26'), DateTime(2026, 10, 14));
+  });
+
+  test('reads English and mixed-case named dates', () {
+    expect(dateOf('14 Oct 2026'), DateTime(2026, 10, 14));
+    expect(dateOf('14 OCTOBER 2026'), DateTime(2026, 10, 14));
+    expect(dateOf('14 Ekim 2026'), DateTime(2026, 10, 14));
+  });
+
   test('reads a date whose dots the recogniser split apart', () {
     expect(dateOf('16.10. 2026'), DateTime(2026, 10, 16));
   });

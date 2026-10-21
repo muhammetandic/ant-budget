@@ -19,6 +19,11 @@ abstract interface class CategoryRepository {
   /// Deletes the category with [id].
   Future<Result<Unit, Failure>> deleteById(int id);
 
+  /// Deletes [id] only when no transaction references it, atomically.
+  ///
+  /// Returns `false` when the category is still in use.
+  Future<Result<bool, Failure>> deleteIfUnused(int id);
+
   /// How many transactions currently reference the category with [categoryId].
   Future<Result<int, Failure>> countTransactions(int categoryId);
 }

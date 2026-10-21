@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/widgets.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ant_budget/core/error/failure.dart';
 import 'package:ant_budget/core/error/result.dart';
@@ -17,13 +20,16 @@ abstract interface class CameraService {
   /// retry after a failure.
   Future<Result<Unit, Failure>> initialize();
 
+  /// Releases the active camera session while keeping this service reusable.
+  Future<void> suspend();
+
   /// Whether [buildPreview] can currently render a live image.
   bool get isReady;
 
   /// A live camera preview, ready to be embedded in a screen.
   Widget buildPreview();
 
-  /// Captures a still image and returns the path of the produced file.
+  /// Captures a still image, stores it persistently, and returns its path.
   Future<Result<String, Failure>> takePicture();
 
   /// Releases the camera hardware. Safe to call more than once.
@@ -39,14 +45,33 @@ final class DeviceCameraService implements CameraService {
 
   CameraController? _controller;
   bool _isDisposed = false;
+  Future<Result<Unit, Failure>>? _initializing;
+  int? _initializingSession;
+  int _session = 0;
 
   @override
   bool get isReady => _controller?.value.isInitialized ?? false;
 
   @override
   Future<Result<Unit, Failure>> initialize() {
+    if (_isDisposed) {
+      return Future.value(
+        const Result.err(
+          CameraFailure(
+            message: 'The camera service is no longer available.',
+            code: CameraFailureCode.unavailable,
+          ),
+        ),
+      );
+    }
     if (isReady) return Future.value(const Result.ok(Unit.instance));
-    return Result.attemptAsync(
+    final pending = _initializing;
+    if (pending != null) {
+      if (_initializingSession == _session) return pending;
+      return pending.then((_) => initialize());
+    }
+    final session = _session;
+    final future = Result.attemptAsync(
       () async {
         final permission = await Permission.camera.request();
         if (!permission.isGranted) {
@@ -73,7 +98,7 @@ final class DeviceCameraService implements CameraService {
         await controller.initialize();
 
         // The screen may have been left while the camera was opening.
-        if (_isDisposed) {
+        if (_isDisposed || session != _session) {
           await controller.dispose();
           throw const CameraFailure(
             message: 'The camera session ended before it was ready.',
@@ -93,6 +118,14 @@ final class DeviceCameraService implements CameraService {
               stackTrace: stackTrace,
             ),
     );
+    _initializing = future;
+    _initializingSession = session;
+    return future.whenComplete(() {
+      if (identical(_initializing, future)) {
+        _initializing = null;
+        _initializingSession = null;
+      }
+    });
   }
 
   @override
@@ -118,7 +151,21 @@ final class DeviceCameraService implements CameraService {
       );
     }
     return Result.attemptAsync(
-      () async => (await controller.takePicture()).path,
+      () async {
+        final captured = await controller.takePicture();
+        final documents = await getApplicationDocumentsDirectory();
+        final receiptDirectory = Directory(
+          '${documents.path}${Platform.pathSeparator}receipt_images',
+        );
+        await receiptDirectory.create(recursive: true);
+        final extension = captured.path.toLowerCase().endsWith('.png')
+            ? '.png'
+            : '.jpg';
+        final destination =
+            '${receiptDirectory.path}${Platform.pathSeparator}'
+            'receipt_${DateTime.now().microsecondsSinceEpoch}$extension';
+        return (await File(captured.path).copy(destination)).path;
+      },
       onError: (error, stackTrace) => CameraFailure(
         message: 'The photo could not be captured. Please try again.',
         code: CameraFailureCode.captureFailed,
@@ -131,6 +178,12 @@ final class DeviceCameraService implements CameraService {
   @override
   Future<void> dispose() async {
     _isDisposed = true;
+    await suspend();
+  }
+
+  @override
+  Future<void> suspend() async {
+    _session++;
     final controller = _controller;
     _controller = null;
     await controller?.dispose();

@@ -43,8 +43,8 @@ dependencies:
   google_mlkit_text_recognition: ^0.17.1
   permission_handler: ^13.0.2
 
-  # Locates the app storage folder used to keep OCR scan evidence when the
-  # opt-in diagnostics build is enabled (see DiagnosticOcrService).
+  # Stores receipt photos beyond the temporary camera cache and keeps
+  # opt-in OCR diagnostic evidence (see DiagnosticOcrService).
   path_provider: ^2.1.6
 
   # --- Domain helpers -------------------------------------------------------

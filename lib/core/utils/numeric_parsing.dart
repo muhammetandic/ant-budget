@@ -19,11 +19,20 @@ int? parseAmountToMinorUnits(String rawToken, {int decimalDigits = 2}) {
     throw ArgumentError.value(decimalDigits, 'decimalDigits');
   }
 
-  final digitsAndSeparators = rawToken
-      .replaceAll(RegExp(r'[^0-9.,]'), '')
-      .replaceAll(RegExp(r'^[.,]+|[.,]+$'), '');
-  if (digitsAndSeparators.isEmpty) return null;
-  if (!digitsAndSeparators.contains(RegExp(r'\d'))) return null;
+  var cleaned = rawToken.replaceAll(RegExp(r'[^0-9.,]'), '');
+  if (!cleaned.contains(RegExp(r'\d'))) return null;
+
+  // Trim trailing separators (e.g. `100.` -> `100`).
+  cleaned = cleaned.replaceAll(RegExp(r'[.,]+$'), '');
+
+  // Normalize leading separator with a decimal fraction (e.g. `.50` or `,50` -> `0.50` or `0,50`).
+  // Strip extraneous consecutive leading separators first.
+  cleaned = cleaned.replaceAll(RegExp(r'^[.,]+(?=[.,])'), '');
+  if (cleaned.startsWith('.') || cleaned.startsWith(',')) {
+    cleaned = '0$cleaned';
+  }
+
+  final digitsAndSeparators = cleaned;
 
   final lastDot = digitsAndSeparators.lastIndexOf('.');
   final lastComma = digitsAndSeparators.lastIndexOf(',');

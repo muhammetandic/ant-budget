@@ -16,5 +16,5 @@ int? suggestedCategory(Ref ref, String? merchantName) =>
     ref.watch(suggestCategoryUseCaseProvider)(
       merchantName: merchantName,
       categories: ref.watch(categoriesProvider).value ?? const [],
-      past: ref.watch(allTransactionsProvider).value ?? const [],
+      past: ref.watch(receiptTransactionsProvider).value ?? const [],
     );

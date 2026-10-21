@@ -36,9 +36,9 @@ final class DateParserStrategy implements OcrParsingStrategy<DateTime?> {
     r'(\d{1,2})\s*[./-]\s*(\d{1,2})\s*[./-]\s*(\d{4})',
   );
 
-  /// `14 Oct 2026`, `14 Ekim 2026`, `14 Eki. 26`.
+  /// `14 Oct 2026`, `14 Ekim 2026`, `14 Eki. 26`, `15 KASIM 2026`.
   static final RegExp namedPattern = RegExp(
-    r'(\d{1,2})\s+([A-Za-zĞÜŞİÖÇğüşıöç]{3,9})\.?\s*,?\s*(\d{2,4})',
+    r'(\d{1,2})\s+([A-Za-zĞÜŞİÖÇğüşıöç\u00C0-\u024F\u0300-\u036F]{3,12})\.?\s*,?\s*(\d{2,4})',
   );
 
   @override

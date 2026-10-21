@@ -65,4 +65,12 @@ class CategoryDao {
   Future<int> deleteById(int id) =>
       (_database.delete(_database.categories)..where((c) => c.id.equals(id)))
           .go();
+
+  /// Checks usage and deletes the category in one database transaction.
+  Future<bool> deleteIfUnused(int id) => _database.transaction(() async {
+    final inUse = await countTransactions(id);
+    if (inUse > 0) return false;
+    await deleteById(id);
+    return true;
+  });
 }

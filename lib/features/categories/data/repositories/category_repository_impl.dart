@@ -42,4 +42,8 @@ final class CategoryRepositoryImpl implements CategoryRepository {
       return Unit.instance;
     },
   );
+
+  @override
+  Future<Result<bool, Failure>> deleteIfUnused(int id) =>
+      Result.attemptAsync(() => _dao.deleteIfUnused(id));
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -23,10 +25,33 @@ class ReceiptCaptureScreen extends ConsumerStatefulWidget {
       _ReceiptCaptureScreenState();
 }
 
-class _ReceiptCaptureScreenState extends ConsumerState<ReceiptCaptureScreen> {
+class _ReceiptCaptureScreenState extends ConsumerState<ReceiptCaptureScreen>
+    with WidgetsBindingObserver {
   CameraService? _camera;
   Future<Result<Unit, Failure>>? _initialisation;
   bool _capturing = false;
+  bool _showingReview = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final camera = _camera;
+    if (camera == null) return;
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.paused) {
+      unawaited(camera.suspend());
+    } else if (state == AppLifecycleState.resumed &&
+        mounted &&
+        !_showingReview) {
+      setState(() => _initialisation = camera.initialize());
+    }
+  }
 
   Future<void> _capture() async {
     final camera = _camera;
@@ -38,11 +63,29 @@ class _ReceiptCaptureScreenState extends ConsumerState<ReceiptCaptureScreen> {
     setState(() => _capturing = false);
 
     result.fold(
-      (failure) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(failureMessageOf(context, failure))),
-      ),
-      (path) => context.push(AppRoutes.receiptReview, extra: path),
+      (failure) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(failureMessageOf(context, failure))),
+        );
+      },
+      (path) => unawaited(_openReview(path, camera)),
     );
+  }
+
+  Future<void> _openReview(String path, CameraService camera) async {
+    _showingReview = true;
+    await camera.suspend();
+    if (!mounted) return;
+    await context.push(AppRoutes.receiptReview, extra: path);
+    if (!mounted) return;
+    _showingReview = false;
+    setState(() => _initialisation = camera.initialize());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   void _retry() {

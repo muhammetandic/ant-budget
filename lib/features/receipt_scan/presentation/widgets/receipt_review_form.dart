@@ -136,7 +136,7 @@ class _ReceiptReviewFormState extends ConsumerState<ReceiptReviewForm> {
   @override
   Widget build(BuildContext context) {
     final categories = ref.watch(categoriesProvider);
-    final history = ref.watch(allTransactionsProvider);
+    final history = ref.watch(receiptTransactionsProvider);
     // The suggestion becomes the *initial* value of the dropdown, and a form
     // field only reads that once, so both inputs have to be ready before the
     // form is built for the first time.

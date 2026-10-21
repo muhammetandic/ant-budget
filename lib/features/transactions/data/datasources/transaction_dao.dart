@@ -22,6 +22,7 @@ class TransactionDao {
     final period = filter.period;
     final categoryId = filter.categoryId;
     final kind = filter.kind;
+    final receiptOnly = filter.receiptOnly;
 
     if (period != null) {
       query.where(
@@ -35,6 +36,9 @@ class TransactionDao {
     }
     if (kind != null) {
       query.where((t) => t.kind.equalsValue(kind));
+    }
+    if (receiptOnly) {
+      query.where((t) => t.receiptMerchant.isNotNull());
     }
     query.orderBy([
       (t) => OrderingTerm.desc(t.occurredAt),
