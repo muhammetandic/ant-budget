@@ -10,12 +10,12 @@ import 'package:ant_budget/l10n/l10n.dart';
 
 /// Progress of [period]'s budget: spent amount, remaining and health colour.
 class BudgetProgressCard extends ConsumerWidget {
-  const BudgetProgressCard({super.key, required this.period, this.onEdit});
+  const BudgetProgressCard({super.key, required this.period, this.onAction});
 
   final YearMonth period;
 
-  /// Invoked when the user wants to set or change the limit.
-  final VoidCallback? onEdit;
+  /// Opens the detailed budget screen when shown on the dashboard.
+  final VoidCallback? onAction;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,16 +29,19 @@ class BudgetProgressCard extends ConsumerWidget {
             ),
           ),
           error: (error, _) => Card(child: FailureView(error: error)),
-          data: (summary) => _BudgetContent(summary: summary, onEdit: onEdit),
+          data: (summary) => _BudgetContent(
+            summary: summary,
+            onAction: onAction,
+          ),
         );
   }
 }
 
 class _BudgetContent extends StatelessWidget {
-  const _BudgetContent({required this.summary, this.onEdit});
+  const _BudgetContent({required this.summary, this.onAction});
 
   final BudgetSummary summary;
-  final VoidCallback? onEdit;
+  final VoidCallback? onAction;
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +66,10 @@ class _BudgetContent extends StatelessWidget {
                     style: theme.textTheme.titleMedium,
                   ),
                 ),
-                if (onEdit != null)
+                if (onAction != null)
                   TextButton(
-                    onPressed: onEdit,
-                    child: Text(limit == null ? l10n.actionSet : l10n.actionEdit),
+                    onPressed: onAction,
+                    child: Text(l10n.actionSeeAll),
                   ),
               ],
             ),

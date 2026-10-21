@@ -38,90 +38,82 @@ class CategoryBudgetTile extends StatelessWidget {
     String format(Money money) =>
         MoneyFormatter.format(money, languageCode: l10n.localeName);
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: () => CategoryBudgetSheet.show(
-          context,
-          period: summary.period,
-          initial: summary,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              category == null
-                  ? const UnknownCategoryAvatar()
-                  : CategoryAvatar(category: category),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      category == null
-                          ? l10n.reportsUnknownCategory
-                          : categoryLabel(l10n, category),
-                      style: theme.textTheme.titleMedium,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 2),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
+    return InkWell(
+      onTap: () => CategoryBudgetSheet.show(
+        context,
+        period: summary.period,
+        initial: summary,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Row(
+          children: [
+            category == null
+                ? const UnknownCategoryAvatar()
+                : CategoryAvatar(category: category),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          category == null
+                              ? l10n.reportsUnknownCategory
+                              : categoryLabel(l10n, category),
+                          style: theme.textTheme.titleSmall,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      if (limit != null)
                         Text(
-                          format(progress.spent),
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
+                          l10n.budgetOfLimit(format(limit)),
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: scheme.onSurfaceVariant,
                           ),
                         ),
-                        if (limit != null) ...[
-                          const SizedBox(width: 8),
-                          Flexible(
-                            child: Text(
-                              l10n.budgetOfLimit(format(limit)),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: scheme.onSurfaceVariant,
-                              ),
-                            ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          format(progress.spent),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
                           ),
-                        ],
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    LinearProgressIndicator(
-                      value: progress.usage.clamp(0.0, 1.0).toDouble(),
-                      minHeight: 6,
-                      borderRadius: BorderRadius.circular(3),
-                      color: color,
-                      backgroundColor: scheme.surfaceContainerHighest,
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      BudgetStatusPalette.labelFor(context, progress),
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: color,
-                        fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                      Flexible(
+                        child: Text(
+                          BudgetStatusPalette.labelFor(context, progress),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: color,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  LinearProgressIndicator(
+                    value: progress.usage.clamp(0.0, 1.0).toDouble(),
+                    minHeight: 5,
+                    borderRadius: BorderRadius.circular(3),
+                    color: color,
+                    backgroundColor: scheme.surfaceContainerHighest,
+                  ),
+                ],
               ),
-              const SizedBox(width: 8),
-              Icon(
-                Icons.edit_outlined,
-                size: 18,
-                color: scheme.outline,
-                semanticLabel: l10n.actionEdit,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -42,11 +42,11 @@ WatchCategoryBudgetsUseCase watchCategoryBudgetsUseCase(Ref ref) =>
       AppConfig.reportingCurrency,
     );
 
-/// The budget health of [period], reactively and auto-disposed per month.
+/// The budget health of [period], with its limit summed from category budgets.
 ///
 /// The read model is assembled by the use case from two reactive sources
-/// (budget + transaction totals), so a new expense updates this stream without
-/// any manual invalidation.
+/// (category budgets + transaction totals), so changes to either update this
+/// stream without manual invalidation.
 @riverpod
 Stream<BudgetSummary> budgetSummary(Ref ref, YearMonth period) =>
     ref.watch(watchBudgetSummaryUseCaseProvider)(period);

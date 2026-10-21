@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ant_budget/app/router/app_routes.dart';
 import 'package:ant_budget/core/config/app_config.dart';
-import 'package:ant_budget/features/budget/presentation/widgets/budget_progress_card.dart';
-import 'package:ant_budget/features/dashboard/presentation/widgets/monthly_summary_card.dart';
+import 'package:ant_budget/features/dashboard/presentation/widgets/monthly_overview_card.dart';
 import 'package:ant_budget/features/transactions/presentation/providers/transaction_providers.dart';
 import 'package:ant_budget/features/transactions/presentation/widgets/month_switcher.dart';
 import 'package:ant_budget/features/transactions/presentation/widgets/transaction_list.dart';
@@ -15,7 +14,7 @@ class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
   /// Number of recent transactions shown before "see all".
-  static const int recentCount = 5;
+  static const int recentCount = 3;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,17 +34,12 @@ class DashboardScreen extends ConsumerWidget {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
+        padding: const EdgeInsets.fromLTRB(16, 4, 16, 96),
         children: [
           const Center(child: MonthSwitcher()),
-          const SizedBox(height: 8),
-          BudgetProgressCard(
-            period: month,
-            onEdit: () => context.go(AppRoutes.budget),
-          ),
+          const SizedBox(height: 4),
+          MonthlyOverviewCard(period: month),
           const SizedBox(height: 12),
-          MonthlySummaryCard(period: month),
-          const SizedBox(height: 20),
           Row(
             children: [
               Text(
@@ -59,11 +53,7 @@ class DashboardScreen extends ConsumerWidget {
               ),
             ],
           ),
-          TransactionList(
-            period: month,
-            shrinkWrap: true,
-            limit: recentCount,
-          ),
+          TransactionList(period: month, shrinkWrap: true, limit: recentCount),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(

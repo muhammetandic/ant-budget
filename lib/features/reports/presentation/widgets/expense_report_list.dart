@@ -8,8 +8,7 @@ import 'package:ant_budget/features/reports/presentation/widgets/category_breakd
 import 'package:ant_budget/features/reports/presentation/widgets/merchant_breakdown_list.dart';
 import 'package:ant_budget/l10n/l10n.dart';
 
-/// The report of one month: its total first, then a section per dimension —
-/// the category chart with its legend, followed by the shop bars.
+/// One selected report dimension for a month, with its chart and details.
 ///
 /// This widget only arranges what the domain decided; it performs no
 /// aggregation of its own.
@@ -18,12 +17,15 @@ class ExpenseReportList extends StatelessWidget {
     super.key,
     required this.report,
     required this.categories,
+    required this.type,
   });
 
   final ExpenseBreakdown report;
 
   /// Categories by id, for labels and colours.
   final Map<int, Category> categories;
+
+  final ExpenseReportType type;
 
   @override
   Widget build(BuildContext context) {
@@ -52,29 +54,54 @@ class ExpenseReportList extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 20),
-        Text(l10n.reportsByCategory, style: theme.textTheme.titleMedium),
-        const SizedBox(height: 4),
-        CategoryBreakdownChart(
-          slices: report.byCategory,
-          categories: categories,
-          total: report.total,
-        ),
-        for (final slice in report.byCategory)
-          BreakdownSliceTile(
-            label: categories[slice.categoryId] == null
-                ? unknown
-                : categoryLabel(l10n, categories[slice.categoryId]!),
-            slice: slice,
-            color: categories[slice.categoryId] == null
-                ? scheme.outline
-                : Color(categories[slice.categoryId]!.colorValue),
+        const SizedBox(height: 12),
+        if (type == ExpenseReportType.category) ...[
+          _ReportHeading(title: l10n.reportsByCategory),
+          const SizedBox(height: 8),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: CategoryBreakdownChart(
+                slices: report.byCategory,
+                categories: categories,
+                total: report.total,
+              ),
+            ),
           ),
-        const SizedBox(height: 20),
-        Text(l10n.reportsByMerchant, style: theme.textTheme.titleMedium),
-        const SizedBox(height: 4),
-        MerchantBreakdownList(slices: report.byMerchant),
+          const SizedBox(height: 8),
+          for (final slice in report.byCategory)
+            BreakdownSliceTile(
+              label: categories[slice.categoryId] == null
+                  ? unknown
+                  : categoryLabel(l10n, categories[slice.categoryId]!),
+              slice: slice,
+              color: categories[slice.categoryId] == null
+                  ? scheme.outline
+                  : Color(categories[slice.categoryId]!.colorValue),
+            ),
+        ] else ...[
+          _ReportHeading(title: l10n.reportsByMerchant),
+          const SizedBox(height: 8),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: MerchantBreakdownList(slices: report.byMerchant),
+            ),
+          ),
+        ],
       ],
     );
   }
+}
+
+enum ExpenseReportType { category, merchant }
+
+class _ReportHeading extends StatelessWidget {
+  const _ReportHeading({required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) =>
+      Text(title, style: Theme.of(context).textTheme.titleMedium);
 }

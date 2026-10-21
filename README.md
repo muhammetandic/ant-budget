@@ -8,8 +8,8 @@ no receipt image ever leaves the device.
 
 - **Dashboard** — monthly income/expense summary and budget progress at a glance.
 - **Transactions** — browse by month, filter, add, edit, and delete (with a confirmation).
-- **Budgets** — a monthly limit for the whole month and one per category, each
-  with live spending, a progress bar and a warning once 80% is used.
+- **Budgets** — set limits by category; the monthly limit is their sum. Each
+  category and the monthly total show live spending, progress and an 80% warning.
 - **Categories** — add, rename, restyle and delete the categories transactions
   are filed under; a category that is still in use cannot be deleted.
 - **Reports** — where the money went: the selected month's expenses split by

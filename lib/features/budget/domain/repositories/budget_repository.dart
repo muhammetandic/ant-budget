@@ -6,7 +6,8 @@ import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/features/budget/domain/entities/budget.dart';
 import 'package:ant_budget/features/budget/domain/entities/category_budget.dart';
 
-/// Port describing how the domain stores monthly budgets.
+/// Port describing how the domain stores category budgets and reads legacy
+/// monthly budget records.
 abstract interface class BudgetRepository {
   /// Emits the budget of [period], or `null` when the user has not set one.
   Stream<Budget?> watchFor(YearMonth period);

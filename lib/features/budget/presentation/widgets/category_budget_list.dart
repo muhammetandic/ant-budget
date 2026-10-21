@@ -61,15 +61,22 @@ class CategoryBudgetList extends ConsumerWidget {
                 ),
               );
             }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (final summary in summaries)
-                  CategoryBudgetTile(
-                    summary: summary,
-                    category: categories[summary.categoryId],
-                  ),
-              ],
+            return Card(
+              clipBehavior: Clip.antiAlias,
+              margin: EdgeInsets.zero,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (var index = 0; index < summaries.length; index++) ...[
+                    CategoryBudgetTile(
+                      summary: summaries[index],
+                      category: categories[summaries[index].categoryId],
+                    ),
+                    if (index < summaries.length - 1)
+                      const Divider(height: 1, indent: 68),
+                  ],
+                ],
+              ),
             );
           },
         ),

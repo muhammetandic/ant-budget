@@ -5,9 +5,8 @@ import 'package:ant_budget/core/values/year_month.dart';
 
 /// The spending limit of one category in one civil month.
 ///
-/// Unlike the month's total limit, a category budget is always *tied* to a
-/// category: the pair `(period, categoryId)` is its natural key and what the
-/// storage layer upserts on.
+/// The pair `(period, categoryId)` is its natural key. The monthly budget is
+/// derived by summing these category limits.
 @immutable
 final class CategoryBudget extends Equatable {
   const CategoryBudget({

@@ -17,8 +17,7 @@ import 'package:ant_budget/l10n/l10n.dart';
 /// for the selected month.
 ///
 /// The only rule enforced here is "both fields parse"; the business rules
-/// (positive, reporting currency) live in `SetCategoryBudgetUseCase`, exactly
-/// like the form that sets the month's own limit.
+/// (positive, reporting currency) live in `SetCategoryBudgetUseCase`.
 class CategoryBudgetForm extends ConsumerStatefulWidget {
   const CategoryBudgetForm({super.key, required this.period, this.initial});
 

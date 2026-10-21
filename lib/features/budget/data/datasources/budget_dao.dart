@@ -64,8 +64,8 @@ class BudgetDao {
 
   /// Inserts [categoryId]'s limit for [period] or replaces the stored one.
   ///
-  /// Keyed on `(year, month, categoryId)` like the month's own limit, so
-  /// setting a budget twice updates the row instead of duplicating it.
+  /// Keyed on `(year, month, categoryId)`, so setting a budget twice updates
+  /// the row instead of duplicating it.
   Future<int> upsertCategoryLimit({
     required YearMonth period,
     required int categoryId,

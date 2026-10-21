@@ -4,11 +4,11 @@ import 'package:ant_budget/core/values/money.dart';
 import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/features/budget/domain/values/budget_progress.dart';
 
-/// Read model combining a month's limit with what was actually spent.
+/// Read model combining the sum of category limits with monthly spending.
 ///
-/// Built by `WatchBudgetSummaryUseCase` from two reactive sources (the limit and
-/// the transaction totals), which is why it is a value object rather than an
-/// entity: it has no identity of its own.
+/// Built by `WatchBudgetSummaryUseCase` from category budgets and transaction
+/// totals, which is why it is a value object rather than an entity: it has no
+/// identity of its own.
 ///
 /// The usage rules themselves live in [BudgetProgress], shared with the
 /// per-category budgets; this class only adds the period and the income side.
@@ -29,7 +29,7 @@ final class BudgetSummary extends Equatable {
   /// Money earned in [period], in the reporting currency.
   final Money income;
 
-  /// The configured limit, or `null` when the user has not set one.
+  /// Sum of the month's category limits, or `null` when none are configured.
   final Money? limit;
 
   /// Usage rules of this budget, shared with the category budgets.

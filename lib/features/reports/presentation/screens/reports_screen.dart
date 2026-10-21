@@ -9,17 +9,23 @@ import 'package:ant_budget/features/transactions/presentation/providers/transact
 import 'package:ant_budget/features/transactions/presentation/widgets/month_switcher.dart';
 import 'package:ant_budget/l10n/l10n.dart';
 
-/// Where the money went: expenses of the selected month split by category and
-/// by shop, each with its graph.
+/// One selectable expense report for the selected month.
 ///
 /// The screen only subscribes and renders. The [selectedMonthProvider] it reads
 /// is the same one that drives the overview and the transaction list, and
 /// [expenseBreakdownProvider] turns every write into a fresh emission.
-class ReportsScreen extends ConsumerWidget {
+class ReportsScreen extends ConsumerStatefulWidget {
   const ReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ReportsScreen> createState() => _ReportsScreenState();
+}
+
+class _ReportsScreenState extends ConsumerState<ReportsScreen> {
+  ExpenseReportType _selectedType = ExpenseReportType.category;
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = context.l10n;
     final month = ref.watch(selectedMonthProvider);
     final report = ref.watch(expenseBreakdownProvider(month));
@@ -34,6 +40,26 @@ class ReportsScreen extends ConsumerWidget {
             child: MonthSwitcher(),
           ),
           const Divider(height: 1),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+            child: SegmentedButton<ExpenseReportType>(
+              segments: [
+                ButtonSegment(
+                  value: ExpenseReportType.category,
+                  icon: const Icon(Icons.category_outlined),
+                  label: Text(l10n.reportsByCategory),
+                ),
+                ButtonSegment(
+                  value: ExpenseReportType.merchant,
+                  icon: const Icon(Icons.storefront_outlined),
+                  label: Text(l10n.reportsByMerchant),
+                ),
+              ],
+              selected: {_selectedType},
+              onSelectionChanged: (selection) =>
+                  setState(() => _selectedType = selection.first),
+            ),
+          ),
           Expanded(
             child: report.when(
               loading: () => const Center(child: CircularProgressIndicator()),
@@ -46,6 +72,7 @@ class ReportsScreen extends ConsumerWidget {
                   : ExpenseReportList(
                       report: breakdown,
                       categories: categories,
+                      type: _selectedType,
                     ),
             ),
           ),
