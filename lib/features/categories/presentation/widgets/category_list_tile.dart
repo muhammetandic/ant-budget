@@ -29,9 +29,10 @@ class CategoryListTile extends ConsumerWidget {
     final l10n = context.l10n;
     final canDelete = usageCount == 0;
     return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+      minVerticalPadding: 8,
       leading: CategoryAvatar(category: category),
       title: Text(categoryLabel(l10n, category)),
-      subtitle: Text(l10n.categoryUsage(usageCount)),
       onTap: () => CategoryFormSheet.show(context, category: category),
       trailing: IconButton(
         onPressed: canDelete ? () => _confirmDelete(context, ref) : null,
@@ -47,7 +48,9 @@ class CategoryListTile extends ConsumerWidget {
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text(l10n.categoryDeleteTitle),
-        content: Text(l10n.categoryDeleteConfirm(categoryLabel(l10n, category))),
+        content: Text(
+          l10n.categoryDeleteConfirm(categoryLabel(l10n, category)),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),

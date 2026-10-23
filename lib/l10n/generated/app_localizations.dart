@@ -134,6 +134,18 @@ abstract class AppLocalizations {
   /// **'See all'**
   String get actionSeeAll;
 
+  /// No description provided for @actionMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get actionMore;
+
+  /// No description provided for @actionLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Less'**
+  String get actionLess;
+
   /// No description provided for @actionSet.
   ///
   /// In en, this message translates to:

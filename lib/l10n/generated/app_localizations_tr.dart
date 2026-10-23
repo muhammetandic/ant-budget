@@ -27,6 +27,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get actionSeeAll => 'Tümünü gör';
 
   @override
+  String get actionMore => 'Daha fazla';
+
+  @override
+  String get actionLess => 'Daha az';
+
+  @override
   String get actionSet => 'Belirle';
 
   @override

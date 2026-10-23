@@ -27,6 +27,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get actionSeeAll => 'See all';
 
   @override
+  String get actionMore => 'More';
+
+  @override
+  String get actionLess => 'Less';
+
+  @override
   String get actionSet => 'Set';
 
   @override

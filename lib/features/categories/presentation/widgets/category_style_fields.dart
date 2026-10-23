@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ant_budget/core/theme/category_icon_mapper.dart';
 import 'package:ant_budget/core/values/category_icon.dart';
+import 'package:ant_budget/l10n/l10n.dart';
 
 /// Colours a category can be given, matching the palette of the seeded ones.
 const List<int> _palette = [
@@ -13,10 +14,27 @@ const List<int> _palette = [
   0xFF4527A0,
   0xFF00796B,
   0xFF455A64,
+  0xFFD81B60,
+  0xFF8E24AA,
+  0xFF5E35B1,
+  0xFF3949AB,
+  0xFF1E88E5,
+  0xFF039BE5,
+  0xFF00ACC1,
+  0xFF00897B,
+  0xFF43A047,
+  0xFF7CB342,
+  0xFFC0CA33,
+  0xFFFDD835,
+  0xFFFFB300,
+  0xFFFB8C00,
+  0xFFF4511E,
+  0xFF6D4C41,
+  0xFF757575,
 ];
 
 /// Picks the icon of a category.
-class CategoryIconField extends StatelessWidget {
+class CategoryIconField extends StatefulWidget {
   const CategoryIconField({
     super.key,
     required this.icon,
@@ -37,31 +55,53 @@ class CategoryIconField extends StatelessWidget {
   final ValueChanged<CategoryIcon> onChanged;
 
   @override
+  State<CategoryIconField> createState() => _CategoryIconFieldState();
+}
+
+class _CategoryIconFieldState extends State<CategoryIconField> {
+  bool _showAll = false;
+
+  @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
+    final candidates = _showAll
+        ? CategoryIcon.values
+        : _visibleChoices(CategoryIcon.values, widget.icon);
+    return Column(
       children: [
-        for (final candidate in CategoryIcon.values)
-          _Choice(
-            selected: candidate == icon,
-            accent: color,
-            onTap: () => onChanged(candidate),
-            child: Icon(
-              CategoryIconMapper.resolve(candidate),
-              color: candidate == icon
-                  ? Color(color)
-                  : scheme.onSurfaceVariant,
-            ),
-          ),
+        GridView.count(
+          crossAxisCount: 6,
+          mainAxisSpacing: 4,
+          crossAxisSpacing: 4,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          childAspectRatio: 1,
+          children: [
+            for (final candidate in candidates)
+              _Choice(
+                selected: candidate == widget.icon,
+                accent: widget.color,
+                onTap: () => widget.onChanged(candidate),
+                child: Icon(
+                  CategoryIconMapper.resolve(candidate),
+                  color: candidate == widget.icon
+                      ? Color(widget.color)
+                      : scheme.onSurfaceVariant,
+                ),
+              ),
+          ],
+        ),
+        _MoreLessButton(
+          showAll: _showAll,
+          onPressed: () => setState(() => _showAll = !_showAll),
+        ),
       ],
     );
   }
 }
 
 /// Picks the colour of a category.
-class CategoryColorField extends StatelessWidget {
+class CategoryColorField extends StatefulWidget {
   const CategoryColorField({
     super.key,
     required this.color,
@@ -78,26 +118,73 @@ class CategoryColorField extends StatelessWidget {
   final ValueChanged<int> onChanged;
 
   @override
-  Widget build(BuildContext context) => Wrap(
-    spacing: 8,
-    runSpacing: 8,
-    children: [
-      for (final candidate in _palette)
-        _Choice(
-          selected: candidate == color,
-          accent: candidate,
-          onTap: () => onChanged(candidate),
-          child: SizedBox.square(
-            dimension: 26,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(candidate),
+  State<CategoryColorField> createState() => _CategoryColorFieldState();
+}
+
+class _CategoryColorFieldState extends State<CategoryColorField> {
+  bool _showAll = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final candidates = _showAll
+        ? _palette
+        : _visibleChoices(_palette, widget.color);
+    return Column(
+      children: [
+        GridView.count(
+          crossAxisCount: 6,
+          mainAxisSpacing: 4,
+          crossAxisSpacing: 4,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          childAspectRatio: 1,
+          children: [
+            for (final candidate in candidates)
+              _Choice(
+                selected: candidate == widget.color,
+                accent: candidate,
+                onTap: () => widget.onChanged(candidate),
+                child: SizedBox.square(
+                  dimension: 26,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(candidate),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
+          ],
         ),
-    ],
+        _MoreLessButton(
+          showAll: _showAll,
+          onPressed: () => setState(() => _showAll = !_showAll),
+        ),
+      ],
+    );
+  }
+}
+
+List<T> _visibleChoices<T>(List<T> choices, T selected) {
+  final visible = choices.take(8).toList();
+  if (!visible.contains(selected)) visible.add(selected);
+  return visible;
+}
+
+class _MoreLessButton extends StatelessWidget {
+  const _MoreLessButton({required this.showAll, required this.onPressed});
+
+  final bool showAll;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) => Align(
+    alignment: Alignment.centerLeft,
+    child: TextButton.icon(
+      onPressed: onPressed,
+      icon: Icon(showAll ? Icons.expand_less : Icons.expand_more),
+      label: Text(showAll ? context.l10n.actionLess : context.l10n.actionMore),
+    ),
   );
 }
 

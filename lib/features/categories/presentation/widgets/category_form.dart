@@ -25,8 +25,8 @@ class CategoryForm extends ConsumerStatefulWidget {
 
 class _CategoryFormState extends ConsumerState<CategoryForm> {
   late final TextEditingController _name;
-  late final CategoryIcon _icon;
-  late final int _color;
+  late CategoryIcon _icon;
+  late int _color;
   bool _prefilled = false;
   String? _error;
   bool _saving = false;
@@ -96,53 +96,62 @@ class _CategoryFormState extends ConsumerState<CategoryForm> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final labelStyle = Theme.of(context).textTheme.titleSmall;
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.category == null ? l10n.categoryNewTitle
-                : l10n.categoryEditTitle,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: _name,
-            autofocus: widget.category == null,
-            maxLength: SaveCategoryUseCase.maxNameLength,
-            textInputAction: TextInputAction.done,
-            onSubmitted: (_) => _save(),
-            decoration: InputDecoration(
-              labelText: l10n.fieldCategoryName,
-              errorText: _error,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Flexible(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.category == null
+                      ? l10n.categoryNewTitle
+                      : l10n.categoryEditTitle,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _name,
+                  autofocus: widget.category == null,
+                  maxLength: SaveCategoryUseCase.maxNameLength,
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (_) => _save(),
+                  decoration: InputDecoration(
+                    labelText: l10n.fieldCategoryName,
+                    errorText: _error,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(l10n.fieldCategoryIcon, style: labelStyle),
+                const SizedBox(height: 8),
+                CategoryIconField(
+                  icon: _icon,
+                  color: _color,
+                  onChanged: (icon) => setState(() => _icon = icon),
+                ),
+                const SizedBox(height: 20),
+                Text(l10n.fieldCategoryColor, style: labelStyle),
+                const SizedBox(height: 8),
+                CategoryColorField(
+                  color: _color,
+                  onChanged: (color) => setState(() => _color = color),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
-          Text(l10n.fieldCategoryIcon, style: labelStyle),
-          const SizedBox(height: 8),
-          CategoryIconField(
-            icon: _icon,
-            color: _color,
-            onChanged: (icon) => setState(() => _icon = icon),
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          width: double.infinity,
+          child: FilledButton(
+            onPressed: _saving ? null : _save,
+            child: Text(l10n.actionSave),
           ),
-          const SizedBox(height: 20),
-          Text(l10n.fieldCategoryColor, style: labelStyle),
-          const SizedBox(height: 8),
-          CategoryColorField(
-            color: _color,
-            onChanged: (color) => setState(() => _color = color),
-          ),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: _saving ? null : _save,
-              child: Text(l10n.actionSave),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
