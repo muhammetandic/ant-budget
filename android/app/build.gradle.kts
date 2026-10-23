@@ -4,6 +4,10 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+dependencies {
+    implementation("androidx.core:core-splashscreen:1.0.1")
+}
+
 android {
     namespace = "com.anttech.antbudget"
     // permission_handler_android requires compiling against API 37.
