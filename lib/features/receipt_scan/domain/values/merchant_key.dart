@@ -10,9 +10,9 @@ import 'package:ant_budget/features/receipt_scan/domain/parsing/shop_name_select
 /// which is what lets a category chosen for a shop yesterday be found again
 /// today.
 ///
-/// The token is the one `MerchantParserStrategy` keeps as the merchant name, so
-/// a key computed here and a merchant stored on a transaction agree by
-/// construction.
+/// The token is the *first* name-worthy word of the merchant name, so the extra
+/// words an independent shop's name keeps (`TAHTAKALE SPOT Mağazacilik`) do not
+/// change its key — the same shop filed under `TAHTAKALE` before still matches.
 abstract final class MerchantKey {
   static const ShopNameSelector _names = ShopNameSelector();
 

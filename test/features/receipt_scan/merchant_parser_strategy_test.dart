@@ -38,7 +38,7 @@ Belge No
 TAHTAKALE SPOT Mağazacilik san . Tic.A.Ş
 ''');
 
-    expect(merchant, 'TAHTAKALE');
+    expect(merchant, 'TAHTAKALE SPOT Mağazacilik');
   });
 
   test('does not return an address line as the merchant', () {
@@ -48,7 +48,7 @@ GARANTİ BANKASI
 ''');
 
     expect(merchant, isNot('Lafer Mh. 2622 Sk. R.N. Harç Sitesi'));
-    expect(merchant, 'GARANTİ');
+    expect(merchant, 'GARANTİ BANKASI');
   });
 
   test('restores the spelling of a chain whose logo OCR mangled', () {
@@ -68,7 +68,7 @@ KUZEY GIDA
 TOPLAM 120,00
 ''');
 
-    expect(merchant, 'KUZEY');
+    expect(merchant, 'KUZEY GIDA');
   });
 
   test('reads a line whose \$ is really a misread letter', () {

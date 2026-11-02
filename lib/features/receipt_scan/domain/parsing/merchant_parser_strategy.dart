@@ -2,7 +2,6 @@ import 'package:ant_budget/core/error/failure.dart';
 import 'package:ant_budget/core/error/result.dart';
 import 'package:ant_budget/core/values/currency.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/ascii_folding.dart';
-import 'package:ant_budget/features/receipt_scan/domain/parsing/merchant_brands.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/merchant_keywords.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parse_input.dart';
 import 'package:ant_budget/features/receipt_scan/domain/parsing/ocr_parsing_strategy.dart';
@@ -18,9 +17,9 @@ import 'package:ant_budget/features/receipt_scan/domain/parsing/shop_name_select
 /// can sit below a run of product rows. So each header line is *scored* — a
 /// corporate word, capitals and length help; an address or a late position
 /// hurts — and the best candidate wins instead of the first that merely looks
-/// like a name. Only the first word of the winning line is kept: that is the
-/// trade name, while everything behind it is a legal tail (`Tic.A.Ş`) or an
-/// OCR fragment.
+/// like a name. The winning line is then reduced by [ShopNameSelector]: a known
+/// chain to its single brand word, every other shop to its first three
+/// name-worthy words.
 final class MerchantParserStrategy implements OcrParsingStrategy<String?> {
   const MerchantParserStrategy();
 
@@ -61,8 +60,7 @@ final class MerchantParserStrategy implements OcrParsingStrategy<String?> {
       }
     }
     if (best == null) return const Result.ok(null);
-    final word = _names.firstToken(best);
-    return Result.ok(word == null ? null : MerchantBrands.correct(word));
+    return Result.ok(_names.nameFor(best));
   }
 
   /// Ranks a plausible name: a corporate word dominates, capitals and length

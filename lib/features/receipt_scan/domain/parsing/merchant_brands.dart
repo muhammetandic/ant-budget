@@ -22,7 +22,10 @@ abstract final class MerchantBrands {
     'migros': 'MİGROS',
   };
 
+  /// The catalogue's spelling of [word], or `null` when the chain is unknown.
+  static String? canonicalOf(String word) =>
+      _canonicalByFolded[AsciiFolding.fold(word)];
+
   /// [word] with a known chain's spelling restored, or [word] unchanged.
-  static String correct(String word) =>
-      _canonicalByFolded[AsciiFolding.fold(word)] ?? word;
+  static String correct(String word) => canonicalOf(word) ?? word;
 }

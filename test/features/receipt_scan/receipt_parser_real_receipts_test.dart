@@ -33,7 +33,7 @@ void main() {
 
       expect(receipt.total, const Money(35030, Currency.turkishLira));
       expect(receipt.purchasedAt, DateTime(2026, 10, 16));
-      expect(receipt.merchantName, 'TAHTAKALE');
+      expect(receipt.merchantName, 'TAHTAKALE SPOT Mağazacilik');
     },
   );
 
