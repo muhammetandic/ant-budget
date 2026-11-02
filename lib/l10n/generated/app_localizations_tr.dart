@@ -57,6 +57,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get dashboardScanTooltip => 'Fiş tara';
 
   @override
+  String get settingsTitle => 'Ayarlar';
+
+  @override
+  String get settingsReceiptScanning => 'Fiş tarama';
+
+  @override
+  String get settingsMlKitDescription => 'Google cihaz içi metin tanıma.';
+
+  @override
+  String get settingsPaddleDescription =>
+      'PaddleOCR cihaz içi modelleri. Uygulama boyutuna yaklaşık 29 MB ekler.';
+
+  @override
   String get dashboardRecentTransactions => 'Son işlemler';
 
   @override

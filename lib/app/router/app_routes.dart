@@ -24,6 +24,9 @@ abstract final class AppRoutes {
   /// Expense reports tab.
   static const String reports = '/reports';
 
+  /// App preferences.
+  static const String settings = '/settings';
+
   /// Camera screen used to photograph a receipt.
   static const String scan = '/scan';
 

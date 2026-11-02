@@ -76,4 +76,22 @@ void main() {
       await shutDown(tester, database);
     },
   );
+
+  testWidgets('opens the settings screen', (tester) async {
+    final database = await boot(tester);
+    final router = ProviderScope.containerOf(
+      tester.element(find.byType(SmartBudgetApp)),
+    ).read(appRouterProvider);
+
+    router.go(AppRoutes.settings);
+    await tester.pumpAndSettle();
+
+    expect(
+      router.routerDelegate.currentConfiguration.uri.path,
+      AppRoutes.settings,
+    );
+    expect(find.text('Settings'), findsOneWidget);
+
+    await shutDown(tester, database);
+  });
 }

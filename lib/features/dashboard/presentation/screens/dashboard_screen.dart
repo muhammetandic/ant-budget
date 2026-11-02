@@ -31,6 +31,11 @@ class DashboardScreen extends ConsumerWidget {
             onPressed: () => context.push(AppRoutes.scan),
             icon: const Icon(Icons.document_scanner_outlined),
           ),
+          IconButton(
+            tooltip: l10n.settingsTitle,
+            onPressed: () => context.push(AppRoutes.settings),
+            icon: const Icon(Icons.settings_outlined),
+          ),
         ],
       ),
       body: ListView(

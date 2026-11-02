@@ -11,8 +11,8 @@ import 'package:ant_budget/features/receipt_scan/domain/values/ocr_raw_text.dart
 ///
 /// Enabled only for builds made with
 /// `--dart-define=ANT_SCAN_DIAGNOSTICS=true`, so a normal release never wraps
-/// the recogniser and pays nothing. It copies the captured photo and writes
-/// ML Kit's raw output into a `diag/` folder inside the app-specific external
+/// the recogniser and pays nothing. It copies the captured photo and writes the
+/// selected engine's raw output into a `diag/` folder inside the app-specific external
 /// storage — the evidence needed to tell *bad recognition* apart from *bad
 /// parsing* when a receipt comes out wrong.
 ///
@@ -67,7 +67,7 @@ final class DiagnosticOcrService implements OcrService {
     final evidence = File('${directory.path}/scan_$stamp.txt');
     await evidence.writeAsString(
       'image: $imagePath\n'
-      '\n--- ML Kit raw text ---\n'
+      '\n--- OCR raw text ---\n'
       '$text\n',
     );
     debugPrint('[scan-diag] evidence saved: ${evidence.path}');
