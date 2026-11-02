@@ -4,6 +4,7 @@ import 'package:ant_budget/core/error/failure_stream_x.dart';
 import 'package:ant_budget/core/values/currency.dart';
 import 'package:ant_budget/core/values/money.dart';
 import 'package:ant_budget/core/values/transaction_kind.dart';
+import 'package:ant_budget/core/values/transaction_source.dart';
 import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/features/transactions/domain/values/transaction_filter.dart';
 
@@ -38,7 +39,11 @@ class TransactionDao {
       query.where((t) => t.kind.equalsValue(kind));
     }
     if (receiptOnly) {
-      query.where((t) => t.receiptMerchant.isNotNull());
+      query.where(
+        (t) =>
+            t.receiptMerchant.isNotNull() &
+            t.source.equalsValue(TransactionSource.receiptScan),
+      );
     }
     query.orderBy([
       (t) => OrderingTerm.desc(t.occurredAt),

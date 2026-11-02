@@ -38,6 +38,7 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
   final _formKey = GlobalKey<FormState>();
   final _amountController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _merchantController = TextEditingController();
 
   TransactionKind _kind = TransactionKind.expense;
   int? _categoryId;
@@ -50,6 +51,7 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
   void dispose() {
     _amountController.dispose();
     _descriptionController.dispose();
+    _merchantController.dispose();
     super.dispose();
   }
 
@@ -67,6 +69,7 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
     _categoryId = initial.categoryId;
     _date = initial.occurredAt;
     _descriptionController.text = initial.description;
+    _merchantController.text = initial.receiptMerchant ?? '';
     _amountController.text = MoneyFormatter.format(
       initial.amount,
       withSymbol: false,
@@ -108,6 +111,7 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
   /// receipt), so updating a scanned transaction never loses its origin.
   Future<Result<int, Failure>> _save(Money amount, int categoryId) {
     final description = _descriptionController.text;
+    final merchant = _merchantController.text.trim();
     final initial = widget.initial;
     if (initial == null) {
       return ref.read(addTransactionUseCaseProvider)(
@@ -117,6 +121,7 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
           occurredAt: _date,
           kind: _kind,
           description: description,
+          receiptMerchant: merchant.isEmpty ? null : merchant,
         ),
       );
     }
@@ -128,8 +133,8 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
         occurredAt: _date,
         kind: _kind,
         description: description,
+        receiptMerchant: merchant.isEmpty ? null : merchant,
         source: initial.source,
-        receiptMerchant: initial.receiptMerchant,
         receiptImagePath: initial.receiptImagePath,
       ),
     );
@@ -156,6 +161,13 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
   }
 
   Widget _form(BuildContext context, List<Category> items) {
+    final merchantHistory = ref.watch(allTransactionsProvider).asData?.value ?? [];
+    final merchants = merchantHistory
+        .map((transaction) => transaction.receiptMerchant?.trim() ?? '')
+        .where((merchant) => merchant.isNotEmpty)
+        .toSet()
+        .toList()
+      ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
     return Form(
       key: _formKey,
       child: ListView(
@@ -164,6 +176,8 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
           TransactionFormFields(
             amountController: _amountController,
             descriptionController: _descriptionController,
+            merchantController: _merchantController,
+            merchantOptions: merchants,
             kind: _kind,
             categoryId: _categoryId,
             categories: items,

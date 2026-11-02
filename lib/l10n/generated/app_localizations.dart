@@ -320,6 +320,12 @@ abstract class AppLocalizations {
   /// **'Choose a category'**
   String get validationChooseCategory;
 
+  /// No description provided for @validationEnterMerchant.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a merchant'**
+  String get validationEnterMerchant;
+
   /// No description provided for @actionSaveTransaction.
   ///
   /// In en, this message translates to:

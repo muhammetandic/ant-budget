@@ -124,6 +124,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get validationChooseCategory => 'Choose a category';
 
   @override
+  String get validationEnterMerchant => 'Enter a merchant';
+
+  @override
   String get actionSaveTransaction => 'Save transaction';
 
   @override

@@ -54,6 +54,7 @@
   "fieldMerchant": "Merchant",
   "validationEnterAmount": "Enter a valid amount",
   "validationChooseCategory": "Choose a category",
+  "validationEnterMerchant": "Enter a merchant",
   "actionSaveTransaction": "Save transaction",
   "errorEnterAmountAndCategory": "Enter an amount and choose a category.",
   "errorEnterValidAmount": "Enter a valid amount.",

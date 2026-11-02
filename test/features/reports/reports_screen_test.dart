@@ -10,6 +10,7 @@ import 'package:ant_budget/core/values/money.dart';
 import 'package:ant_budget/core/values/transaction_kind.dart';
 import 'package:ant_budget/features/categories/data/datasources/default_category_seeder.dart';
 import 'package:ant_budget/features/reports/presentation/screens/reports_screen.dart';
+import 'package:ant_budget/features/reports/presentation/widgets/category_breakdown_chart.dart';
 import 'package:ant_budget/features/transactions/data/mappers/transaction_mapper.dart';
 import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
 import 'package:ant_budget/l10n/l10n.dart';
@@ -107,7 +108,9 @@ void main() {
     expect(find.text('Toplam gider'), findsOneWidget);
     // Total of the summary row and of the donut's hole.
     expect(find.text('₺200,00'), findsWidgets);
-    expect(find.text('Kategoriye göre giderler'), findsOneWidget);
+    // The category segment carries the heading copy, so it appears twice:
+    // once in the segmented button and once above the chart.
+    expect(find.text('Kategoriye göre giderler'), findsNWidgets(2));
     expect(find.text('İşyerine göre giderler'), findsOneWidget);
 
     // Groceries: 12.000 + 4.000 = 16.000 of 20.000, two transactions.
@@ -116,6 +119,10 @@ void main() {
     expect(find.text('2 işlem'), findsWidgets);
     expect(find.text('%80'), findsWidgets);
     expect(find.text('%20'), findsWidgets);
+
+    // The shop report is a separate segment now.
+    await tester.tap(find.text('İşyerine göre giderler'));
+    await tester.pumpAndSettle();
 
     // Both spellings of the chain landed in one row, labelled with the one the
     // user saw most recently; the income's shop never appears.
@@ -141,7 +148,7 @@ void main() {
     );
 
     expect(find.text('Bu ay için gider kaydı yok.'), findsOneWidget);
-    expect(find.text('Kategoriye göre giderler'), findsNothing);
+    expect(find.byType(CategoryBreakdownChart), findsNothing);
 
     await shutDown(tester, database);
   });
@@ -153,6 +160,11 @@ void main() {
     );
 
     expect(find.text('Toplam gider'), findsOneWidget);
+
+    // The shop dimension has its own segment; there is nothing to list.
+    await tester.tap(find.text('İşyerine göre giderler'));
+    await tester.pumpAndSettle();
+
     expect(find.text('İşyeri bilgisi olan gider kaydı yok.'), findsOneWidget);
 
     await shutDown(tester, database);

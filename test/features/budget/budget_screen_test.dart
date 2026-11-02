@@ -115,11 +115,22 @@ void main() {
     await tester.pumpAndSettle();
 
     // The sheet closed and the tile reports the month's spending: the seeded
-    // category 1 is Groceries, 120,50 spent of a 500,00 limit.
+    // category 1 is Groceries, 120,50 spent of a 500,00 limit. The month card
+    // repeats the totals, so the assertions are scoped to the tile.
     expect(find.byType(CategoryBudgetForm), findsNothing);
-    expect(find.text('₺120,50'), findsOneWidget);
-    expect(find.text('₺500,00 limit'), findsOneWidget);
-    expect(find.text('₺379,50 kaldı'), findsOneWidget);
+    final tile = find.byType(CategoryBudgetTile);
+    expect(
+      find.descendant(of: tile, matching: find.text('₺120,50')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: tile, matching: find.text('₺500,00 limit')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: tile, matching: find.text('₺379,50 kaldı')),
+      findsOneWidget,
+    );
 
     final stored = await database.select(database.categoryBudgets).get();
     expect(stored, hasLength(1));
@@ -138,9 +149,17 @@ void main() {
       budgets: [(categoryId: 1, limitMinorUnits: 50000)],
     );
 
-    // The tile is there with its health line.
-    expect(find.text('₺120,50'), findsOneWidget);
-    expect(find.text('₺500,00 limit'), findsOneWidget);
+    // The tile is there with its health line. The month card repeats the same
+    // totals, so these are scoped to the tile.
+    final tile = find.byType(CategoryBudgetTile);
+    expect(
+      find.descendant(of: tile, matching: find.text('₺120,50')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: tile, matching: find.text('₺500,00 limit')),
+      findsOneWidget,
+    );
 
     // Tapping it reopens the form with the stored limit in the field.
     await tester.tap(find.byType(CategoryBudgetTile));

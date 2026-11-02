@@ -17,6 +17,8 @@ class TransactionFormFields extends StatelessWidget {
     super.key,
     required this.amountController,
     required this.descriptionController,
+    required this.merchantController,
+    required this.merchantOptions,
     required this.kind,
     required this.categoryId,
     required this.categories,
@@ -26,6 +28,8 @@ class TransactionFormFields extends StatelessWidget {
 
   final TextEditingController amountController;
   final TextEditingController descriptionController;
+  final TextEditingController merchantController;
+  final List<String> merchantOptions;
   final TransactionKind kind;
   final int? categoryId;
   final List<Category> categories;
@@ -82,6 +86,49 @@ class TransactionFormFields extends StatelessWidget {
           onChanged: onCategoryChanged,
           validator: (value) =>
               value == null ? l10n.validationChooseCategory : null,
+        ),
+        const SizedBox(height: 8),
+        Autocomplete<String>(
+          initialValue: TextEditingValue(text: merchantController.text),
+          optionsBuilder: (value) {
+            final query = value.text.trim().toLowerCase();
+            if (query.isEmpty) return merchantOptions;
+            return merchantOptions.where(
+              (merchant) => merchant.toLowerCase().contains(query),
+            );
+          },
+          onSelected: (merchant) => merchantController.text = merchant,
+          fieldViewBuilder: (context, controller, focusNode, onSubmitted) =>
+              TextFormField(
+                controller: controller,
+                focusNode: focusNode,
+                decoration: InputDecoration(labelText: l10n.fieldMerchant),
+                onChanged: (value) => merchantController.text = value,
+                validator: (value) => (value?.trim().isEmpty ?? true)
+                    ? l10n.validationEnterMerchant
+                    : null,
+              ),
+          optionsViewBuilder: (context, onSelected, options) => Align(
+            alignment: Alignment.topLeft,
+            child: Material(
+              elevation: 4,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 200),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: options.length,
+                  itemBuilder: (context, index) {
+                    final option = options.elementAt(index);
+                    return ListTile(
+                      title: Text(option),
+                      onTap: () => onSelected(option),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
         ),
         const SizedBox(height: 8),
         TextFormField(

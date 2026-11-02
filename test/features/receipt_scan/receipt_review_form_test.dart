@@ -8,6 +8,7 @@ import 'package:ant_budget/core/providers/database_providers.dart';
 import 'package:ant_budget/core/values/currency.dart';
 import 'package:ant_budget/core/values/money.dart';
 import 'package:ant_budget/core/values/transaction_kind.dart';
+import 'package:ant_budget/core/values/transaction_source.dart';
 import 'package:ant_budget/features/categories/data/datasources/default_category_seeder.dart';
 import 'package:ant_budget/features/receipt_scan/domain/entities/scanned_receipt.dart';
 import 'package:ant_budget/features/receipt_scan/presentation/widgets/receipt_review_form.dart';
@@ -80,6 +81,7 @@ void main() {
     categoryId: categoryId,
     occurredAt: DateTime(2026, 10, 14),
     kind: TransactionKind.expense,
+    source: TransactionSource.receiptScan,
     receiptMerchant: merchant,
   );
 

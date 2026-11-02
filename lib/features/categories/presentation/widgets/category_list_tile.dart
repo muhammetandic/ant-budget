@@ -29,8 +29,9 @@ class CategoryListTile extends ConsumerWidget {
     final l10n = context.l10n;
     final canDelete = usageCount == 0;
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-      minVerticalPadding: 8,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+      minVerticalPadding: 0,
+      visualDensity: const VisualDensity(vertical: -2),
       leading: CategoryAvatar(category: category),
       title: Text(categoryLabel(l10n, category)),
       onTap: () => CategoryFormSheet.show(context, category: category),

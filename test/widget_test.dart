@@ -6,6 +6,8 @@ import 'package:ant_budget/app/app.dart';
 import 'package:ant_budget/app/app_composition.dart';
 import 'package:ant_budget/core/data/database/app_database.dart';
 import 'package:ant_budget/core/providers/database_providers.dart';
+import 'package:ant_budget/core/utils/date_formatter.dart';
+import 'package:ant_budget/core/values/year_month.dart';
 import 'package:ant_budget/features/categories/data/datasources/default_category_seeder.dart';
 
 void main() {
@@ -65,7 +67,12 @@ void main() {
     expect(find.text('Gider'), findsOneWidget);
     // Amounts and month headers follow the language, not just the labels.
     expect(find.text('₺0,00'), findsWidgets);
-    expect(find.text('Ekim 2026'), findsOneWidget);
+    expect(
+      find.text(
+        DateFormatter.month(YearMonth.current().start, languageCode: 'tr'),
+      ),
+      findsOneWidget,
+    );
 
     await shutDown(tester, database);
   });
@@ -79,9 +86,10 @@ void main() {
     await tester.tap(find.text('Kategoriler'));
     await tester.pumpAndSettle();
 
-    // The seeded categories are translated and carry no transactions yet.
+    // The seeded categories are translated. The list no longer prints a usage
+    // line; only the categories and their delete affordance are shown.
     expect(find.text('Market'), findsOneWidget);
-    expect(find.text('İşlem yok'), findsWidgets);
+    expect(find.byTooltip('Sil'), findsWidgets);
 
     await tester.tap(find.text('Ekle'));
     await tester.pumpAndSettle();
@@ -117,8 +125,9 @@ void main() {
 
     // Saving the untouched form must not overwrite the English key the label is
     // translated from, or the category would stop following the language.
-    final names = (await database.select(database.categories).get())
-        .map((row) => row.name);
+    final names = (await database.select(database.categories).get()).map(
+      (row) => row.name,
+    );
     expect(names, contains('Groceries'));
     expect(names, isNot(contains('Market')));
 

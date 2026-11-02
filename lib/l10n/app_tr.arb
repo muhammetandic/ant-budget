@@ -44,6 +44,7 @@
   "fieldMerchant": "İşyeri",
   "validationEnterAmount": "Geçerli bir tutar girin",
   "validationChooseCategory": "Bir kategori seçin",
+  "validationEnterMerchant": "Bir işyeri girin",
   "actionSaveTransaction": "İşlemi kaydet",
   "errorEnterAmountAndCategory": "Bir tutar girip bir kategori seçin.",
   "errorEnterValidAmount": "Geçerli bir tutar girin.",

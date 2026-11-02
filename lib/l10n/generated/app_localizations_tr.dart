@@ -124,6 +124,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get validationChooseCategory => 'Bir kategori seçin';
 
   @override
+  String get validationEnterMerchant => 'Bir işyeri girin';
+
+  @override
   String get actionSaveTransaction => 'İşlemi kaydet';
 
   @override

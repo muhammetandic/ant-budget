@@ -72,7 +72,9 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Market').last);
     await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextFormField).at(1), 'Kahve Dünyası');
     await tester.enterText(find.byType(TextFormField).last, 'Kahve');
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Kaydet'));
     await tester.pumpAndSettle();
 
@@ -81,6 +83,7 @@ void main() {
     expect(stored.single.amountMinorUnits, 25075);
     expect(stored.single.categoryId, 1);
     expect(stored.single.description, 'Kahve');
+    expect(stored.single.receiptMerchant, 'Kahve Dünyası');
 
     await shutDown(tester, database);
   });
