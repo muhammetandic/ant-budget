@@ -194,30 +194,6 @@ abstract class AppLocalizations {
   /// **'Scan a receipt'**
   String get dashboardScanTooltip;
 
-  /// No description provided for @settingsTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Settings'**
-  String get settingsTitle;
-
-  /// No description provided for @settingsReceiptScanning.
-  ///
-  /// In en, this message translates to:
-  /// **'Receipt scanning'**
-  String get settingsReceiptScanning;
-
-  /// No description provided for @settingsMlKitDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Google on-device text recognition.'**
-  String get settingsMlKitDescription;
-
-  /// No description provided for @settingsPaddleDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'PaddleOCR on-device models. Adds about 29 MB to the app.'**
-  String get settingsPaddleDescription;
-
   /// No description provided for @dashboardRecentTransactions.
   ///
   /// In en, this message translates to:

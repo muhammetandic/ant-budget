@@ -57,19 +57,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashboardScanTooltip => 'Scan a receipt';
 
   @override
-  String get settingsTitle => 'Settings';
-
-  @override
-  String get settingsReceiptScanning => 'Receipt scanning';
-
-  @override
-  String get settingsMlKitDescription => 'Google on-device text recognition.';
-
-  @override
-  String get settingsPaddleDescription =>
-      'PaddleOCR on-device models. Adds about 29 MB to the app.';
-
-  @override
   String get dashboardRecentTransactions => 'Recent transactions';
 
   @override

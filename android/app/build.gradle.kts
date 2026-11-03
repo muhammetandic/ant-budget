@@ -24,8 +24,7 @@ android {
         applicationId = "com.anttech.antbudget"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = maxOf(flutter.minSdkVersion, 26)
-        ndk { abiFilters += "arm64-v8a" }
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
         // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
@@ -33,12 +32,6 @@ android {
         // flag during build.
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-    }
-
-    packaging {
-        jniLibs {
-            excludes += setOf("lib/armeabi-v7a/**", "lib/x86/**", "lib/x86_64/**")
-        }
     }
 
     buildTypes {

@@ -8,8 +8,10 @@ import 'package:ant_budget/features/receipt_scan/domain/values/ocr_raw_text.dart
 
 /// [OcrService] backed by Google ML Kit's on-device text recogniser.
 ///
-/// It runs entirely on the device and speaks to the rest of the app through the
-/// [OcrService] port, allowing users to select another OCR engine in Settings.
+/// This is the only file in the app that mentions ML Kit. It runs entirely on
+/// the device (no image ever leaves the phone) and speaks to the rest of the app
+/// exclusively through the [OcrService] port, so the engine can be replaced
+/// (Vision, Tesseract, ...) without touching the domain or the UI.
 final class MlKitOcrService implements OcrService {
   MlKitOcrService({TextRecognitionScript script = TextRecognitionScript.latin})
     : _recognizer = TextRecognizer(script: script);

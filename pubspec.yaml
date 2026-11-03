@@ -41,9 +41,7 @@ dependencies:
   # --- On-device OCR + camera ----------------------------------------------
   camera: ^0.12.1
   google_mlkit_text_recognition: ^0.17.1
-  paddle_ocr_native: ^0.1.1
   permission_handler: ^13.0.2
-  shared_preferences: ^2.5.3
 
   # Stores receipt photos beyond the temporary camera cache and keeps
   # opt-in OCR diagnostic evidence (see DiagnosticOcrService).

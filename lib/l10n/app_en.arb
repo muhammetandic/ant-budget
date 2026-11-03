@@ -19,10 +19,6 @@
   "navReports": "Reports",
 
   "dashboardScanTooltip": "Scan a receipt",
-  "settingsTitle": "Settings",
-  "settingsReceiptScanning": "Receipt scanning",
-  "settingsMlKitDescription": "Google on-device text recognition.",
-  "settingsPaddleDescription": "PaddleOCR on-device models. Adds about 29 MB to the app.",
   "dashboardRecentTransactions": "Recent transactions",
 
   "summaryIncome": "Income",

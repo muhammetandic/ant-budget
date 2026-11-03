@@ -1,8 +1,8 @@
 # Ant Budget
 
 An AI-powered personal finance app built with Flutter. Track expenses and budgets,
-and scan receipts into transactions using on-device OCR — no receipt image ever
-leaves the device. Choose Google ML Kit or PaddleOCR in Settings.
+and scan receipts into transactions using **on-device** ML Kit text recognition —
+no receipt image ever leaves the device.
 
 ## Features
 
@@ -20,9 +20,6 @@ leaves the device. Choose Google ML Kit or PaddleOCR in Settings.
   merchant, amount, and date, then presented for review before saving. The
   category is preselected from the shop: what you filed that shop under last
   time, falling back to a catalogue of common chains.
-- **OCR settings** — choose Google ML Kit or PaddleOCR; the selection is saved
-  on the device. PaddleOCR includes its offline models and adds about 29 MB to
-  the app.
 - **Turkish & English** — the UI, dates and amounts follow the device language;
   Turkish is the fallback for anything else.
 
@@ -53,8 +50,7 @@ lib/
     ├── categories/               # seeded + user managed, CRUD use cases
     ├── budget/
     ├── reports/                   # expense breakdowns + the donut painter
-    ├── receipt_scan/             # domain/parsing strategies + OCR/camera adapters
-    └── settings/                  # saved OCR engine preference
+    └── receipt_scan/             # domain/parsing strategies + ML Kit/camera adapters
 ```
 
 Each feature is split into:
@@ -99,10 +95,8 @@ The same `appProviderOverrides` list is reused in tests.
 
 ### Prerequisites
 
-- Flutter stable (with Dart `^3.12.0`), e.g. Flutter 3.44+.
-- An arm64 Android device (API 26+) or physical iOS device (iOS 16+) for
-  PaddleOCR. Its current native runtime does not support x86 Android emulators
-  or the iOS simulator.
+- Flutter stable (with Dart `^3.11.0`), e.g. Flutter 3.3x+.
+- An Android emulator/device or iOS simulator/device for the OCR + camera paths.
 
 ```bash
 flutter pub get
@@ -158,10 +152,8 @@ language the app does not ship falls back to Turkish — the product's home mark
 Receipt scanning needs camera access, already declared for both platforms:
 
 - **Android** (`android/app/src/main/AndroidManifest.xml`): `CAMERA` permission,
-  optional `camera` features, and the ML Kit `ocr` dependency metadata. PaddleOCR
-  builds target API 26+ and arm64.
-- **iOS** (`ios/Runner/Info.plist`): `NSCameraUsageDescription`. PaddleOCR
-  requires iOS 16+ and CocoaPods static framework linkage; use a physical device.
+  optional `camera` features, and the ML Kit `ocr` dependency metadata.
+- **iOS** (`ios/Runner/Info.plist`): `NSCameraUsageDescription`.
 
 ## Testing
 
@@ -185,5 +177,5 @@ flutter test
 - **Riverpod 3** (`flutter_riverpod`, `riverpod_annotation`, `riverpod_generator`)
 - **Drift** (SQLite) + `drift_flutter`
 - **go_router**
-- **google_mlkit_text_recognition** + **paddle_ocr_native** + **camera** + **permission_handler**
+- **google_mlkit_text_recognition** + **camera** + **permission_handler**
 - **equatable**, **meta**

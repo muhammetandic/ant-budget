@@ -19,10 +19,6 @@
   "navReports": "Raporlar",
 
   "dashboardScanTooltip": "Fiş tara",
-  "settingsTitle": "Ayarlar",
-  "settingsReceiptScanning": "Fiş tarama",
-  "settingsMlKitDescription": "Google cihaz içi metin tanıma.",
-  "settingsPaddleDescription": "PaddleOCR cihaz içi modelleri. Uygulama boyutuna yaklaşık 29 MB ekler.",
   "dashboardRecentTransactions": "Son işlemler",
 
   "summaryIncome": "Gelir",

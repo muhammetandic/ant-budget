@@ -64,7 +64,7 @@ final class OcrServiceProvider
   }
 }
 
-String _$ocrServiceHash() => r'8d5c7bf1bd845beafbafbfa3a216e3ddbb89288a';
+String _$ocrServiceHash() => r'e8f951fe9ef9460ec5a56cd791494e4594020ab9';
 
 @ProviderFor(cameraService)
 final cameraServiceProvider = CameraServiceProvider._();
