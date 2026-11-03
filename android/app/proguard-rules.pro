@@ -40,3 +40,32 @@
 -dontwarn com.google.mlkit.vision.text.devanagari.**
 -dontwarn com.google.mlkit.vision.text.japanese.**
 -dontwarn com.google.mlkit.vision.text.korean.**
+
+# ---------------------------------------------------------------------------
+# ONNX Runtime — PaddleOCR inference engine.
+# ---------------------------------------------------------------------------
+#
+# `ai.onnxruntime` is a JNI binding. When OrtSession.run converts Java tensors
+# the native side finds classes, constructors and methods by *name* through
+# JNI (FindClass/GetMethodID), which R8 cannot see. Without keep rules it
+# removes the types that only native code uses — notably
+# `ai.onnxruntime.TensorInfo` — and the first inference aborts the whole
+# process:
+#
+#     JNI DETECTED ERROR IN APPLICATION: java_class == null in call to
+#     GetMethodID from boolean[] ai.onnxruntime.OrtSession.run(...)
+#     Pending exception java.lang.ClassNotFoundException:
+#     ai.onnxruntime.TensorInfo
+#
+# Keeping the binding (and native method names app-wide) leaves R8 free to
+# shrink everything else.
+-keep class ai.onnxruntime.** { *; }
+-keepclasseswithmembernames class * { native <methods>; }
+
+# ---------------------------------------------------------------------------
+# OpenCV — used by the PaddleOCR SDK for bitmap/geometry helpers.
+# ---------------------------------------------------------------------------
+#
+# Same story: `libopencv_java4.so` resolves Java fields and methods by name, so
+# minified/renamed OpenCV classes break once a Mat is touched from native code.
+-keep class org.opencv.** { *; }
