@@ -20,6 +20,5 @@ abstract final class DateFormatter {
   static String month(
     DateTime date, {
     String languageCode = _defaultLanguage,
-  }) =>
-      '${MonthNames.fullFor(date.month, languageCode)} ${date.year}';
+  }) => '${MonthNames.fullFor(date.month, languageCode)} ${date.year}';
 }

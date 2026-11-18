@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -52,6 +53,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get navReports => 'Raporlar';
+
+  @override
+  String get navMore => 'Daha fazla';
+
+  @override
+  String get navDebts => 'Borç & Alacak';
 
   @override
   String get dashboardScanTooltip => 'Fiş tara';
@@ -413,4 +420,170 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get errorCategoryInUse =>
       'Bu kategori işlemlerde kullanıldığı için silinemez.';
+
+  @override
+  String get errorPersonEmpty => 'Bir kişi adı girin.';
+
+  @override
+  String get errorDebtNotFound => 'Bu borç kaydı artık mevcut değil.';
+
+  @override
+  String get debtsTitle => 'Borç & Alacak';
+
+  @override
+  String get debtsTooltip => 'Borç & Alacak';
+
+  @override
+  String get debtsAddTooltip => 'Borç veya alacak ekle';
+
+  @override
+  String get debtsEmpty => 'Henüz borç veya alacak kaydı yok.';
+
+  @override
+  String get debtsAll => 'Tümü';
+
+  @override
+  String get debtsClaims => 'Alacaklar';
+
+  @override
+  String get debtsDebts => 'Borçlar';
+
+  @override
+  String get debtsTotalClaims => 'Toplam Alacak';
+
+  @override
+  String get debtsTotalDebts => 'Toplam Borç';
+
+  @override
+  String get debtsNetBalance => 'Net Durum';
+
+  @override
+  String get debtsAddTitle => 'Yeni Borç / Alacak';
+
+  @override
+  String get debtsEditTitle => 'Borç / Alacağı Düzenle';
+
+  @override
+  String get fieldPerson => 'Kişi';
+
+  @override
+  String get debtTypeDebt => 'Borcum (Borç)';
+
+  @override
+  String get debtTypeClaim => 'Alacağım (Alacak)';
+
+  @override
+  String get debtSettled => 'Ödendi / Kapandı';
+
+  @override
+  String get debtPending => 'Bekliyor';
+
+  @override
+  String get debtMarkSettled => 'Ödendi olarak işaretle';
+
+  @override
+  String get debtMarkPending => 'Bekliyor olarak işaretle';
+
+  @override
+  String get validationEnterPerson => 'Bir kişi adı girin';
+
+  @override
+  String get navSettings => 'Ayarlar';
+
+  @override
+  String get settingsTitle => 'Ayarlar';
+
+  @override
+  String get settingsAccountSection => 'Google Hesabı';
+
+  @override
+  String settingsAccountSignedIn(Object email) {
+    return '$email olarak oturum açık';
+  }
+
+  @override
+  String get settingsAccountNotSignedIn => 'Oturum açılmamış';
+
+  @override
+  String get settingsAccountSignIn => 'Google\'da oturum aç';
+
+  @override
+  String get settingsAccountSignOut => 'Çıkış yap';
+
+  @override
+  String get settingsAccountSignedInSuccess => 'Başarıyla oturum açıldı';
+
+  @override
+  String get settingsAccountSignInFailed =>
+      'Oturum açma başarısız. Lütfen tekrar deneyin.';
+
+  @override
+  String get settingsBackupSection => 'Google Drive\'a Yedekle';
+
+  @override
+  String get settingsBackupSignInRequired =>
+      'Yedek alma ve geri yükleme için Google\'da oturum açın.';
+
+  @override
+  String get settingsBackupSignInToBackup => 'Yedekleme için oturum aç';
+
+  @override
+  String get settingsBackupCreate => 'Şimdi yedek oluştur';
+
+  @override
+  String get settingsBackupCreating => 'Yedek oluşturuluyor…';
+
+  @override
+  String settingsBackupCreated(Object fileName) {
+    return 'Yedek oluşturuldu: $fileName';
+  }
+
+  @override
+  String get settingsBackupNoBackups =>
+      'Henüz yedek yok. İlk yedeğinizi oluşturun.';
+
+  @override
+  String get settingsBackupRestore => 'Geri yükle';
+
+  @override
+  String get settingsBackupRestoreConfirmTitle => 'Yedek geri yüklensin mi?';
+
+  @override
+  String settingsBackupRestoreConfirmMessage(Object fileName) {
+    return 'Bu işlem mevcut tüm verilerinizi $fileName yedeğiyle değiştirecek. Bu işlem geri alınamaz.';
+  }
+
+  @override
+  String get settingsBackupRestored =>
+      'Yedek başarıyla geri yüklendi. Lütfen uygulamayı yeniden başlatın.';
+
+  @override
+  String get settingsBackupRestoreFailed => 'Geri yükleme başarısız';
+
+  @override
+  String get settingsBackupDeleteConfirmTitle => 'Yedek silinsin mi?';
+
+  @override
+  String settingsBackupDeleteConfirmMessage(Object fileName) {
+    return '$fileName silinsin mi? Bu işlem geri alınamaz.';
+  }
+
+  @override
+  String get settingsBackupDeleted => 'Yedek silindi.';
+
+  @override
+  String get settingsBackupDeleteFailed => 'Yedek silinemedi.';
+
+  @override
+  String get settingsAboutSection => 'Hakkında';
+
+  @override
+  String get settingsAboutVersion => 'Sürüm';
+
+  @override
+  String get settingsAboutPackageName => 'Paket adı';
+
+  @override
+  String get settingsAboutDescription =>
+      'Ant Budget - Cihaz üzerinde fiş OCR ile AI destekli gider takibi.';
 }

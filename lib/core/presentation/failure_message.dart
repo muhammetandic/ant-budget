@@ -40,12 +40,14 @@ String _validation(AppLocalizations l10n, ValidationIssue issue) =>
       ValidationIssue.categoryNameEmpty => l10n.errorCategoryNameEmpty,
       ValidationIssue.categoryNameTooLong => l10n.errorCategoryNameTooLong,
       ValidationIssue.categoryInUse => l10n.errorCategoryInUse,
+      ValidationIssue.personEmpty => l10n.errorPersonEmpty,
     };
 
 String _notFound(AppLocalizations l10n, String entityType) =>
     switch (entityType.toLowerCase()) {
       'transaction' => l10n.errorTransactionNotFound,
       'category' => l10n.errorCategoryNotFound,
+      'debt' => l10n.errorDebtNotFound,
       _ => l10n.errorNotFound,
     };
 

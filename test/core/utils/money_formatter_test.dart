@@ -7,12 +7,15 @@ void main() {
   const lira = Currency.turkishLira;
 
   group('MoneyFormatter', () {
-    test('groups thousands and keeps the dot as decimal separator in English', () {
-      expect(
-        MoneyFormatter.format(Money.fromMajorUnits(1234.56, lira)),
-        '₺1,234.56',
-      );
-    });
+    test(
+      'groups thousands and keeps the dot as decimal separator in English',
+      () {
+        expect(
+          MoneyFormatter.format(Money.fromMajorUnits(1234.56, lira)),
+          '₺1,234.56',
+        );
+      },
+    );
 
     test('swaps the separators for Turkish', () {
       expect(
@@ -57,15 +60,18 @@ void main() {
       );
     });
 
-    test('formatMinorUnits strips sign and formats negative amounts correctly', () {
-      expect(
-        MoneyFormatter.formatMinorUnits(-550, lira, languageCode: 'en'),
-        '5.50',
-      );
-      expect(
-        MoneyFormatter.formatMinorUnits(-550, lira, languageCode: 'tr'),
-        '5,50',
-      );
-    });
+    test(
+      'formatMinorUnits strips sign and formats negative amounts correctly',
+      () {
+        expect(
+          MoneyFormatter.formatMinorUnits(-550, lira, languageCode: 'en'),
+          '5.50',
+        );
+        expect(
+          MoneyFormatter.formatMinorUnits(-550, lira, languageCode: 'tr'),
+          '5,50',
+        );
+      },
+    );
   });
 }

@@ -34,9 +34,8 @@ final class DeleteCategoryUseCase {
     final deleted = await _repository.deleteIfUnused(categoryId);
     return deleted.fold<Result<Unit, Failure>>(
       (failure) => Result.failure(failure),
-      (didDelete) => didDelete
-          ? Result.success(Unit.instance)
-          : Result.failure(_inUse),
+      (didDelete) =>
+          didDelete ? Result.success(Unit.instance) : Result.failure(_inUse),
     );
   }
 }

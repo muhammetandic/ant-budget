@@ -55,7 +55,10 @@ abstract final class MoneyFormatter {
     final fraction = absUnits % scale;
     final grouped = _groupThousands(whole, separators.group);
     if (currency.decimalDigits == 0) return grouped;
-    final fractionText = fraction.toString().padLeft(currency.decimalDigits, '0');
+    final fractionText = fraction.toString().padLeft(
+      currency.decimalDigits,
+      '0',
+    );
     return '$grouped${separators.decimal}$fractionText';
   }
 

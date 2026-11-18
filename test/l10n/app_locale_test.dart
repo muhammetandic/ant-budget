@@ -21,7 +21,10 @@ void main() {
     });
 
     test('falls back to Turkish for an unsupported language', () {
-      expect(AppLocale.resolve(const Locale('de'), supported), AppLocale.turkish);
+      expect(
+        AppLocale.resolve(const Locale('de'), supported),
+        AppLocale.turkish,
+      );
     });
 
     test('falls back to Turkish when the device reports no language', () {

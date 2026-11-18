@@ -15,14 +15,17 @@ void main() {
     useCase = SaveCategoryUseCase(repository);
   });
 
-  Category category({String name = 'Market', int? id, bool isDefault = false}) =>
-      Category(
-        id: id,
-        name: name,
-        icon: CategoryIcon.groceries,
-        colorValue: 0xFF2E7D32,
-        isDefault: isDefault,
-      );
+  Category category({
+    String name = 'Market',
+    int? id,
+    bool isDefault = false,
+  }) => Category(
+    id: id,
+    name: name,
+    icon: CategoryIcon.groceries,
+    colorValue: 0xFF2E7D32,
+    isDefault: isDefault,
+  );
 
   test('stores a valid category and returns its id', () async {
     final result = await useCase(category());

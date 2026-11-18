@@ -51,11 +51,7 @@ class TransactionTile extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      subtitle: Text(
-        subtitle,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
+      subtitle: Text(subtitle, maxLines: 1, overflow: TextOverflow.ellipsis),
       trailing: Text(
         '${isExpense ? '-' : '+'}'
         '${MoneyFormatter.format(transaction.amount, languageCode: language)}',

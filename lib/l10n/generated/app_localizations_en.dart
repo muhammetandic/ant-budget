@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -52,6 +53,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navReports => 'Reports';
+
+  @override
+  String get navMore => 'More';
+
+  @override
+  String get navDebts => 'Debts & Claims';
 
   @override
   String get dashboardScanTooltip => 'Scan a receipt';
@@ -420,4 +427,169 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorCategoryInUse =>
       'This category is used by transactions, so it cannot be deleted.';
+
+  @override
+  String get errorPersonEmpty => 'Enter a person\'s name.';
+
+  @override
+  String get errorDebtNotFound => 'That debt entry no longer exists.';
+
+  @override
+  String get debtsTitle => 'Debts & Claims';
+
+  @override
+  String get debtsTooltip => 'Debts & Claims';
+
+  @override
+  String get debtsAddTooltip => 'Add debt or claim';
+
+  @override
+  String get debtsEmpty => 'No debts or claims yet.';
+
+  @override
+  String get debtsAll => 'All';
+
+  @override
+  String get debtsClaims => 'Claims';
+
+  @override
+  String get debtsDebts => 'Debts';
+
+  @override
+  String get debtsTotalClaims => 'Total Claims';
+
+  @override
+  String get debtsTotalDebts => 'Total Debts';
+
+  @override
+  String get debtsNetBalance => 'Net Balance';
+
+  @override
+  String get debtsAddTitle => 'New Debt / Claim';
+
+  @override
+  String get debtsEditTitle => 'Edit Debt / Claim';
+
+  @override
+  String get fieldPerson => 'Person';
+
+  @override
+  String get debtTypeDebt => 'I owe (Debt)';
+
+  @override
+  String get debtTypeClaim => 'Owed to me (Claim)';
+
+  @override
+  String get debtSettled => 'Settled';
+
+  @override
+  String get debtPending => 'Pending';
+
+  @override
+  String get debtMarkSettled => 'Mark settled';
+
+  @override
+  String get debtMarkPending => 'Mark pending';
+
+  @override
+  String get validationEnterPerson => 'Enter a person\'s name';
+
+  @override
+  String get navSettings => 'Settings';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsAccountSection => 'Google Account';
+
+  @override
+  String settingsAccountSignedIn(Object email) {
+    return 'Signed in as $email';
+  }
+
+  @override
+  String get settingsAccountNotSignedIn => 'Not signed in';
+
+  @override
+  String get settingsAccountSignIn => 'Sign in to Google';
+
+  @override
+  String get settingsAccountSignOut => 'Sign out';
+
+  @override
+  String get settingsAccountSignedInSuccess => 'Signed in successfully';
+
+  @override
+  String get settingsAccountSignInFailed => 'Sign in failed. Please try again.';
+
+  @override
+  String get settingsBackupSection => 'Backup to Google Drive';
+
+  @override
+  String get settingsBackupSignInRequired =>
+      'Sign in to Google to enable backup & restore.';
+
+  @override
+  String get settingsBackupSignInToBackup => 'Sign in to enable backup';
+
+  @override
+  String get settingsBackupCreate => 'Create backup now';
+
+  @override
+  String get settingsBackupCreating => 'Creating backup…';
+
+  @override
+  String settingsBackupCreated(Object fileName) {
+    return 'Backup created: $fileName';
+  }
+
+  @override
+  String get settingsBackupNoBackups =>
+      'No backups yet. Create your first backup.';
+
+  @override
+  String get settingsBackupRestore => 'Restore';
+
+  @override
+  String get settingsBackupRestoreConfirmTitle => 'Restore backup?';
+
+  @override
+  String settingsBackupRestoreConfirmMessage(Object fileName) {
+    return 'This will replace all your current data with the backup from $fileName. This cannot be undone.';
+  }
+
+  @override
+  String get settingsBackupRestored =>
+      'Backup restored successfully. Please restart the app.';
+
+  @override
+  String get settingsBackupRestoreFailed => 'Restore failed';
+
+  @override
+  String get settingsBackupDeleteConfirmTitle => 'Delete backup?';
+
+  @override
+  String settingsBackupDeleteConfirmMessage(Object fileName) {
+    return 'Delete $fileName? This cannot be undone.';
+  }
+
+  @override
+  String get settingsBackupDeleted => 'Backup deleted.';
+
+  @override
+  String get settingsBackupDeleteFailed => 'Failed to delete backup.';
+
+  @override
+  String get settingsAboutSection => 'About';
+
+  @override
+  String get settingsAboutVersion => 'Version';
+
+  @override
+  String get settingsAboutPackageName => 'Package name';
+
+  @override
+  String get settingsAboutDescription =>
+      'Ant Budget - AI powered expense tracking with on-device receipt OCR.';
 }

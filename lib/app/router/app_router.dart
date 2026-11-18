@@ -5,9 +5,11 @@ import 'package:ant_budget/app/shell/app_shell.dart';
 import 'package:ant_budget/features/budget/presentation/screens/budget_screen.dart';
 import 'package:ant_budget/features/categories/presentation/screens/categories_screen.dart';
 import 'package:ant_budget/features/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:ant_budget/features/debts/presentation/screens/debts_screen.dart';
 import 'package:ant_budget/features/receipt_scan/presentation/screens/receipt_capture_screen.dart';
 import 'package:ant_budget/features/receipt_scan/presentation/screens/receipt_review_screen.dart';
 import 'package:ant_budget/features/reports/presentation/screens/reports_screen.dart';
+import 'package:ant_budget/features/settings/presentation/screens/settings_screen.dart';
 import 'package:ant_budget/features/transactions/domain/entities/transaction.dart';
 import 'package:ant_budget/features/transactions/presentation/screens/transaction_form_screen.dart';
 import 'package:ant_budget/features/transactions/presentation/screens/transactions_screen.dart';
@@ -16,8 +18,8 @@ part 'app_router.g.dart';
 
 /// The application's [GoRouter] configuration.
 ///
-/// The five tabs live inside a [ShellRoute] so the bottom bar survives tab
-/// switches, while creation/scanning screens are pushed above the shell.
+/// The four main tabs live inside a [ShellRoute] so the bottom bar survives tab
+/// switches. Secondary screens and creation/scanning flows sit outside it.
 @riverpod
 GoRouter appRouter(Ref ref) => GoRouter(
   initialLocation: AppRoutes.dashboard,
@@ -37,10 +39,6 @@ GoRouter appRouter(Ref ref) => GoRouter(
         GoRoute(
           path: AppRoutes.budget,
           builder: (_, _) => const BudgetScreen(),
-        ),
-        GoRoute(
-          path: AppRoutes.categories,
-          builder: (_, _) => const CategoriesScreen(),
         ),
         GoRoute(
           path: AppRoutes.reports,
@@ -76,5 +74,11 @@ GoRouter appRouter(Ref ref) => GoRouter(
       builder: (context, state) =>
           ReceiptReviewScreen(imagePath: state.extra as String),
     ),
+    GoRoute(
+      path: AppRoutes.categories,
+      builder: (_, _) => const CategoriesScreen(),
+    ),
+    GoRoute(path: AppRoutes.debts, builder: (_, _) => const DebtsScreen()),
+    GoRoute(path: AppRoutes.settings, builder: (_, _) => const SettingsScreen()),
   ],
 );

@@ -29,20 +29,17 @@ final class WatchBudgetSummaryUseCase {
     final budgets = _budgetRepository.watchCategoryBudgets(period);
     final totals = _transactionRepository.watchMonthlyTotals(period, _currency);
 
-    return budgets.combineLatest(
-      totals,
-      (budgets, totals) {
-        final limit = budgets.fold(
-          Money.zero(_currency),
-          (sum, budget) => sum + budget.limit,
-        );
-        return BudgetSummary(
-          period: period,
-          spent: totals.expenses,
-          income: totals.income,
-          limit: budgets.isEmpty ? null : limit,
-        );
-      },
-    );
+    return budgets.combineLatest(totals, (budgets, totals) {
+      final limit = budgets.fold(
+        Money.zero(_currency),
+        (sum, budget) => sum + budget.limit,
+      );
+      return BudgetSummary(
+        period: period,
+        spent: totals.expenses,
+        income: totals.income,
+        limit: budgets.isEmpty ? null : limit,
+      );
+    });
   }
 }

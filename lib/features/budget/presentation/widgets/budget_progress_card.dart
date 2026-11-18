@@ -29,10 +29,8 @@ class BudgetProgressCard extends ConsumerWidget {
             ),
           ),
           error: (error, _) => Card(child: FailureView(error: error)),
-          data: (summary) => _BudgetContent(
-            summary: summary,
-            onAction: onAction,
-          ),
+          data: (summary) =>
+              _BudgetContent(summary: summary, onAction: onAction),
         );
   }
 }
@@ -98,10 +96,7 @@ class _BudgetContent extends StatelessWidget {
                   const SizedBox(width: 8),
                   Text(
                     l10n.budgetOfLimit(
-                      MoneyFormatter.format(
-                        limit,
-                        languageCode: language,
-                      ),
+                      MoneyFormatter.format(limit, languageCode: language),
                     ),
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: scheme.onSurfaceVariant,

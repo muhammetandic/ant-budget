@@ -85,7 +85,7 @@ final class SuggestedCategoryProvider
   }
 }
 
-String _$suggestedCategoryHash() => r'd867bcd3fdc66146cf177d737e7d1bd158dc3f00';
+String _$suggestedCategoryHash() => r'e8246bef73cb2c15a3a493e62186999ee160488c';
 
 /// The category to preselect for a receipt whose shop is [merchantName].
 ///

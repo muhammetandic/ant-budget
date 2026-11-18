@@ -25,10 +25,7 @@ final class CategoryRepositoryImpl implements CategoryRepository {
 
   @override
   Future<Result<int, Failure>> save(Category category) => Result.attemptAsync(
-    () => _dao.save(
-      CategoryMapper.toWriteCompanion(category),
-      id: category.id,
-    ),
+    () => _dao.save(CategoryMapper.toWriteCompanion(category), id: category.id),
   );
 
   @override
@@ -36,12 +33,11 @@ final class CategoryRepositoryImpl implements CategoryRepository {
       Result.attemptAsync(() => _dao.countTransactions(categoryId));
 
   @override
-  Future<Result<Unit, Failure>> deleteById(int id) => Result.attemptAsync(
-    () async {
-      await _dao.deleteById(id);
-      return Unit.instance;
-    },
-  );
+  Future<Result<Unit, Failure>> deleteById(int id) =>
+      Result.attemptAsync(() async {
+        await _dao.deleteById(id);
+        return Unit.instance;
+      });
 
   @override
   Future<Result<bool, Failure>> deleteIfUnused(int id) =>

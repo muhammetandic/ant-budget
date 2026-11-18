@@ -26,13 +26,14 @@ final class TransactionRepositoryImpl implements TransactionRepository {
   Stream<List<Transaction>> watch(TransactionFilter filter) => _dao
       .watch(filter)
       .map(
-        (rows) => rows
-            .map(TransactionMapper.toDomain)
-            .toList(growable: false),
+        (rows) => rows.map(TransactionMapper.toDomain).toList(growable: false),
       );
 
   @override
-  Stream<MonthlyTotals> watchMonthlyTotals(YearMonth period, Currency currency) {
+  Stream<MonthlyTotals> watchMonthlyTotals(
+    YearMonth period,
+    Currency currency,
+  ) {
     final expenses = _dao.watchTotal(
       period: period,
       kind: TransactionKind.expense,
@@ -94,10 +95,9 @@ final class TransactionRepositoryImpl implements TransactionRepository {
   }
 
   @override
-  Future<Result<Unit, Failure>> deleteById(int id) => Result.attemptAsync(
-    () async {
-      await _dao.deleteById(id);
-      return Unit.instance;
-    },
-  );
+  Future<Result<Unit, Failure>> deleteById(int id) =>
+      Result.attemptAsync(() async {
+        await _dao.deleteById(id);
+        return Unit.instance;
+      });
 }

@@ -1806,6 +1806,532 @@ class TransactionsCompanion extends UpdateCompanion<TransactionDto> {
   }
 }
 
+class $DebtsTable extends Debts with TableInfo<$DebtsTable, DebtDto> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DebtsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _personMeta = const VerificationMeta('person');
+  @override
+  late final GeneratedColumn<String> person = GeneratedColumn<String>(
+    'person',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 120,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _amountMinorUnitsMeta = const VerificationMeta(
+    'amountMinorUnits',
+  );
+  @override
+  late final GeneratedColumn<int> amountMinorUnits = GeneratedColumn<int>(
+    'amount_minor_units',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<Currency, String> currency =
+      GeneratedColumn<String>(
+        'currency',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<Currency>($DebtsTable.$convertercurrency);
+  @override
+  late final GeneratedColumnWithTypeConverter<DebtType, String> type =
+      GeneratedColumn<String>(
+        'type',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<DebtType>($DebtsTable.$convertertype);
+  static const VerificationMeta _dueDateMeta = const VerificationMeta(
+    'dueDate',
+  );
+  @override
+  late final GeneratedColumn<DateTime> dueDate = GeneratedColumn<DateTime>(
+    'due_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isSettledMeta = const VerificationMeta(
+    'isSettled',
+  );
+  @override
+  late final GeneratedColumn<bool> isSettled = GeneratedColumn<bool>(
+    'is_settled',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_settled" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    person,
+    amountMinorUnits,
+    currency,
+    type,
+    dueDate,
+    isSettled,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'debts';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<DebtDto> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('person')) {
+      context.handle(
+        _personMeta,
+        person.isAcceptableOrUnknown(data['person']!, _personMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_personMeta);
+    }
+    if (data.containsKey('amount_minor_units')) {
+      context.handle(
+        _amountMinorUnitsMeta,
+        amountMinorUnits.isAcceptableOrUnknown(
+          data['amount_minor_units']!,
+          _amountMinorUnitsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_amountMinorUnitsMeta);
+    }
+    if (data.containsKey('due_date')) {
+      context.handle(
+        _dueDateMeta,
+        dueDate.isAcceptableOrUnknown(data['due_date']!, _dueDateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_dueDateMeta);
+    }
+    if (data.containsKey('is_settled')) {
+      context.handle(
+        _isSettledMeta,
+        isSettled.isAcceptableOrUnknown(data['is_settled']!, _isSettledMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DebtDto map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DebtDto(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      person: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}person'],
+      )!,
+      amountMinorUnits: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_minor_units'],
+      )!,
+      currency: $DebtsTable.$convertercurrency.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}currency'],
+        )!,
+      ),
+      type: $DebtsTable.$convertertype.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}type'],
+        )!,
+      ),
+      dueDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}due_date'],
+      )!,
+      isSettled: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_settled'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $DebtsTable createAlias(String alias) {
+    return $DebtsTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<Currency, String, String> $convertercurrency =
+      const EnumNameConverter<Currency>(Currency.values);
+  static JsonTypeConverter2<DebtType, String, String> $convertertype =
+      const EnumNameConverter<DebtType>(DebtType.values);
+}
+
+class DebtDto extends DataClass implements Insertable<DebtDto> {
+  final int id;
+
+  /// Person associated with the debt or claim.
+  final String person;
+
+  /// Amount in minor units (kuruş/cents), matching the [Money] value object.
+  final int amountMinorUnits;
+  final Currency currency;
+
+  /// Whether this is a debt (user owes) or claim (user is owed).
+  final DebtType type;
+
+  /// Date of the debt/claim.
+  final DateTime dueDate;
+
+  /// Whether the debt or claim has been settled/cleared.
+  final bool isSettled;
+
+  /// Creation timestamp.
+  final DateTime createdAt;
+  const DebtDto({
+    required this.id,
+    required this.person,
+    required this.amountMinorUnits,
+    required this.currency,
+    required this.type,
+    required this.dueDate,
+    required this.isSettled,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['person'] = Variable<String>(person);
+    map['amount_minor_units'] = Variable<int>(amountMinorUnits);
+    {
+      map['currency'] = Variable<String>(
+        $DebtsTable.$convertercurrency.toSql(currency),
+      );
+    }
+    {
+      map['type'] = Variable<String>($DebtsTable.$convertertype.toSql(type));
+    }
+    map['due_date'] = Variable<DateTime>(dueDate);
+    map['is_settled'] = Variable<bool>(isSettled);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  DebtsCompanion toCompanion(bool nullToAbsent) {
+    return DebtsCompanion(
+      id: Value(id),
+      person: Value(person),
+      amountMinorUnits: Value(amountMinorUnits),
+      currency: Value(currency),
+      type: Value(type),
+      dueDate: Value(dueDate),
+      isSettled: Value(isSettled),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory DebtDto.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DebtDto(
+      id: serializer.fromJson<int>(json['id']),
+      person: serializer.fromJson<String>(json['person']),
+      amountMinorUnits: serializer.fromJson<int>(json['amountMinorUnits']),
+      currency: $DebtsTable.$convertercurrency.fromJson(
+        serializer.fromJson<String>(json['currency']),
+      ),
+      type: $DebtsTable.$convertertype.fromJson(
+        serializer.fromJson<String>(json['type']),
+      ),
+      dueDate: serializer.fromJson<DateTime>(json['dueDate']),
+      isSettled: serializer.fromJson<bool>(json['isSettled']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'person': serializer.toJson<String>(person),
+      'amountMinorUnits': serializer.toJson<int>(amountMinorUnits),
+      'currency': serializer.toJson<String>(
+        $DebtsTable.$convertercurrency.toJson(currency),
+      ),
+      'type': serializer.toJson<String>(
+        $DebtsTable.$convertertype.toJson(type),
+      ),
+      'dueDate': serializer.toJson<DateTime>(dueDate),
+      'isSettled': serializer.toJson<bool>(isSettled),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  DebtDto copyWith({
+    int? id,
+    String? person,
+    int? amountMinorUnits,
+    Currency? currency,
+    DebtType? type,
+    DateTime? dueDate,
+    bool? isSettled,
+    DateTime? createdAt,
+  }) => DebtDto(
+    id: id ?? this.id,
+    person: person ?? this.person,
+    amountMinorUnits: amountMinorUnits ?? this.amountMinorUnits,
+    currency: currency ?? this.currency,
+    type: type ?? this.type,
+    dueDate: dueDate ?? this.dueDate,
+    isSettled: isSettled ?? this.isSettled,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  DebtDto copyWithCompanion(DebtsCompanion data) {
+    return DebtDto(
+      id: data.id.present ? data.id.value : this.id,
+      person: data.person.present ? data.person.value : this.person,
+      amountMinorUnits: data.amountMinorUnits.present
+          ? data.amountMinorUnits.value
+          : this.amountMinorUnits,
+      currency: data.currency.present ? data.currency.value : this.currency,
+      type: data.type.present ? data.type.value : this.type,
+      dueDate: data.dueDate.present ? data.dueDate.value : this.dueDate,
+      isSettled: data.isSettled.present ? data.isSettled.value : this.isSettled,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DebtDto(')
+          ..write('id: $id, ')
+          ..write('person: $person, ')
+          ..write('amountMinorUnits: $amountMinorUnits, ')
+          ..write('currency: $currency, ')
+          ..write('type: $type, ')
+          ..write('dueDate: $dueDate, ')
+          ..write('isSettled: $isSettled, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    person,
+    amountMinorUnits,
+    currency,
+    type,
+    dueDate,
+    isSettled,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DebtDto &&
+          other.id == this.id &&
+          other.person == this.person &&
+          other.amountMinorUnits == this.amountMinorUnits &&
+          other.currency == this.currency &&
+          other.type == this.type &&
+          other.dueDate == this.dueDate &&
+          other.isSettled == this.isSettled &&
+          other.createdAt == this.createdAt);
+}
+
+class DebtsCompanion extends UpdateCompanion<DebtDto> {
+  final Value<int> id;
+  final Value<String> person;
+  final Value<int> amountMinorUnits;
+  final Value<Currency> currency;
+  final Value<DebtType> type;
+  final Value<DateTime> dueDate;
+  final Value<bool> isSettled;
+  final Value<DateTime> createdAt;
+  const DebtsCompanion({
+    this.id = const Value.absent(),
+    this.person = const Value.absent(),
+    this.amountMinorUnits = const Value.absent(),
+    this.currency = const Value.absent(),
+    this.type = const Value.absent(),
+    this.dueDate = const Value.absent(),
+    this.isSettled = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  DebtsCompanion.insert({
+    this.id = const Value.absent(),
+    required String person,
+    required int amountMinorUnits,
+    required Currency currency,
+    required DebtType type,
+    required DateTime dueDate,
+    this.isSettled = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : person = Value(person),
+       amountMinorUnits = Value(amountMinorUnits),
+       currency = Value(currency),
+       type = Value(type),
+       dueDate = Value(dueDate);
+  static Insertable<DebtDto> custom({
+    Expression<int>? id,
+    Expression<String>? person,
+    Expression<int>? amountMinorUnits,
+    Expression<String>? currency,
+    Expression<String>? type,
+    Expression<DateTime>? dueDate,
+    Expression<bool>? isSettled,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (person != null) 'person': person,
+      if (amountMinorUnits != null) 'amount_minor_units': amountMinorUnits,
+      if (currency != null) 'currency': currency,
+      if (type != null) 'type': type,
+      if (dueDate != null) 'due_date': dueDate,
+      if (isSettled != null) 'is_settled': isSettled,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  DebtsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? person,
+    Value<int>? amountMinorUnits,
+    Value<Currency>? currency,
+    Value<DebtType>? type,
+    Value<DateTime>? dueDate,
+    Value<bool>? isSettled,
+    Value<DateTime>? createdAt,
+  }) {
+    return DebtsCompanion(
+      id: id ?? this.id,
+      person: person ?? this.person,
+      amountMinorUnits: amountMinorUnits ?? this.amountMinorUnits,
+      currency: currency ?? this.currency,
+      type: type ?? this.type,
+      dueDate: dueDate ?? this.dueDate,
+      isSettled: isSettled ?? this.isSettled,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (person.present) {
+      map['person'] = Variable<String>(person.value);
+    }
+    if (amountMinorUnits.present) {
+      map['amount_minor_units'] = Variable<int>(amountMinorUnits.value);
+    }
+    if (currency.present) {
+      map['currency'] = Variable<String>(
+        $DebtsTable.$convertercurrency.toSql(currency.value),
+      );
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(
+        $DebtsTable.$convertertype.toSql(type.value),
+      );
+    }
+    if (dueDate.present) {
+      map['due_date'] = Variable<DateTime>(dueDate.value);
+    }
+    if (isSettled.present) {
+      map['is_settled'] = Variable<bool>(isSettled.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DebtsCompanion(')
+          ..write('id: $id, ')
+          ..write('person: $person, ')
+          ..write('amountMinorUnits: $amountMinorUnits, ')
+          ..write('currency: $currency, ')
+          ..write('type: $type, ')
+          ..write('dueDate: $dueDate, ')
+          ..write('isSettled: $isSettled, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1815,6 +2341,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     this,
   );
   late final $TransactionsTable transactions = $TransactionsTable(this);
+  late final $DebtsTable debts = $DebtsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1824,6 +2351,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     categories,
     categoryBudgets,
     transactions,
+    debts,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -3200,6 +3728,263 @@ typedef $$TransactionsTableProcessedTableManager =
       TransactionDto,
       PrefetchHooks Function({bool categoryId})
     >;
+typedef $$DebtsTableCreateCompanionBuilder =
+    DebtsCompanion Function({
+      Value<int> id,
+      required String person,
+      required int amountMinorUnits,
+      required Currency currency,
+      required DebtType type,
+      required DateTime dueDate,
+      Value<bool> isSettled,
+      Value<DateTime> createdAt,
+    });
+typedef $$DebtsTableUpdateCompanionBuilder =
+    DebtsCompanion Function({
+      Value<int> id,
+      Value<String> person,
+      Value<int> amountMinorUnits,
+      Value<Currency> currency,
+      Value<DebtType> type,
+      Value<DateTime> dueDate,
+      Value<bool> isSettled,
+      Value<DateTime> createdAt,
+    });
+
+class $$DebtsTableFilterComposer extends Composer<_$AppDatabase, $DebtsTable> {
+  $$DebtsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get person => $composableBuilder(
+    column: $table.person,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amountMinorUnits => $composableBuilder(
+    column: $table.amountMinorUnits,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<Currency, Currency, String> get currency =>
+      $composableBuilder(
+        column: $table.currency,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnWithTypeConverterFilters<DebtType, DebtType, String> get type =>
+      $composableBuilder(
+        column: $table.type,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<DateTime> get dueDate => $composableBuilder(
+    column: $table.dueDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isSettled => $composableBuilder(
+    column: $table.isSettled,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$DebtsTableOrderingComposer
+    extends Composer<_$AppDatabase, $DebtsTable> {
+  $$DebtsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get person => $composableBuilder(
+    column: $table.person,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amountMinorUnits => $composableBuilder(
+    column: $table.amountMinorUnits,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get currency => $composableBuilder(
+    column: $table.currency,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get type => $composableBuilder(
+    column: $table.type,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get dueDate => $composableBuilder(
+    column: $table.dueDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isSettled => $composableBuilder(
+    column: $table.isSettled,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$DebtsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DebtsTable> {
+  $$DebtsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get person =>
+      $composableBuilder(column: $table.person, builder: (column) => column);
+
+  GeneratedColumn<int> get amountMinorUnits => $composableBuilder(
+    column: $table.amountMinorUnits,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<Currency, String> get currency =>
+      $composableBuilder(column: $table.currency, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<DebtType, String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get dueDate =>
+      $composableBuilder(column: $table.dueDate, builder: (column) => column);
+
+  GeneratedColumn<bool> get isSettled =>
+      $composableBuilder(column: $table.isSettled, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$DebtsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $DebtsTable,
+          DebtDto,
+          $$DebtsTableFilterComposer,
+          $$DebtsTableOrderingComposer,
+          $$DebtsTableAnnotationComposer,
+          $$DebtsTableCreateCompanionBuilder,
+          $$DebtsTableUpdateCompanionBuilder,
+          (DebtDto, BaseReferences<_$AppDatabase, $DebtsTable, DebtDto>),
+          DebtDto,
+          PrefetchHooks Function()
+        > {
+  $$DebtsTableTableManager(_$AppDatabase db, $DebtsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DebtsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DebtsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DebtsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> person = const Value.absent(),
+                Value<int> amountMinorUnits = const Value.absent(),
+                Value<Currency> currency = const Value.absent(),
+                Value<DebtType> type = const Value.absent(),
+                Value<DateTime> dueDate = const Value.absent(),
+                Value<bool> isSettled = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => DebtsCompanion(
+                id: id,
+                person: person,
+                amountMinorUnits: amountMinorUnits,
+                currency: currency,
+                type: type,
+                dueDate: dueDate,
+                isSettled: isSettled,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String person,
+                required int amountMinorUnits,
+                required Currency currency,
+                required DebtType type,
+                required DateTime dueDate,
+                Value<bool> isSettled = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => DebtsCompanion.insert(
+                id: id,
+                person: person,
+                amountMinorUnits: amountMinorUnits,
+                currency: currency,
+                type: type,
+                dueDate: dueDate,
+                isSettled: isSettled,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$DebtsTable, DebtDto>(table),
+                  BaseReferences<_$AppDatabase, $DebtsTable, DebtDto>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$DebtsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $DebtsTable,
+      DebtDto,
+      $$DebtsTableFilterComposer,
+      $$DebtsTableOrderingComposer,
+      $$DebtsTableAnnotationComposer,
+      $$DebtsTableCreateCompanionBuilder,
+      $$DebtsTableUpdateCompanionBuilder,
+      (DebtDto, BaseReferences<_$AppDatabase, $DebtsTable, DebtDto>),
+      DebtDto,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -3212,4 +3997,6 @@ class $AppDatabaseManager {
       $$CategoryBudgetsTableTableManager(_db, _db.categoryBudgets);
   $$TransactionsTableTableManager get transactions =>
       $$TransactionsTableTableManager(_db, _db.transactions);
+  $$DebtsTableTableManager get debts =>
+      $$DebtsTableTableManager(_db, _db.debts);
 }

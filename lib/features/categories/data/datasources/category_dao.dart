@@ -13,11 +13,9 @@ class CategoryDao {
   final AppDatabase _database;
 
   /// Streams all categories ordered by name.
-  Stream<List<CategoryDto>> watchAll() =>
-      (_database.select(_database.categories)
-            ..orderBy([(c) => OrderingTerm.asc(c.name)]))
-          .watch()
-          .mapErrorsToFailures();
+  Stream<List<CategoryDto>> watchAll() => (_database.select(
+    _database.categories,
+  )..orderBy([(c) => OrderingTerm.asc(c.name)])).watch().mapErrorsToFailures();
 
   /// Streams how many transactions reference each category, keyed by category
   /// id. Categories without transactions are absent from the map.
@@ -62,9 +60,9 @@ class CategoryDao {
   }
 
   /// Deletes a row by id; returns the number of deleted rows.
-  Future<int> deleteById(int id) =>
-      (_database.delete(_database.categories)..where((c) => c.id.equals(id)))
-          .go();
+  Future<int> deleteById(int id) => (_database.delete(
+    _database.categories,
+  )..where((c) => c.id.equals(id))).go();
 
   /// Checks usage and deletes the category in one database transaction.
   Future<bool> deleteIfUnused(int id) => _database.transaction(() async {

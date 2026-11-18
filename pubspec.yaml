@@ -2,10 +2,10 @@ name: ant_budget
 description: "Ant Budget - AI powered expense tracking with on-device receipt OCR."
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
-  sdk: ^3.11.0
+  sdk: ^3.14.0
 
 dependencies:
   flutter:
@@ -22,46 +22,59 @@ dependencies:
   # The global Cupertino delegate (bundled with flutter_localizations) refers to
   # the CupertinoIcons family; shipping the font keeps the icon tree-shaker from
   # warning about a family it cannot find.
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^2.0.0
 
   # --- State management (Presentation) ---------------------------------------
-  flutter_riverpod: ^3.4.3
-  riverpod_annotation: ^4.0.7
+  flutter_riverpod: ^3.5.0
+  riverpod_annotation: ^4.0.8
 
   # --- Navigation -----------------------------------------------------------
-  go_router: ^18.0.2
+  go_router: ^18.1.4
 
   # --- Local persistence (Data) --------------------------------------------
-  drift: ^2.35.2
+  drift: ^2.35.4
   drift_flutter: ^0.3.1
 
   # Imported directly by the failure mapper to classify driver errors.
-  sqlite3: ^3.5.2
+  sqlite3: ^3.9.1
 
   # --- On-device OCR + camera ----------------------------------------------
-  camera: ^0.12.1
-  google_mlkit_text_recognition: ^0.17.1
+  camera: ^0.12.2
+  google_mlkit_text_recognition: ^1.0.3
   permission_handler: ^13.0.2
 
   # Stores receipt photos beyond the temporary camera cache and keeps
   # opt-in OCR diagnostic evidence (see DiagnosticOcrService).
   path_provider: ^2.1.6
 
+  # --- Google Drive Backup ---------------------------------------------------
+  google_sign_in: ^7.2.0
+  googleapis: ^19.0.0
+  googleapis_auth: ^2.3.7
+  http: ^1.6.0
+  package_info_plus: ^10.2.2
+
   # --- Domain helpers -------------------------------------------------------
   equatable: ^3.0.0
-  meta: ^1.16.0
+  meta: ^1.19.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # --- Code generation ------------------------------------------------------
-  build_runner: ^2.16.2
-  riverpod_generator: ^4.0.9
-  drift_dev: ^2.35.1
+  build_runner: ^2.17.1
+  riverpod_generator: ^4.0.10
+  drift_dev: ^2.35.3
 
   # --- Lints ----------------------------------------------------------------
   flutter_lints: ^6.0.0
+
+# Flutter 3.50 pins these exact transitive versions. Patch releases are
+# backward compatible; override until a Flutter update lifts the pins.
+dependency_overrides:
+  material_color_utilities: 0.13.1
+  test_api: 0.7.15
 
 flutter:
   uses-material-design: true

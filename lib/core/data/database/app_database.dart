@@ -6,6 +6,7 @@ import 'package:ant_budget/core/data/database/tables/tables.dart';
 // the tables) can see them: a `part` only inherits its parent library's scope.
 import 'package:ant_budget/core/values/category_icon.dart';
 import 'package:ant_budget/core/values/currency.dart';
+import 'package:ant_budget/core/values/debt_type.dart';
 import 'package:ant_budget/core/values/transaction_kind.dart';
 import 'package:ant_budget/core/values/transaction_source.dart';
 
@@ -16,7 +17,9 @@ part 'app_database.g.dart';
 /// It is opened once (see `appDatabaseProvider`) and shared by every feature
 /// data source. DAOs live inside their feature and only receive this instance,
 /// which keeps query logic close to the feature that owns it.
-@DriftDatabase(tables: [Budgets, CategoryBudgets, Categories, Transactions])
+@DriftDatabase(
+  tables: [Budgets, CategoryBudgets, Categories, Transactions, Debts],
+)
 class AppDatabase extends _$AppDatabase {
   /// Creates the database on top of [executor].
   ///
@@ -28,7 +31,7 @@ class AppDatabase extends _$AppDatabase {
   final List<DatabaseSeeder> _seeders;
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -37,6 +40,8 @@ class AppDatabase extends _$AppDatabase {
       // v2 added per-category budgets. Devices already run v1 with real data,
       // so the migration is purely additive: one new table, nothing reindexed.
       if (from < 2) await m.createTable(categoryBudgets);
+      // v3 added debts and claims tracking.
+      if (from < 3) await m.createTable(debts);
     },
     beforeOpen: (OpeningDetails details) async {
       // SQLite ignores foreign keys unless asked to; the cascade of

@@ -56,12 +56,39 @@ void main() {
       );
     });
 
+    test('translates personEmpty validation issue', () {
+      const failure = ValidationFailure(
+        message: 'Enter a person name.',
+        issue: ValidationIssue.personEmpty,
+      );
+      expect(failureMessageFor(en, failure), "Enter a person's name.");
+      expect(failureMessageFor(tr, failure), 'Bir kişi adı girin.');
+    });
+
+    test('translates a missing debt entry', () {
+      const failure = NotFoundFailure(
+        message: 'That debt entry no longer exists.',
+        entityType: 'debt',
+      );
+      expect(
+        failureMessageFor(en, failure),
+        'That debt entry no longer exists.',
+      );
+      expect(
+        failureMessageFor(tr, failure),
+        'Bu borç kaydı artık mevcut değil.',
+      );
+    });
+
     test('translates the OCR and camera codes', () {
       const noText = OcrFailure(
         message: 'No readable text was found on the receipt.',
         code: OcrFailureCode.noTextFound,
       );
-      expect(failureMessageFor(tr, noText), 'Fişte okunabilir metin bulunamadı.');
+      expect(
+        failureMessageFor(tr, noText),
+        'Fişte okunabilir metin bulunamadı.',
+      );
 
       const noPermission = CameraFailure(
         message: 'Camera access is required to scan a receipt.',
@@ -75,10 +102,7 @@ void main() {
 
     test('translates a parser failure', () {
       const failure = ParseFailure.amountNotFound(strategy: 'total');
-      expect(
-        failureMessageFor(tr, failure),
-        'Fişte toplam tutar bulunamadı.',
-      );
+      expect(failureMessageFor(tr, failure), 'Fişte toplam tutar bulunamadı.');
     });
 
     test('uses the generic message for anything unmodelled', () {

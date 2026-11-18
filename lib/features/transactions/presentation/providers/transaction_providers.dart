@@ -60,10 +60,8 @@ class SelectedMonth extends _$SelectedMonth {
 
 /// Transactions of [period], reactively and auto-disposed per month.
 @riverpod
-Stream<List<Transaction>> monthlyTransactions(Ref ref, YearMonth period) =>
-    ref.watch(watchTransactionsUseCaseProvider)(
-      TransactionFilter(period: period),
-    );
+Stream<List<Transaction>> monthlyTransactions(Ref ref, YearMonth period) => ref
+    .watch(watchTransactionsUseCaseProvider)(TransactionFilter(period: period));
 
 /// Aggregated totals of [period], reactively and auto-disposed per month.
 @riverpod

@@ -24,10 +24,7 @@ class BudgetDao {
   ///
   /// The conflict target is the `(year, month)` unique key, not the surrogate
   /// id, which is what makes the statement a real "one budget per month" upsert.
-  Future<int> upsertLimit({
-    required YearMonth period,
-    required Money limit,
-  }) {
+  Future<int> upsertLimit({required YearMonth period, required Money limit}) {
     final table = _database.budgets;
     return _database
         .into(table)
@@ -97,12 +94,11 @@ class BudgetDao {
     required YearMonth period,
     required int categoryId,
   }) =>
-      (_database.delete(_database.categoryBudgets)
-            ..where(
-              (b) =>
-                  b.year.equals(period.year) &
-                  b.month.equals(period.month) &
-                  b.categoryId.equals(categoryId),
-            ))
+      (_database.delete(_database.categoryBudgets)..where(
+            (b) =>
+                b.year.equals(period.year) &
+                b.month.equals(period.month) &
+                b.categoryId.equals(categoryId),
+          ))
           .go();
 }

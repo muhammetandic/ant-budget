@@ -499,17 +499,11 @@ final class MonthlyTotalsFamily extends $Family
 }
 
 /// Every recorded transaction, newest first.
-///
-/// Deliberately unfiltered: the category suggestions look at a shop's whole
-/// history, which the visible month would cut off.
 
 @ProviderFor(allTransactions)
 final allTransactionsProvider = AllTransactionsProvider._();
 
 /// Every recorded transaction, newest first.
-///
-/// Deliberately unfiltered: the category suggestions look at a shop's whole
-/// history, which the visible month would cut off.
 
 final class AllTransactionsProvider
     extends
@@ -522,9 +516,6 @@ final class AllTransactionsProvider
         $FutureModifier<List<Transaction>>,
         $StreamProvider<List<Transaction>> {
   /// Every recorded transaction, newest first.
-  ///
-  /// Deliberately unfiltered: the category suggestions look at a shop's whole
-  /// history, which the visible month would cut off.
   AllTransactionsProvider._()
     : super(
         from: null,

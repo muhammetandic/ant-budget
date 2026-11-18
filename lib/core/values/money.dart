@@ -101,7 +101,10 @@ final class Money extends Equatable implements Comparable<Money> {
     final absolute = minorUnits.abs();
     final whole = absolute ~/ _scaleFor(currency);
     final fraction = absolute % _scaleFor(currency);
-    final fractionText = fraction.toString().padLeft(currency.decimalDigits, '0');
+    final fractionText = fraction.toString().padLeft(
+      currency.decimalDigits,
+      '0',
+    );
     return '$sign$whole.$fractionText ${currency.code}';
   }
 

@@ -188,6 +188,18 @@ abstract class AppLocalizations {
   /// **'Reports'**
   String get navReports;
 
+  /// No description provided for @navMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get navMore;
+
+  /// No description provided for @navDebts.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts & Claims'**
+  String get navDebts;
+
   /// No description provided for @dashboardScanTooltip.
   ///
   /// In en, this message translates to:
@@ -817,6 +829,312 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This category is used by transactions, so it cannot be deleted.'**
   String get errorCategoryInUse;
+
+  /// No description provided for @errorPersonEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a person\'s name.'**
+  String get errorPersonEmpty;
+
+  /// No description provided for @errorDebtNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'That debt entry no longer exists.'**
+  String get errorDebtNotFound;
+
+  /// No description provided for @debtsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts & Claims'**
+  String get debtsTitle;
+
+  /// No description provided for @debtsTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts & Claims'**
+  String get debtsTooltip;
+
+  /// No description provided for @debtsAddTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Add debt or claim'**
+  String get debtsAddTooltip;
+
+  /// No description provided for @debtsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No debts or claims yet.'**
+  String get debtsEmpty;
+
+  /// No description provided for @debtsAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get debtsAll;
+
+  /// No description provided for @debtsClaims.
+  ///
+  /// In en, this message translates to:
+  /// **'Claims'**
+  String get debtsClaims;
+
+  /// No description provided for @debtsDebts.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts'**
+  String get debtsDebts;
+
+  /// No description provided for @debtsTotalClaims.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Claims'**
+  String get debtsTotalClaims;
+
+  /// No description provided for @debtsTotalDebts.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Debts'**
+  String get debtsTotalDebts;
+
+  /// No description provided for @debtsNetBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Net Balance'**
+  String get debtsNetBalance;
+
+  /// No description provided for @debtsAddTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New Debt / Claim'**
+  String get debtsAddTitle;
+
+  /// No description provided for @debtsEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Debt / Claim'**
+  String get debtsEditTitle;
+
+  /// No description provided for @fieldPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'Person'**
+  String get fieldPerson;
+
+  /// No description provided for @debtTypeDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'I owe (Debt)'**
+  String get debtTypeDebt;
+
+  /// No description provided for @debtTypeClaim.
+  ///
+  /// In en, this message translates to:
+  /// **'Owed to me (Claim)'**
+  String get debtTypeClaim;
+
+  /// No description provided for @debtSettled.
+  ///
+  /// In en, this message translates to:
+  /// **'Settled'**
+  String get debtSettled;
+
+  /// No description provided for @debtPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get debtPending;
+
+  /// No description provided for @debtMarkSettled.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark settled'**
+  String get debtMarkSettled;
+
+  /// No description provided for @debtMarkPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark pending'**
+  String get debtMarkPending;
+
+  /// No description provided for @validationEnterPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a person\'s name'**
+  String get validationEnterPerson;
+
+  /// No description provided for @navSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get navSettings;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsAccountSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Account'**
+  String get settingsAccountSection;
+
+  /// No description provided for @settingsAccountSignedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in as {email}'**
+  String settingsAccountSignedIn(Object email);
+
+  /// No description provided for @settingsAccountNotSignedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Not signed in'**
+  String get settingsAccountNotSignedIn;
+
+  /// No description provided for @settingsAccountSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to Google'**
+  String get settingsAccountSignIn;
+
+  /// No description provided for @settingsAccountSignOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get settingsAccountSignOut;
+
+  /// No description provided for @settingsAccountSignedInSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in successfully'**
+  String get settingsAccountSignedInSuccess;
+
+  /// No description provided for @settingsAccountSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in failed. Please try again.'**
+  String get settingsAccountSignInFailed;
+
+  /// No description provided for @settingsBackupSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup to Google Drive'**
+  String get settingsBackupSection;
+
+  /// No description provided for @settingsBackupSignInRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to Google to enable backup & restore.'**
+  String get settingsBackupSignInRequired;
+
+  /// No description provided for @settingsBackupSignInToBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to enable backup'**
+  String get settingsBackupSignInToBackup;
+
+  /// No description provided for @settingsBackupCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create backup now'**
+  String get settingsBackupCreate;
+
+  /// No description provided for @settingsBackupCreating.
+  ///
+  /// In en, this message translates to:
+  /// **'Creating backup…'**
+  String get settingsBackupCreating;
+
+  /// No description provided for @settingsBackupCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup created: {fileName}'**
+  String settingsBackupCreated(Object fileName);
+
+  /// No description provided for @settingsBackupNoBackups.
+  ///
+  /// In en, this message translates to:
+  /// **'No backups yet. Create your first backup.'**
+  String get settingsBackupNoBackups;
+
+  /// No description provided for @settingsBackupRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get settingsBackupRestore;
+
+  /// No description provided for @settingsBackupRestoreConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore backup?'**
+  String get settingsBackupRestoreConfirmTitle;
+
+  /// No description provided for @settingsBackupRestoreConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This will replace all your current data with the backup from {fileName}. This cannot be undone.'**
+  String settingsBackupRestoreConfirmMessage(Object fileName);
+
+  /// No description provided for @settingsBackupRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup restored successfully. Please restart the app.'**
+  String get settingsBackupRestored;
+
+  /// No description provided for @settingsBackupRestoreFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore failed'**
+  String get settingsBackupRestoreFailed;
+
+  /// No description provided for @settingsBackupDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete backup?'**
+  String get settingsBackupDeleteConfirmTitle;
+
+  /// No description provided for @settingsBackupDeleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {fileName}? This cannot be undone.'**
+  String settingsBackupDeleteConfirmMessage(Object fileName);
+
+  /// No description provided for @settingsBackupDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup deleted.'**
+  String get settingsBackupDeleted;
+
+  /// No description provided for @settingsBackupDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete backup.'**
+  String get settingsBackupDeleteFailed;
+
+  /// No description provided for @settingsAboutSection.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsAboutSection;
+
+  /// No description provided for @settingsAboutVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get settingsAboutVersion;
+
+  /// No description provided for @settingsAboutPackageName.
+  ///
+  /// In en, this message translates to:
+  /// **'Package name'**
+  String get settingsAboutPackageName;
+
+  /// No description provided for @settingsAboutDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Ant Budget - AI powered expense tracking with on-device receipt OCR.'**
+  String get settingsAboutDescription;
 }
 
 class _AppLocalizationsDelegate

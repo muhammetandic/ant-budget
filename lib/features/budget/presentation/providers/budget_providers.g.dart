@@ -255,20 +255,20 @@ final class WatchCategoryBudgetsUseCaseProvider
 String _$watchCategoryBudgetsUseCaseHash() =>
     r'319c5b570aa820ebe5dba1d2e2917d33680b5f24';
 
-/// The budget health of [period], reactively and auto-disposed per month.
+/// The budget health of [period], with its limit summed from category budgets.
 ///
 /// The read model is assembled by the use case from two reactive sources
-/// (budget + transaction totals), so a new expense updates this stream without
-/// any manual invalidation.
+/// (category budgets + transaction totals), so changes to either update this
+/// stream without manual invalidation.
 
 @ProviderFor(budgetSummary)
 final budgetSummaryProvider = BudgetSummaryFamily._();
 
-/// The budget health of [period], reactively and auto-disposed per month.
+/// The budget health of [period], with its limit summed from category budgets.
 ///
 /// The read model is assembled by the use case from two reactive sources
-/// (budget + transaction totals), so a new expense updates this stream without
-/// any manual invalidation.
+/// (category budgets + transaction totals), so changes to either update this
+/// stream without manual invalidation.
 
 final class BudgetSummaryProvider
     extends
@@ -278,11 +278,11 @@ final class BudgetSummaryProvider
           Stream<BudgetSummary>
         >
     with $FutureModifier<BudgetSummary>, $StreamProvider<BudgetSummary> {
-  /// The budget health of [period], reactively and auto-disposed per month.
+  /// The budget health of [period], with its limit summed from category budgets.
   ///
   /// The read model is assembled by the use case from two reactive sources
-  /// (budget + transaction totals), so a new expense updates this stream without
-  /// any manual invalidation.
+  /// (category budgets + transaction totals), so changes to either update this
+  /// stream without manual invalidation.
   BudgetSummaryProvider._({
     required BudgetSummaryFamily super.from,
     required YearMonth super.argument,
@@ -329,11 +329,11 @@ final class BudgetSummaryProvider
 
 String _$budgetSummaryHash() => r'caf8408855f727c0f2764ffd426dddfed8d185de';
 
-/// The budget health of [period], reactively and auto-disposed per month.
+/// The budget health of [period], with its limit summed from category budgets.
 ///
 /// The read model is assembled by the use case from two reactive sources
-/// (budget + transaction totals), so a new expense updates this stream without
-/// any manual invalidation.
+/// (category budgets + transaction totals), so changes to either update this
+/// stream without manual invalidation.
 
 final class BudgetSummaryFamily extends $Family
     with $FunctionalFamilyOverride<Stream<BudgetSummary>, YearMonth> {
@@ -346,11 +346,11 @@ final class BudgetSummaryFamily extends $Family
         isAutoDispose: true,
       );
 
-  /// The budget health of [period], reactively and auto-disposed per month.
+  /// The budget health of [period], with its limit summed from category budgets.
   ///
   /// The read model is assembled by the use case from two reactive sources
-  /// (budget + transaction totals), so a new expense updates this stream without
-  /// any manual invalidation.
+  /// (category budgets + transaction totals), so changes to either update this
+  /// stream without manual invalidation.
 
   BudgetSummaryProvider call(YearMonth period) =>
       BudgetSummaryProvider._(argument: period, from: this);

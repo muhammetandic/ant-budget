@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ant_budget/app/router/app_routes.dart';
 import 'package:ant_budget/core/widgets/empty_state.dart';
 import 'package:ant_budget/core/widgets/failure_view.dart';
 import 'package:ant_budget/features/categories/presentation/providers/category_providers.dart';
@@ -21,7 +23,19 @@ class CategoriesScreen extends ConsumerWidget {
     final usage = ref.watch(categoryUsageProvider).value ?? const <int, int>{};
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.categoriesTitle)),
+      appBar: AppBar(
+        title: Text(l10n.categoriesTitle),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go(AppRoutes.dashboard);
+            }
+          },
+        ),
+      ),
       body: categories.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, _) => FailureView(error: error),

@@ -62,14 +62,11 @@ class _ReceiptCaptureScreenState extends ConsumerState<ReceiptCaptureScreen>
     if (!mounted) return;
     setState(() => _capturing = false);
 
-    result.fold(
-      (failure) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(failureMessageOf(context, failure))),
-        );
-      },
-      (path) => unawaited(_openReview(path, camera)),
-    );
+    result.fold((failure) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(failureMessageOf(context, failure))),
+      );
+    }, (path) => unawaited(_openReview(path, camera)));
   }
 
   Future<void> _openReview(String path, CameraService camera) async {

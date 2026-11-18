@@ -23,8 +23,10 @@ final class _FakeTransactionRepository implements TransactionRepository {
       Stream.value(const []);
 
   @override
-  Stream<MonthlyTotals> watchMonthlyTotals(YearMonth period, Currency currency) =>
-      Stream.value(MonthlyTotals.empty(period, currency));
+  Stream<MonthlyTotals> watchMonthlyTotals(
+    YearMonth period,
+    Currency currency,
+  ) => Stream.value(MonthlyTotals.empty(period, currency));
 
   @override
   Stream<Map<int, Money>> watchExpenseTotalsByCategory(

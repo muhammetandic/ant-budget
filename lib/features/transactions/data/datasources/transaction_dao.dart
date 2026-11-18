@@ -103,18 +103,15 @@ class TransactionDao {
       )
       ..groupBy([categoryId]);
 
-    return query
-        .watch()
-        .map((rows) {
-          final totals = <int, Money>{};
-          for (final row in rows) {
-            final id = row.read(categoryId);
-            if (id == null) continue;
-            totals[id] = Money(row.read(total) ?? 0, currency);
-          }
-          return totals;
-        })
-        .mapErrorsToFailures();
+    return query.watch().map((rows) {
+      final totals = <int, Money>{};
+      for (final row in rows) {
+        final id = row.read(categoryId);
+        if (id == null) continue;
+        totals[id] = Money(row.read(total) ?? 0, currency);
+      }
+      return totals;
+    }).mapErrorsToFailures();
   }
 
   /// Inserts a row and returns its auto generated id.
@@ -127,11 +124,12 @@ class TransactionDao {
   /// The row is addressed by the `WHERE` clause only, so the companion must
   /// not carry an id of its own.
   Future<int> updateById(int id, TransactionsCompanion companion) =>
-      (_database.update(_database.transactions)..where((t) => t.id.equals(id)))
-          .write(companion);
+      (_database.update(
+        _database.transactions,
+      )..where((t) => t.id.equals(id))).write(companion);
 
   /// Deletes a row by id; returns the number of deleted rows.
-  Future<int> deleteById(int id) =>
-      (_database.delete(_database.transactions)..where((t) => t.id.equals(id)))
-          .go();
+  Future<int> deleteById(int id) => (_database.delete(
+    _database.transactions,
+  )..where((t) => t.id.equals(id))).go();
 }

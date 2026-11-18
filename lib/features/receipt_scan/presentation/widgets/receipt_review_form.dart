@@ -192,9 +192,7 @@ class _ReceiptReviewFormState extends ConsumerState<ReceiptReviewForm> {
           ListTile(
             contentPadding: EdgeInsets.zero,
             title: Text(l10n.fieldDate),
-            subtitle: Text(
-              DateFormatter.short(_date, languageCode: language),
-            ),
+            subtitle: Text(DateFormatter.short(_date, languageCode: language)),
             trailing: const Icon(Icons.calendar_today_outlined),
             onTap: _pickDate,
           ),
@@ -216,7 +214,9 @@ class _ReceiptReviewFormState extends ConsumerState<ReceiptReviewForm> {
           TextFormField(
             controller: _description,
             maxLength: 160,
-            decoration: InputDecoration(labelText: l10n.fieldDescriptionOptional),
+            decoration: InputDecoration(
+              labelText: l10n.fieldDescriptionOptional,
+            ),
           ),
           if (_error != null)
             Padding(

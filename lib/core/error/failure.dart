@@ -79,6 +79,9 @@ enum ValidationIssue {
 
   /// A category still has transactions, so deleting it would orphan them.
   categoryInUse,
+
+  /// A debt or claim was submitted without a person name.
+  personEmpty,
 }
 
 /// A requested entity does not exist (or no longer exists).

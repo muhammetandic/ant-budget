@@ -40,7 +40,9 @@ void main() {
   /// must not run against the fake clock.
   Future<void> shutDown(WidgetTester tester, AppDatabase database) async {
     await tester.pumpWidget(const SizedBox.shrink());
-    await tester.pump(Duration.zero);
+    // Drift schedules a zero-duration timer when it closes a query stream.
+    // A positive pump elapses it so flutter_test sees no pending timers.
+    await tester.pump(const Duration(milliseconds: 1));
     await tester.runAsync(database.close);
   }
 
@@ -83,6 +85,8 @@ void main() {
 
     final database = await boot(tester);
 
+    await tester.tap(find.text('Daha fazla'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Kategoriler'));
     await tester.pumpAndSettle();
 
@@ -112,6 +116,8 @@ void main() {
 
     final database = await boot(tester);
 
+    await tester.tap(find.text('Daha fazla'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Kategoriler'));
     await tester.pumpAndSettle();
 

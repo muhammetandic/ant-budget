@@ -38,7 +38,8 @@ sealed class Result<S, F extends Failure> {
       return Result.success(body());
     } catch (error, stackTrace) {
       return Result.failure(
-        onError?.call(error, stackTrace) ?? FailureMapper.map(error, stackTrace),
+        onError?.call(error, stackTrace) ??
+            FailureMapper.map(error, stackTrace),
       );
     }
   }
@@ -52,7 +53,8 @@ sealed class Result<S, F extends Failure> {
       return Result.success(await body());
     } catch (error, stackTrace) {
       return Result.failure(
-        onError?.call(error, stackTrace) ?? FailureMapper.map(error, stackTrace),
+        onError?.call(error, stackTrace) ??
+            FailureMapper.map(error, stackTrace),
       );
     }
   }

@@ -21,8 +21,9 @@ final class BudgetRepositoryImpl implements BudgetRepository {
   final BudgetDao _dao;
 
   @override
-  Stream<Budget?> watchFor(YearMonth period) =>
-      _dao.watchFor(period).map((dto) => dto == null ? null : BudgetMapper.toDomain(dto));
+  Stream<Budget?> watchFor(YearMonth period) => _dao
+      .watchFor(period)
+      .map((dto) => dto == null ? null : BudgetMapper.toDomain(dto));
 
   @override
   Future<Result<Unit, Failure>> setLimit({
@@ -37,9 +38,8 @@ final class BudgetRepositoryImpl implements BudgetRepository {
   Stream<List<CategoryBudget>> watchCategoryBudgets(YearMonth period) => _dao
       .watchCategoryBudgets(period)
       .map(
-        (rows) => rows
-            .map(CategoryBudgetMapper.toDomain)
-            .toList(growable: false),
+        (rows) =>
+            rows.map(CategoryBudgetMapper.toDomain).toList(growable: false),
       );
 
   @override

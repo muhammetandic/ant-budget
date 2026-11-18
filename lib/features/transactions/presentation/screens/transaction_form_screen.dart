@@ -161,13 +161,15 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
   }
 
   Widget _form(BuildContext context, List<Category> items) {
-    final merchantHistory = ref.watch(allTransactionsProvider).asData?.value ?? [];
-    final merchants = merchantHistory
-        .map((transaction) => transaction.receiptMerchant?.trim() ?? '')
-        .where((merchant) => merchant.isNotEmpty)
-        .toSet()
-        .toList()
-      ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+    final merchantHistory =
+        ref.watch(allTransactionsProvider).asData?.value ?? [];
+    final merchants =
+        merchantHistory
+            .map((transaction) => transaction.receiptMerchant?.trim() ?? '')
+            .where((merchant) => merchant.isNotEmpty)
+            .toSet()
+            .toList()
+          ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
     return Form(
       key: _formKey,
       child: ListView(

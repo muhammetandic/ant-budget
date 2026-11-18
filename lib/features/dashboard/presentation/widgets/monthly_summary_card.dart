@@ -40,10 +40,7 @@ class _SummaryContent extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
     final language = l10n.localeName;
-    final income = MoneyFormatter.format(
-      totals.income,
-      languageCode: language,
-    );
+    final income = MoneyFormatter.format(totals.income, languageCode: language);
     final expenses = MoneyFormatter.format(
       totals.expenses,
       languageCode: language,
