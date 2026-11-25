@@ -33,7 +33,7 @@ final class BudgetProgress extends Equatable {
 
   /// Ratio of the limit at which the progress starts to be reported as
   /// [BudgetStatus.warning].
-  static const double warningThreshold = 0.8;
+  static const int warningThresholdPercent = 80;
 
   /// Money spent so far, in the reporting currency.
   final Money spent;
@@ -73,7 +73,12 @@ final class BudgetProgress extends Equatable {
     final allowance = limit;
     if (allowance == null) return BudgetStatus.noBudget;
     if (spent > allowance) return BudgetStatus.exceeded;
-    if (usage >= warningThreshold) return BudgetStatus.warning;
+    final spentMinor = BigInt.from(spent.minorUnits);
+    final allowanceAmount = BigInt.from(allowance.minorUnits);
+    if (spentMinor * BigInt.from(100) >=
+        allowanceAmount * BigInt.from(warningThresholdPercent)) {
+      return BudgetStatus.warning;
+    }
     return BudgetStatus.healthy;
   }
 

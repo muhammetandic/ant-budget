@@ -1034,6 +1034,12 @@ abstract class AppLocalizations {
   /// **'Sign in to enable backup'**
   String get settingsBackupSignInToBackup;
 
+  /// No description provided for @settingsBackupSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in failed. Check OAuth setup and try again.'**
+  String get settingsBackupSignInFailed;
+
   /// No description provided for @settingsBackupCreate.
   ///
   /// In en, this message translates to:
@@ -1051,6 +1057,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Backup created: {fileName}'**
   String settingsBackupCreated(Object fileName);
+
+  /// No description provided for @settingsBackupCreateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup could not be created.'**
+  String get settingsBackupCreateFailed;
+
+  /// No description provided for @settingsBackupListFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Backups could not be loaded.'**
+  String get settingsBackupListFailed;
 
   /// No description provided for @settingsBackupNoBackups.
   ///

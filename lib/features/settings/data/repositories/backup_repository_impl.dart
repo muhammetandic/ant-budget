@@ -1,4 +1,3 @@
-import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:ant_budget/features/settings/data/services/google_drive_backup_service.dart';
 import 'package:ant_budget/features/settings/domain/repositories/backup_repository.dart';
 
@@ -12,10 +11,11 @@ class BackupRepositoryImpl implements BackupRepository {
   Future<BackupResult> backup() => _service.backup();
 
   @override
-  Future<List<drive.File>> listBackups() => _service.listBackups();
+  Future<List<BackupFile>> listBackups() => _service.listBackups();
 
   @override
-  Future<RestoreResult> restore(drive.File backupFile) => _service.restore(backupFile);
+  Future<RestoreResult> restore(BackupFile backupFile) =>
+      _service.restore(backupFile);
 
   @override
   Future<bool> deleteBackup(String fileId) => _service.deleteBackup(fileId);

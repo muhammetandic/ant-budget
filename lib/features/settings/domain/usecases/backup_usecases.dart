@@ -1,5 +1,3 @@
-import 'package:googleapis/drive/v3.dart' as drive;
-import 'package:ant_budget/features/settings/data/services/google_drive_backup_service.dart';
 import 'package:ant_budget/features/settings/domain/repositories/backup_repository.dart';
 
 /// Use case for creating a backup.
@@ -17,7 +15,7 @@ class ListBackupsUseCase {
 
   ListBackupsUseCase(this._repository);
 
-  Future<List<drive.File>> call() => _repository.listBackups();
+  Future<List<BackupFile>> call() => _repository.listBackups();
 }
 
 /// Use case for restoring from a backup.
@@ -26,7 +24,8 @@ class RestoreBackupUseCase {
 
   RestoreBackupUseCase(this._repository);
 
-  Future<RestoreResult> call(drive.File backupFile) => _repository.restore(backupFile);
+  Future<RestoreResult> call(BackupFile backupFile) =>
+      _repository.restore(backupFile);
 }
 
 /// Use case for deleting a backup.

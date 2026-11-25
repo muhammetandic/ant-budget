@@ -528,6 +528,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsBackupSignInToBackup => 'Yedekleme için oturum aç';
 
   @override
+  String get settingsBackupSignInFailed =>
+      'Google oturumu açılamadı. OAuth ayarlarını kontrol edip yeniden deneyin.';
+
+  @override
   String get settingsBackupCreate => 'Şimdi yedek oluştur';
 
   @override
@@ -537,6 +541,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String settingsBackupCreated(Object fileName) {
     return 'Yedek oluşturuldu: $fileName';
   }
+
+  @override
+  String get settingsBackupCreateFailed => 'Yedek oluşturulamadı.';
+
+  @override
+  String get settingsBackupListFailed => 'Yedekler yüklenemedi.';
 
   @override
   String get settingsBackupNoBackups =>

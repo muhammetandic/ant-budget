@@ -534,6 +534,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsBackupSignInToBackup => 'Sign in to enable backup';
 
   @override
+  String get settingsBackupSignInFailed =>
+      'Google sign-in failed. Check OAuth setup and try again.';
+
+  @override
   String get settingsBackupCreate => 'Create backup now';
 
   @override
@@ -543,6 +547,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String settingsBackupCreated(Object fileName) {
     return 'Backup created: $fileName';
   }
+
+  @override
+  String get settingsBackupCreateFailed => 'Backup could not be created.';
+
+  @override
+  String get settingsBackupListFailed => 'Backups could not be loaded.';
 
   @override
   String get settingsBackupNoBackups =>

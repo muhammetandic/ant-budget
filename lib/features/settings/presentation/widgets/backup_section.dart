@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:googleapis/drive/v3.dart' as drive;
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ant_budget/core/providers/database_providers.dart';
 import 'package:ant_budget/l10n/generated/app_localizations.dart';
-import 'package:ant_budget/features/settings/data/services/google_drive_backup_service.dart';
+import 'package:ant_budget/features/settings/domain/repositories/backup_repository.dart';
 import 'package:ant_budget/features/settings/presentation/providers/settings_providers.dart';
+import 'package:ant_budget/features/settings/presentation/widgets/backup_file_list.dart';
 
 /// Backup section with create, list, and restore functionality.
 class BackupSection extends ConsumerStatefulWidget {
@@ -14,26 +16,53 @@ class BackupSection extends ConsumerStatefulWidget {
 }
 
 class _BackupSectionState extends ConsumerState<BackupSection> {
-  List<drive.File> _backups = [];
+  List<BackupFile> _backups = [];
   bool _loadingBackups = false;
   bool _backingUp = false;
+  bool _backupListFailed = false;
+  String? _accountId;
 
   @override
   void initState() {
     super.initState();
-    _loadBackups();
+    ref.listenManual(googleSignInAccountProvider, (_, state) {
+      state.whenData(_onAccountChanged);
+    }, fireImmediately: true);
   }
 
-  Future<void> _loadBackups() async {
-    final isSignedIn = ref.read(checkGoogleSignInStatusUseCaseProvider)();
-    if (!isSignedIn) return;
+  void _onAccountChanged(GoogleSignInAccount? account) {
+    final accountId = account?.id;
+    if (accountId == _accountId) return;
+    _accountId = accountId;
+    if (accountId == null) {
+      setState(() {
+        _backups = [];
+        _loadingBackups = false;
+        _backupListFailed = false;
+      });
+      return;
+    }
+    _loadBackups(accountId);
+  }
 
+  Future<void> _loadBackups(String accountId) async {
     setState(() => _loadingBackups = true);
     try {
       final backups = await ref.read(listBackupsUseCaseProvider)();
-      if (mounted) setState(() => _backups = backups);
+      if (mounted && _accountId == accountId) {
+        setState(() {
+          _backups = backups;
+          _backupListFailed = false;
+        });
+      }
+    } catch (_) {
+      if (mounted && _accountId == accountId) {
+        setState(() => _backupListFailed = true);
+      }
     } finally {
-      if (mounted) setState(() => _loadingBackups = false);
+      if (mounted && _accountId == accountId) {
+        setState(() => _loadingBackups = false);
+      }
     }
   }
 
@@ -45,27 +74,49 @@ class _BackupSectionState extends ConsumerState<BackupSection> {
         switch (result) {
           case BackupSuccess():
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(AppLocalizations.of(context).settingsBackupCreated(result.fileName))),
+              SnackBar(
+                content: Text(
+                  AppLocalizations.of(context)
+                      .settingsBackupCreated(result.fileName),
+                ),
+              ),
             );
-            _loadBackups();
+            final accountId = _accountId;
+            if (accountId != null) _loadBackups(accountId);
           case BackupFailure():
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(result.message), backgroundColor: Colors.red),
+              SnackBar(
+                content: Text(
+                  AppLocalizations.of(context).settingsBackupCreateFailed,
+                ),
+                backgroundColor: Colors.red,
+              ),
             );
         }
+      }
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context).settingsBackupCreateFailed,
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     } finally {
       if (mounted) setState(() => _backingUp = false);
     }
   }
 
-  Future<void> _restoreBackup(drive.File backup) async {
+  Future<void> _restoreBackup(BackupFile backup) async {
     final l10n = AppLocalizations.of(context);
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.settingsBackupRestoreConfirmTitle),
-        content: Text(l10n.settingsBackupRestoreConfirmMessage(backup.name!)),
+        content: Text(l10n.settingsBackupRestoreConfirmMessage(backup.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -88,30 +139,41 @@ class _BackupSectionState extends ConsumerState<BackupSection> {
         switch (result) {
           case RestoreSuccess():
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.settingsBackupRestored), backgroundColor: Colors.green),
+              SnackBar(
+                content: Text(l10n.settingsBackupRestored),
+                backgroundColor: Colors.green,
+              ),
             );
           case RestoreFailure():
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(result.message), backgroundColor: Colors.red),
+              SnackBar(
+                content: Text(l10n.settingsBackupRestoreFailed),
+                backgroundColor: Colors.red,
+              ),
             );
         }
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${l10n.settingsBackupRestoreFailed}: $e'), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text(l10n.settingsBackupRestoreFailed),
+            backgroundColor: Colors.red,
+          ),
         );
       }
+    } finally {
+      ref.invalidate(appDatabaseProvider);
     }
   }
 
-  Future<void> _deleteBackup(drive.File backup) async {
+  Future<void> _deleteBackup(BackupFile backup) async {
     final l10n = AppLocalizations.of(context);
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.settingsBackupDeleteConfirmTitle),
-        content: Text(l10n.settingsBackupDeleteConfirmMessage(backup.name!)),
+        content: Text(l10n.settingsBackupDeleteConfirmMessage(backup.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -128,16 +190,28 @@ class _BackupSectionState extends ConsumerState<BackupSection> {
 
     if (confirm != true || !mounted) return;
 
-    final success = await ref.read(deleteBackupUseCaseProvider)(backup.id!);
-    if (mounted) {
-      if (success) {
+    try {
+      final success = await ref.read(deleteBackupUseCaseProvider)(backup.id);
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            success
+                ? l10n.settingsBackupDeleted
+                : l10n.settingsBackupDeleteFailed,
+          ),
+          backgroundColor: success ? Colors.green : Colors.red,
+        ),
+      );
+      final accountId = _accountId;
+      if (success && accountId != null) _loadBackups(accountId);
+    } catch (_) {
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.settingsBackupDeleted), backgroundColor: Colors.green),
-        );
-        _loadBackups();
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.settingsBackupDeleteFailed), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text(l10n.settingsBackupDeleteFailed),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
@@ -156,9 +230,8 @@ class _BackupSectionState extends ConsumerState<BackupSection> {
           children: [
             Text(
               l10n.settingsBackupSection,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: Theme.of(context).textTheme.titleMedium
+                  ?.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 12),
             if (!isSignedIn) ...[
@@ -166,9 +239,29 @@ class _BackupSectionState extends ConsumerState<BackupSection> {
               const SizedBox(height: 8),
               FilledButton.icon(
                 onPressed: () async {
-                  final success = await ref.read(signInToGoogleUseCaseProvider)();
-                  if (success) {
-                    _loadBackups();
+                  final messenger = ScaffoldMessenger.of(context);
+                  try {
+                    final success = await ref.read(
+                      signInToGoogleUseCaseProvider,
+                    )();
+                    if (!mounted) return;
+                    if (!success) {
+                      messenger.showSnackBar(
+                        SnackBar(
+                          content: Text(l10n.settingsBackupSignInFailed),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  } catch (_) {
+                    if (mounted) {
+                      messenger.showSnackBar(
+                        SnackBar(
+                          content: Text(l10n.settingsBackupSignInFailed),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
                   }
                 },
                 icon: const Icon(Icons.cloud_upload),
@@ -184,10 +277,17 @@ class _BackupSectionState extends ConsumerState<BackupSection> {
                           ? const SizedBox(
                               width: 16,
                               height: 16,
-                              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
                             )
                           : const Icon(Icons.backup),
-                      label: Text(_backingUp ? l10n.settingsBackupCreating : l10n.settingsBackupCreate),
+                      label: Text(
+                        _backingUp
+                            ? l10n.settingsBackupCreating
+                            : l10n.settingsBackupCreate,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -200,71 +300,15 @@ class _BackupSectionState extends ConsumerState<BackupSection> {
                 ],
               ),
               const SizedBox(height: 16),
-              if (_backups.isEmpty)
-                Text(l10n.settingsBackupNoBackups, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant))
-              else
-                Column(
-                  children: _backups.map((backup) => _BackupTile(
-                        backup: backup,
-                        onRestore: () => _restoreBackup(backup),
-                        onDelete: () => _deleteBackup(backup),
-                      )).toList(),
-                ),
+              BackupFileList(
+                backups: _backups,
+                failed: _backupListFailed,
+                onRestore: _restoreBackup,
+                onDelete: _deleteBackup,
+              ),
             ],
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _BackupTile extends StatelessWidget {
-  final drive.File backup;
-  final VoidCallback onRestore;
-  final VoidCallback onDelete;
-
-  const _BackupTile({
-    required this.backup,
-    required this.onRestore,
-    required this.onDelete,
-  });
-
-  String _formatDate(DateTime? date) {
-    if (date == null) return '';
-    return '${date.day}/${date.month}/${date.year} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
-  }
-
-  String _formatSize(String? sizeStr) {
-    if (sizeStr == null) return '';
-    final size = int.tryParse(sizeStr) ?? 0;
-    if (size < 1024) return '$size B';
-    if (size < 1024 * 1024) return '${(size / 1024).toStringAsFixed(1)} KB';
-    return '${(size / (1024 * 1024)).toStringAsFixed(1)} MB';
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: ListTile(
-        leading: const Icon(Icons.backup_table),
-        title: Text(backup.name ?? 'Unknown backup'),
-        subtitle: Text(
-          '${_formatDate(backup.createdTime?.toLocal())}  •  ${_formatSize(backup.size)}',
-        ),
-        trailing: PopupMenuButton<String>(
-          onSelected: (value) {
-            if (value == 'restore') onRestore();
-            if (value == 'delete') onDelete();
-          },
-          itemBuilder: (context) => [
-            PopupMenuItem(value: 'restore', child: Row(children: [const Icon(Icons.restore), const SizedBox(width: 8), Text(l10n.settingsBackupRestore)])),
-            PopupMenuItem(value: 'delete', child: Row(children: [const Icon(Icons.delete, color: Colors.red), const SizedBox(width: 8), Text(l10n.actionDelete, style: const TextStyle(color: Colors.red))])),
-          ],
-        ),
-        onTap: onRestore,
       ),
     );
   }

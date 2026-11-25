@@ -8,6 +8,13 @@ abstract final class AppConfig {
   /// Product name shown in the UI and the platform shells.
   static const String appName = 'Ant Budget';
 
+  /// Web OAuth client ID used by Google Sign-In on Android without
+  /// `google-services.json`.
+  static const String googleServerClientId = String.fromEnvironment(
+    'GOOGLE_SERVER_CLIENT_ID',
+    defaultValue: '904903476548-evrs5thjtuu6jb81rdtidi8og1pi1rkp.apps.googleusercontent.com',
+  );
+
   /// File name of the local SQLite database (without extension).
   static const String databaseName = 'ant_budget';
 

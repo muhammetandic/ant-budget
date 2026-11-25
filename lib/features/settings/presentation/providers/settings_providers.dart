@@ -14,9 +14,20 @@ part 'settings_providers.g.dart';
 GoogleSignIn googleSignIn(Ref ref) => GoogleSignIn.instance;
 
 /// Emits the authenticated account, or null after sign-out.
-final googleSignInAccountProvider = StreamProvider<GoogleSignInAccount?>((ref) async* {
+final googleSignInAccountProvider = StreamProvider<GoogleSignInAccount?>((
+  ref,
+) async* {
   final signIn = ref.watch(googleSignInProvider);
   await GoogleSignInInitializer.future;
+  final lightweightAttempt = signIn.attemptLightweightAuthentication();
+  if (lightweightAttempt != null) {
+    try {
+      final account = await lightweightAttempt;
+      if (account != null) yield account;
+    } on GoogleSignInException {
+      yield null;
+    }
+  }
   await for (final event in signIn.authenticationEvents) {
     yield switch (event) {
       GoogleSignInAuthenticationEventSignIn(:final user) => user,
@@ -28,7 +39,10 @@ final googleSignInAccountProvider = StreamProvider<GoogleSignInAccount?>((ref) a
 /// Google Drive backup service.
 @riverpod
 GoogleDriveBackupService googleDriveBackupService(Ref ref) =>
-    GoogleDriveBackupService(ref.watch(googleSignInProvider), ref.watch(appDatabaseProvider));
+    GoogleDriveBackupService(
+      ref.watch(googleSignInProvider),
+      ref.watch(appDatabaseProvider),
+    );
 
 /// Backup repository.
 @riverpod

@@ -29,6 +29,10 @@ class AppDatabase extends _$AppDatabase {
     : _seeders = seeders;
 
   final List<DatabaseSeeder> _seeders;
+  Future<void>? _closeFuture;
+
+  @override
+  Future<void> close() => _closeFuture ??= super.close();
 
   @override
   int get schemaVersion => 3;
